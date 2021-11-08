@@ -5,17 +5,31 @@
  */
 package br.com.projetoIntegrador.dao;
 
+import br.com.projetoIntegrador.entidade.Equipe;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /**
  *
  * @author maria
  */
 public class EquipeDaoImpl {
-    
+
     private Connection conexao;
-    private PreparedStatement prepararSql;
-    
-    //TODO CRUD( Salvar, Pesquisar por id/nome , Alterar, Excluir)
+    private PreparedStatement preparaSql;
+    private ResultSet resultado;
+
+    public void salvar(Equipe equipe){
+        String sql = "INSERT INTO equipe(nomeEquipe) VALUES(?) ";
+        try {
+            conexao = FabricaConexao.abrirConexao();
+            preparaSql = conexao.prepareStatement(sql);
+            preparaSql.setString(1, equipe.getNome());
+            preparaSql.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Erro ao salvar a equipe" + e.getMessage());
+        }
+    }
+
 }

@@ -20,12 +20,9 @@ public class Equipe {
         
     }
     
-    public Equipe(Integer id, String nome, Participante participante) {
-        this.id = id;
+    public Equipe(String nome) {
         this.nome = nome;
-        this.participante = participante;
     }
-    
     
     public Integer getId() {
         return id;
@@ -42,15 +39,6 @@ public class Equipe {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-    
-
-    public Participante getParticipante() {
-        return participante;
-    }
-
-    public void setParticipante(Participante participante) {
-        this.participante = participante;
     }
     
 
