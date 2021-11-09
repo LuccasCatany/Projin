@@ -26,7 +26,7 @@ public class Endereco {
         this.complemento = complemento;
     }
     
-        public String getLogradouro() {
+    public String getLogradouro() {
         return logradouro;
     }
 

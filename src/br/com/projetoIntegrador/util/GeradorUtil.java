@@ -170,6 +170,27 @@ public class GeradorUtil {
         return bairro;
     }
     
+    public static String gerarLogradouro(){
+        
+        Random random = new Random();
+        
+        String[] logradouros = {"Rua", "Avenida", "Travessa", "Estrada", "Praça", 
+            "Acesso", "Largo", "Rótula", "Esplanada", "Servidão", "Parque", 
+            "Espaço", "Mirante"
+        };
+        
+        String[] nomes = {"Rafael", "Vitória", "Fabíola", "Bruno",
+        "Jhonata", "Andrey", "Edson", "Gabriel", "Arthur", "Marcelo",
+        "Diego", "Maria", "Gabriel", "Guilherme", "Eduardo",
+        "Letícia", "Jeferson", "Fábio", "Luccas", "Igor", "Silvio"            
+        };
+        
+        String logradouro = logradouros[random.nextInt(logradouros.length)] + " " + nomes[random.nextInt(nomes.length)];
+        return logradouro;
+        
+    }
+    
+        
      public static String gerarCidade() {
 
         Random random = new Random();
@@ -216,6 +237,7 @@ public class GeradorUtil {
         //String email = gerarEmail();
         
         String cep = gerarCep();
+        String logradouro = gerarLogradouro();
         String bairro = gerarBairro();
         String cidade = gerarCidade();
         String estado = gerarEstado();
@@ -231,6 +253,7 @@ public class GeradorUtil {
         
         
         System.out.println("Cep: " + cep);
+        System.out.println("Logradouro: " + logradouro);
         System.out.println("Bairro: " + bairro);
         System.out.println("Cidade: " + cidade);
         System.out.println("Estado: " + estado);

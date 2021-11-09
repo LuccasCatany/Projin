@@ -24,6 +24,7 @@ public class Equipe {
         this.nome = nome;
     }
     
+    
     public Integer getId() {
         return id;
     }

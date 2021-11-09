@@ -6,22 +6,24 @@ import java.util.Date;
 
 public class Campeonato {
     private Integer id;
-    private int nomeCampeonato;
+    private String nomeCampeonato;
     private Date dataCampeonato;
     
     private Equipe equipe;
     private Endereco endereco;
 
+    
     public Campeonato() {
     }
 
-    public Campeonato(Integer id, int nomeCampeonato, Date dataCampeonato, Equipe equipe, Endereco endereco) {
+    public Campeonato(Integer id, String nomeCampeonato, Date dataCampeonato, Equipe equipe, Endereco endereco) {
         this.id = id;
         this.nomeCampeonato = nomeCampeonato;
         this.dataCampeonato = dataCampeonato;
         this.equipe = equipe;
         this.endereco = endereco;
     }
+    
     
     public Integer getId() {
         return id;
@@ -31,11 +33,11 @@ public class Campeonato {
         this.id = id;
     }
 
-    public int getNomeCampeonato() {
+    public String getNomeCampeonato() {
         return nomeCampeonato;
     }
 
-    public void setNomeCampeonato(int nomeCampeonato) {
+    public void setNomeCampeonato(String nomeCampeonato) {
         this.nomeCampeonato = nomeCampeonato;
     }
 

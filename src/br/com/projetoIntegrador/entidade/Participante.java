@@ -7,10 +7,6 @@ package br.com.projetoIntegrador.entidade;
 
 import java.util.Date;
 
-/**
- *
- * @author Maria
- */
 public class Participante {
 
     private Integer id;
@@ -21,6 +17,7 @@ public class Participante {
 
     private Endereco endereco;
     private Equipe equipe;
+    
 
     public Participante() {
     }
@@ -31,22 +28,7 @@ public class Participante {
         this.telefone = telefone;
         this.nascimento = nascimento;
     }
-
-    public Equipe getEquipe() {
-        return equipe;
-    }
-
-    public void setEquipe(Equipe equipe) {
-        this.equipe = equipe;
-    }
-    
-    public Endereco getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
+  
 
     public Integer getId() {
         return id;
@@ -87,5 +69,21 @@ public class Participante {
     public void setNascimento(Date nascimento) {
         this.nascimento = nascimento;
     }
+      
+    public Endereco getEndereco() {
+        return endereco;
+    }
 
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+    
+     public Equipe getEquipe() {
+        return equipe;
+    }
+
+    public void setEquipe(Equipe equipe) {
+        this.equipe = equipe;
+    }
+  
 }
