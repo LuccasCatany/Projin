@@ -16,7 +16,7 @@ public class ParticipanteDaoImpl {
 
     //TODO CRUD ( Salvar, Pesquisar por id/nome , Alterar, Excluir)
     public void salvar(Participante participante) throws SQLException {
-        String sql = "INSERT INTO participante(nome, cpf, telefone, dataNascimento, idEquipe) VALUES(?, ?, ?, ?, ?) ";
+        String sql = "INSERT INTO participante(nome, cpf, telefone, dataNascimento, Equipe_id) VALUES(?, ?, ?, ?, ?) ";
         try {
             conexao = FabricaConexao.abrirConexao();
             preparaSql = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

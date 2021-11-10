@@ -16,12 +16,9 @@ public class Campeonato {
     public Campeonato() {
     }
 
-    public Campeonato(Integer id, String nomeCampeonato, Date dataCampeonato, Equipe equipe, Endereco endereco) {
-        this.id = id;
+    public Campeonato(String nomeCampeonato, Date dataCampeonato) {
         this.nomeCampeonato = nomeCampeonato;
         this.dataCampeonato = dataCampeonato;
-        this.equipe = equipe;
-        this.endereco = endereco;
     }
     
     

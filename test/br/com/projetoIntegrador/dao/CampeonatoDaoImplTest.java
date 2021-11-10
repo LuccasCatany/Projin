@@ -6,32 +6,32 @@
 package br.com.projetoIntegrador.dao;
 
 import br.com.projetoIntegrador.entidade.Campeonato;
-import br.com.projetoIntegrador.entidade.Equipe;
 import br.com.projetoIntegrador.util.GeradorUtil;
+import java.sql.SQLException;
+import java.util.Date;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
 
 /**
  *
  * @author luccas.espinola
  */
-public class EquipeDaoImplTest {
+public class CampeonatoDaoImplTest {
 
-    private Equipe equipe;
-    EquipeDaoImpl equipeDaoImpl = new EquipeDaoImpl();
+    private CampeonatoDaoImpl campeonatoDaoImpl;
     private Campeonato campeonato;
 
-    public EquipeDaoImplTest() {
+    public CampeonatoDaoImplTest() {
+        campeonatoDaoImpl = new CampeonatoDaoImpl();
     }
 
     @Test
-    public void testSalvar() {
+    public void testSalvar() throws SQLException {
         System.out.println("salvar");
-        equipe = new Equipe(
-                GeradorUtil.gerarNome() + " Equipe"
+        campeonato = new Campeonato(
+                GeradorUtil.gerarNome(), new Date()
         );
-
-        equipeDaoImpl.salvar(equipe);
+        campeonatoDaoImpl.salvar(campeonato);
     }
 
 }

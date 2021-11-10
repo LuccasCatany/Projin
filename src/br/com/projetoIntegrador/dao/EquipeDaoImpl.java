@@ -21,14 +21,15 @@ public class EquipeDaoImpl {
     private ResultSet resultado;
 
     public void salvar(Equipe equipe){
-        String sql = "INSERT INTO equipe(nomeEquipe) VALUES(?) ";
+        String sql = "INSERT INTO equipe(nome, campeonato_id) VALUES(?, 1) ";
         try {
             conexao = FabricaConexao.abrirConexao();
             preparaSql = conexao.prepareStatement(sql);
             preparaSql.setString(1, equipe.getNome());
+//            preparaSql.setInt(2, equipe.getCampeonato().getId());
             preparaSql.executeUpdate();
         } catch (Exception e) {
-            System.out.println("Erro ao salvar a equipe" + e.getMessage());
+            System.out.println("Erro ao salvar a equipe " + e.getMessage());
         }
     }
 

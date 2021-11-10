@@ -13,6 +13,9 @@ public class Endereco {
     private String estado;
     private String cep;
     private String complemento;
+    
+    private Participante participante;
+    private Campeonato campeonato;
 
     public Endereco() {
     }
