@@ -30,15 +30,23 @@ public class ParticipanteDaoImplTest {
     public void testSalvar() throws SQLException {
         System.out.println("salvar");
         Equipe equipe = new Equipe();
-        
+
         participante = new Participante(
-                GeradorUtil.gerarNome(), GeradorUtil.gerarCpf(), GeradorUtil.gerarTelefone(), new Date()
+                GeradorUtil.gerarNome(),
+                GeradorUtil.gerarCpf(),
+                GeradorUtil.gerarTelefone(),
+                new Date()
         );
         Endereco endereco = new Endereco(
-                "Rua " + GeradorUtil.gerarNome(), "Bairro " + GeradorUtil.gerarNome(), "Cidade " + GeradorUtil.gerarNome(), "Estado " + GeradorUtil.gerarNome(), "88888-888", "casa"
+                GeradorUtil.gerarLogradouro(),
+                GeradorUtil.gerarBairro(),
+                GeradorUtil.gerarCidade(),
+                GeradorUtil.gerarEstado(),
+                GeradorUtil.gerarCep(),
+                "Teste do ice"
         );
         participante.setEndereco(endereco);
-        participante.setEquipe(equipe);
+//        participante.setEquipe(equipe);
         participanteDaoImpl.salvar(participante);
     }
 
@@ -48,7 +56,7 @@ public class ParticipanteDaoImplTest {
 
     }
 
-    private Equipe pesquisarEquipeDb(){
+    private Equipe pesquisarEquipeDb() {
         return null;
     }
     //TODO Test do CRUD

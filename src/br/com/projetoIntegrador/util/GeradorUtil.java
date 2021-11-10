@@ -1,6 +1,7 @@
 package br.com.projetoIntegrador.util;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -255,8 +256,8 @@ public class GeradorUtil {
 //        System.out.println("Cidade: " + cidade);
 //        System.out.println("Estado: " + estado);
 
-        for (int i = 0; i < 10; i++) {
-            System.out.println(gerarLogradouro());
-        }
+
+            System.out.println(new Date(999999999));    
+        
     }
 }

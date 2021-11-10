@@ -16,7 +16,7 @@ public class ParticipanteDaoImpl {
 
     //TODO CRUD ( Salvar, Pesquisar por id/nome , Alterar, Excluir)
     public void salvar(Participante participante) throws SQLException {
-        String sql = "INSERT INTO participante(nome, cpf, telefone, dataNascimento, Equipe_id) VALUES(?, ?, ?, ?, ?) ";
+        String sql = "INSERT INTO participante(nome, cpf, telefone, dataNascimnto, Equipe_id) VALUES(?, ?, ?, ?, ?) ";
         try {
             conexao = FabricaConexao.abrirConexao();
             preparaSql = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -24,7 +24,7 @@ public class ParticipanteDaoImpl {
             preparaSql.setString(2, participante.getCpf());
             preparaSql.setString(3, participante.getTelefone());
             preparaSql.setDate(4, new Date(participante.getNascimento().getTime()));
-            preparaSql.setInt(5, participante.getEquipe().getId());
+            preparaSql.setInt(5, 1);
             preparaSql.executeUpdate();
             resultado = preparaSql.getGeneratedKeys();
             resultado.next();
@@ -37,7 +37,6 @@ public class ParticipanteDaoImpl {
         } finally {
             conexao.close();
             preparaSql.close();
-            resultado.close();
         }
 
     }

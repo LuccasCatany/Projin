@@ -17,16 +17,16 @@ public class EnderecoDaoImpl {
     ParticipanteDaoImpl participanteDaoImpl = new ParticipanteDaoImpl();
     
     public void salvarParticipante(Endereco endereco, int id, Connection conexao) {
-        String sql = "INSERT INTO endereco(logradouro, bairro, cidade, estado, cep, complemento, idParticipante) VALUES(?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO endereco(logradouro, bairro, cidade, estado, cep, complemento, participante_id) VALUES(?, ?, ?, ?, ?, ?, ?)";
         salvar(endereco, id, sql, conexao);
 
     }
     
-    public void salvarCampeonato(Endereco endereco, int id, Connection conexao) {
-        String sql = "INSERT INTO endereco(logradouro, bairro, cidade, estado, cep, complemento, idCampeonato) VALUES(?, ?, ?, ?, ?, ?, ?)";
-        salvar(endereco, id, sql, conexao);
-
-    }
+//    public void salvarCampeonato(Endereco endereco, int id, Connection conexao) {
+//        String sql = "INSERT INTO endereco(logradouro, bairro, cidade, estado, cep, complemento, campeonato_id) VALUES(?, ?, ?, ?, ?, ?, 1)";
+//        salvar(endereco, id, sql, conexao);
+//
+//    }
 
     
     private void salvar(Endereco endereco, int id, String sql, Connection conexao) {
