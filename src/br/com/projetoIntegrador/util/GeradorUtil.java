@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 import javax.swing.text.MaskFormatter;
 
 public class GeradorUtil {
-    
+
     public static String gerarNumero(int tamanhoDoNumero) {
         Random random = new Random();
         int numeroGerado;
@@ -17,8 +17,8 @@ public class GeradorUtil {
             numero = numero + numeroGerado;
         }
         return numero;
-    }  
-    
+    }
+
     //Geradores de dados pessoais
     public static String gerarNome() {
         Random random = new Random();
@@ -41,7 +41,7 @@ public class GeradorUtil {
 
         return nomeCompleto;
     }
-    
+
     public static String gerarCpf() {
         String cpf = gerarNumero(11);
         MaskFormatter mascara;
@@ -61,16 +61,16 @@ public class GeradorUtil {
         int diaInt = random.nextInt(29) + 1;
         int mesInt = random.nextInt(13) + 1;
         int ano = random.nextInt(15) + 1991;
-        
+
         String dia = String.valueOf(diaInt);
         String mes = String.valueOf(mesInt);
         if (diaInt < 10) {
             dia = "0" + diaInt;
-        }        
+        }
         if (mesInt < 10) {
             mes = "0" + mesInt;
         }
-       
+
         String dataNascimento = dia + mes + ano;
         MaskFormatter mascara;
         try {
@@ -87,7 +87,7 @@ public class GeradorUtil {
         Random random = new Random();
         int idade = random.nextInt(15) + 16;
         return idade;
-    }      
+    }
 
     //Geradores de contato
     public static String gerarTelefone() {
@@ -103,7 +103,6 @@ public class GeradorUtil {
         return numeroDeTelefone;
     }
 
-    
     public static String gerarTelefoneFixo() {
         String numeroDeTelefoneFixo = gerarNumero(10);
         MaskFormatter mascara;
@@ -117,7 +116,6 @@ public class GeradorUtil {
         return numeroDeTelefoneFixo;
     }
 
-    
 //    public static String gerarEmail() {
 //        Random random = new Random();
 //        String numeroDoEmail = gerarNumero(6);
@@ -131,25 +129,22 @@ public class GeradorUtil {
 //
 //        return email;
 //    }
-    
-    
     //Geradores de endereço
-    public static String gerarCep(){
+    public static String gerarCep() {
         String cep = gerarNumero(8);
         MaskFormatter mascara;
         try {
             mascara = new MaskFormatter("#####-###");
             mascara.setValueContainsLiteralCharacters(false);
-            cep= mascara.valueToString(cep);
-            
-            
+            cep = mascara.valueToString(cep);
+
         } catch (ParseException ex) {
             System.out.println("Erro ao gerar cep " + ex.getMessage());
         }
-               
+
         return cep;
-    }  
-    
+    }
+
     public static String gerarBairro() {
         Random random = new Random();
 
@@ -169,29 +164,34 @@ public class GeradorUtil {
         String bairro = bairros[random.nextInt(bairros.length)];
         return bairro;
     }
-    
-    public static String gerarLogradouro(){
-        
+
+    public static String gerarLogradouro() {
+
         Random random = new Random();
-        
-        String[] logradouros = {"Rua", "Avenida", "Travessa", "Estrada", "Praça", 
-            "Acesso", "Largo", "Rótula", "Esplanada", "Servidão", "Parque", 
+
+        String[] logradouros1 = {"Rua", "Avenida", "Travessa", "Estrada", "Praça",
+            "Acesso", "Largo", "Rótula", "Esplanada", "Servidão", "Parque",
             "Espaço", "Mirante"
         };
-        
-        String[] nomes = {"Rafael", "Vitória", "Fabíola", "Bruno",
-        "Jhonata", "Andrey", "Edson", "Gabriel", "Arthur", "Marcelo",
-        "Diego", "Maria", "Gabriel", "Guilherme", "Eduardo",
-        "Letícia", "Jeferson", "Fábio", "Luccas", "Igor", "Silvio"            
-        };
-        
-        String logradouro = logradouros[random.nextInt(logradouros.length)] + " " + nomes[random.nextInt(nomes.length)];
+
+        String[] logradouros2 = {"Champagnat", "Lincoln", "Powder", "Laguna",
+            "da Aurora", "Portugal", "do Almirante", "das Flores", "do Frances",
+            "Timber", "Beruti", "do Espanhol", "Bell", "Zircon", "los Suspiros",
+            "Montevidél", "Norte", "Sul", "Leste", "Oeste", "Central", "Baixa",
+            "Alta", "Sacramento", "Pescador", "Garzon", "Rocha", "Boulevard",
+            "Cusco", "do Imperador", "Lima", "Coqueiros", "Arequipa", "Trujillo",
+            "Picchi", "Wall", "Mont", "Montain", "Jade", "Pinhal", "Pinheiros",
+            "Humantay", "Nevada", "Pisac", "das Sereias", "Mairmaid", "do Conde",
+            "Guatapé", "do Arista", "do Filósofo", "Zipaquirá", "Crisalia",
+            "Nazca", "Colina", "Videl", "la Coroa", "da jóia"};
+
+        String logradouro = logradouros1[random.nextInt(logradouros1.length)]
+                + " " + logradouros2[random.nextInt(logradouros2.length)];
         return logradouro;
-        
+
     }
-    
-        
-     public static String gerarCidade() {
+
+    public static String gerarCidade() {
 
         Random random = new Random();
 
@@ -210,7 +210,7 @@ public class GeradorUtil {
         String cidade = cidades[random.nextInt(cidades.length)];
         return cidade;
     }
-    
+
     public static String gerarEstado() {
         Random random = new Random();
         String[] estados = {"Acre", "Alogoas", "Amapá", "Amazonas", "Bahia",
@@ -224,40 +224,39 @@ public class GeradorUtil {
         return estado;
     }
 
-    
-    
-     public static void main(String[] args) {
-        String nome = gerarNome();
-        String numeroCpf = gerarCpf();
-        String dataNascimento = gerarDataDeNascimento();
-        int idade = gerarIdade();
-        
-        String telefone = gerarTelefone();
-        String telefoneFixo = gerarTelefoneFixo();
-        //String email = gerarEmail();
-        
-        String cep = gerarCep();
-        String logradouro = gerarLogradouro();
-        String bairro = gerarBairro();
-        String cidade = gerarCidade();
-        String estado = gerarEstado();
-        
-        System.out.println("Nome: " + nome);
-        System.out.println("Cpf: " + numeroCpf);
-        System.out.println("Nascimento: " + dataNascimento);
-        System.out.println("idade: " + idade);
-        
-        System.out.println("Telefone: " + telefone);
-        System.out.println("Telefone fixo: " + telefoneFixo);
-        //System.out.println("Email: " + email);
-        
-        
-        System.out.println("Cep: " + cep);
-        System.out.println("Logradouro: " + logradouro);
-        System.out.println("Bairro: " + bairro);
-        System.out.println("Cidade: " + cidade);
-        System.out.println("Estado: " + estado);
+    public static void main(String[] args) {
+//        String nome = gerarNome();
+//        String numeroCpf = gerarCpf();
+//        String dataNascimento = gerarDataDeNascimento();
+//        int idade = gerarIdade();
+//
+//        String telefone = gerarTelefone();
+//        String telefoneFixo = gerarTelefoneFixo();
+//        //String email = gerarEmail();
+//
+//        String cep = gerarCep();
+//        String logradouro = gerarLogradouro();
+//        String bairro = gerarBairro();
+//        String cidade = gerarCidade();
+//        String estado = gerarEstado();
+//
+//        System.out.println("Nome: " + nome);
+//        System.out.println("Cpf: " + numeroCpf);
+//        System.out.println("Nascimento: " + dataNascimento);
+//        System.out.println("idade: " + idade);
+//
+//        System.out.println("Telefone: " + telefone);
+//        System.out.println("Telefone fixo: " + telefoneFixo);
+//        //System.out.println("Email: " + email);
+//
+//        System.out.println("Cep: " + cep);
+//        System.out.println("Logradouro: " + logradouro);
+//        System.out.println("Bairro: " + bairro);
+//        System.out.println("Cidade: " + cidade);
+//        System.out.println("Estado: " + estado);
 
-         
+        for (int i = 0; i < 10; i++) {
+            System.out.println(gerarLogradouro());
+        }
     }
 }
