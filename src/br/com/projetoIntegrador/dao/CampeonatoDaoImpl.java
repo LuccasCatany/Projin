@@ -9,14 +9,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class CampeonatoDaoImpl {
-    
+
     private Connection conexao;
     private PreparedStatement preparaSql;
     private ResultSet resultado;
-    
-    public void salvar(Campeonato campeonato)throws SQLException{
+
+    public void salvar(Campeonato campeonato) throws SQLException {
         String sql = "INSERT INTO campeonato(nome, data) VALUES(?, ?) ";
-        
+
         try {
             conexao = FabricaConexao.abrirConexao();
             preparaSql = conexao.prepareStatement(sql);
@@ -25,15 +25,58 @@ public class CampeonatoDaoImpl {
             preparaSql.executeUpdate();
         } catch (Exception e) {
             System.out.println("Erro ao salvar o campeonato " + e.getMessage());
-        }finally {
+        } finally {
             conexao.close();
             preparaSql.close();
         }
-        
-        
+    }
+
+    public Campeonato pesquisarPorNome(String Nome) {
+        String sql = "SELECT * FROM campeonato WHERE nome LIKE ?";
+        Campeonato campeonato = null;
+        try {
+            conexao = FabricaConexao.abrirConexao();
+            preparaSql = conexao.prepareStatement(sql);
+            preparaSql.setString(1, Nome);
+            resultado = preparaSql.executeQuery();
+            if(resultado.next()){
+                campeonato = new Campeonato();
+                campeonato.setId(resultado.getInt("id"));
+                campeonato.setNomeCampeonato(resultado.getString("nome"));
+                campeonato.setDataCampeonato(resultado.getDate("data"));
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao pesquisar produto por nome " + e.getMessage());
+        }
+        return campeonato;
     }
     
+    public void excluir(int id){
+        String sql = "DELETE FROM campeonato WHERE id = ?";
+        try {
+            conexao = FabricaConexao.abrirConexao();
+            preparaSql = conexao.prepareStatement(sql);
+            preparaSql.setInt(1, id);
+            preparaSql.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Erro ao excluir o campeonato" + e.getMessage());
+        }
+    }
     
-    
-}
+    public void alterar(Campeonato campeonato) {
+        String sql = "UPDATE campeonato SET nome = ?, data = ? WHERE id = ?";
+        try {
+            conexao = FabricaConexao.abrirConexao();
+            preparaSql = conexao.prepareStatement(sql);
+            preparaSql.setString(1, campeonato.getNomeCampeonato());
+            preparaSql.setDate(2, new Date(campeonato.getDataCampeonato().getTime()));
+            preparaSql.setInt(3, campeonato.getId());
+            preparaSql.executeUpdate();
 
+        } catch (Exception e) {
+            System.out.println("Erro ao alterar o campeonato" + e.getMessage());
+        }
+    }
+    
+
+}
