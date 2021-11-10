@@ -33,14 +33,10 @@ public class EquipeDaoImpl {
             preparaSql.setInt(2, equipe.getCampeonato().getId());
             preparaSql.executeUpdate();
             
-            resultado = preparaSql.getGeneratedKeys();
-            resultado.next();
-            equipe.setId(resultado.getInt(1));
-            
-            
-            CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
-            //campeonatoDaoImpl.salvar(equipe.getCampeonato().getId());
-            
+            resultado = preparaSql.getGeneratedKeys();//resultado é um objeto
+            resultado.next();//entrando dentro de resultado no primeiro registro
+            equipe.setId(resultado.getInt(1));//pega primeira coluna que retornou do banco de dados de chaves primarias
+            equipe.getCampeonato().setId(resultado.getInt(2));//em teoria seria pegar o valor da segunda chave gerada, que seria a FK mas nem sei se tem uma coluna dois nas chaves geradas
             
             
         } catch (Exception e) {
@@ -58,9 +54,12 @@ public class EquipeDaoImpl {
             try {
                 conexao = FabricaConexao.abrirConexao();
                 preparaSql = conexao.prepareStatement(sql);
+                preparaSql.setString(1, equipe.getNome());
+                preparaSql.setInt(2, equipe.getCampeonato().getId());
+                preparaSql.executeUpdate();
                 
             } catch (Exception e) {
-                 System.out.println("Erro ao alterar produto " + e.getMessage());
+                 System.out.println("Erro ao alterar equipe " + e.getMessage());
             }finally{
                 conexao.close();
                 preparaSql.close();
@@ -68,7 +67,7 @@ public class EquipeDaoImpl {
             }
         }
     
-     public void excluir(int id) {
+     public void excluir(int id) throws SQLException {
         String sql = "DELETE FROM equipe WHERE id = ?";
         try {
             conexao = FabricaConexao.abrirConexao();
@@ -78,6 +77,9 @@ public class EquipeDaoImpl {
             
         } catch (Exception e) {
             System.out.println("Erro ao excluir o equipe" + e.getMessage());
+        }finally{
+            conexao.close();
+            preparaSql.close();
         }
     }
      
@@ -102,5 +104,22 @@ public class EquipeDaoImpl {
         return equipe;
     }
      
-    
+    public Equipe pesquisarPorNome(String Nome) {
+        String sql = "SELECT * FROM campeonato WHERE nome LIKE ?";
+        Equipe equipe = null;
+        try {
+            conexao = FabricaConexao.abrirConexao();
+            preparaSql = conexao.prepareStatement(sql);
+            preparaSql.setString(1, Nome);
+            resultado = preparaSql.executeQuery();
+            if(resultado.next()){
+                equipe = new Equipe();
+                equipe.setId(resultado.getInt("id"));
+                equipe.setNome(resultado.getString("nome"));
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao pesquisar produto por nome de equipe " + e.getMessage());
+        }
+        return equipe;
+    }
 }
