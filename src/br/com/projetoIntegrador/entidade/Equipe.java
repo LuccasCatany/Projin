@@ -13,7 +13,6 @@ public class Equipe {
     private Integer id;
     private String nome;
     
-    private Participante participante;
     private Campeonato campeonato;
 
     
@@ -25,14 +24,7 @@ public class Equipe {
         this.nome = nome;
     }
 
-    public Participante getParticipante() {
-        return participante;
-    }
-
-    public void setParticipante(Participante participante) {
-        this.participante = participante;
-    }
-
+   
     public Campeonato getCampeonato() {
         return campeonato;
     }
@@ -40,8 +32,7 @@ public class Equipe {
     public void setCampeonato(Campeonato campeonato) {
         this.campeonato = campeonato;
     }
-    
-    
+        
     
     public Integer getId() {
         return id;

@@ -8,6 +8,8 @@ package br.com.projetoIntegrador.dao;
 import br.com.projetoIntegrador.entidade.Campeonato;
 import br.com.projetoIntegrador.entidade.Equipe;
 import br.com.projetoIntegrador.util.GeradorUtil;
+import java.sql.SQLException;
+import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -24,14 +26,21 @@ public class EquipeDaoImplTest {
     public EquipeDaoImplTest() {
     }
 
-    @Test
-    public void testSalvar() {
+    //@Test
+    public void testSalvar() throws SQLException {
         System.out.println("salvar");
         equipe = new Equipe(
                 GeradorUtil.gerarNome() + " Equipe"
         );
-
         equipeDaoImpl.salvar(equipe);
     }
-
+    
+    
+    
+    
+    
 }
+
+    
+    
+    
