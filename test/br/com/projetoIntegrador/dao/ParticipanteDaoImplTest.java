@@ -15,7 +15,7 @@ import java.util.Date;
 
 /**
  *
- * @author Famility
+ * @author maria
  */
 public class ParticipanteDaoImplTest {
 

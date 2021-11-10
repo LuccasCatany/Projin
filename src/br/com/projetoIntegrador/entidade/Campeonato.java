@@ -9,8 +9,7 @@ public class Campeonato {
     private String nomeCampeonato;
     private Date dataCampeonato;
     
-    private Equipe equipe;
-    private Endereco endereco;
+    private Endereco endereco;//associação campeonato contem uma parte do endereço, ou seja ele aponda pra um endereço mas não pra toda a lista de endereços
 
     
     public Campeonato() {
@@ -44,14 +43,6 @@ public class Campeonato {
 
     public void setDataCampeonato(Date dataCampeonato) {
         this.dataCampeonato = dataCampeonato;
-    }
-
-    public Equipe getEquipe() {
-        return equipe;
-    }
-
-    public void setEquipe(Equipe equipe) {
-        this.equipe = equipe;
     }
 
     public Endereco getEndereco() {

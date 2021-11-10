@@ -15,8 +15,8 @@ public class Participante {
     private String telefone;
     private Date nascimento;
 
-    private Endereco endereco;
-    private Equipe equipe;
+    private Endereco endereco;//associação, um pra muitos
+    private Equipe equipe;//composição, um pra um
     
 
     public Participante() {

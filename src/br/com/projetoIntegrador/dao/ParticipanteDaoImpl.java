@@ -29,7 +29,7 @@ public class ParticipanteDaoImpl {
             resultado = preparaSql.getGeneratedKeys();
             resultado.next();
             participante.setId(resultado.getInt(1));
-            //TODO salvar endereço
+
             EnderecoDaoImpl enderecoDaoImpl = new EnderecoDaoImpl();
             enderecoDaoImpl.salvarParticipante(participante.getEndereco(), participante.getId(), conexao);
         } catch (Exception e) {
@@ -37,6 +37,7 @@ public class ParticipanteDaoImpl {
         } finally {
             conexao.close();
             preparaSql.close();
+            resultado.close();
         }
 
     }

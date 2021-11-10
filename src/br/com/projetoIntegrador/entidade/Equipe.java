@@ -13,7 +13,7 @@ public class Equipe {
     private Integer id;
     private String nome;
     
-    private Campeonato campeonato;
+    private Campeonato campeonato;//composição quando salvo a equipe aponto um campeonato
 
     
     public Equipe(){

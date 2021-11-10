@@ -19,18 +19,46 @@ public class CampeonatoDaoImpl {
 
         try {
             conexao = FabricaConexao.abrirConexao();
-            preparaSql = conexao.prepareStatement(sql);
+            preparaSql = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparaSql.setString(1, campeonato.getNomeCampeonato());
             preparaSql.setDate(2, new Date(campeonato.getDataCampeonato().getTime()));
             preparaSql.executeUpdate();
+            
+            resultado = preparaSql.getGeneratedKeys();
+            resultado.next();
+            campeonato.setId(resultado.getInt("id"));//ou getInt(1) ?          
+            
         } catch (Exception e) {
             System.out.println("Erro ao salvar o campeonato " + e.getMessage());
         } finally {
             conexao.close();
             preparaSql.close();
+            resultado.close();
         }
     }
 
+    public Campeonato pesquisarPorId(int id) {
+        String sql = "SELECT * FROM participante WHERE id = ?";
+        Campeonato campeonato = null;
+        try {
+            conexao = FabricaConexao.abrirConexao();
+            preparaSql = conexao.prepareStatement(sql);
+            preparaSql.setInt(1, id);
+            resultado = preparaSql.executeQuery();
+            if (resultado.next()) {
+                campeonato = new Campeonato();
+                campeonato.setId(id);
+                campeonato.setNomeCampeonato(resultado.getString("nome"));
+                campeonato.setDataCampeonato(resultado.getDate("dataCampeonato"));
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro ao pesquisar por id do campeonato " + e.getMessage());
+        }
+        return campeonato;
+    }
+    
+    
     public Campeonato pesquisarPorNome(String Nome) {
         String sql = "SELECT * FROM campeonato WHERE nome LIKE ?";
         Campeonato campeonato = null;
