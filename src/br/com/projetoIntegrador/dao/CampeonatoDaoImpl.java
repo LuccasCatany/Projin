@@ -15,14 +15,14 @@ public class CampeonatoDaoImpl {
     private ResultSet resultado;
 
     public void salvar(Campeonato campeonato) throws SQLException {
-        String sql = "INSERT INTO campeonato(nome, data) VALUES(?, ?) ";
+        String sql = "INSERT INTO campeonato(nome, data, ativo) VALUES(?, ?, ?) ";
 
         try {
             conexao = FabricaConexao.abrirConexao();
             preparaSql= conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparaSql.setString(1, campeonato.getNomeCampeonato());
             preparaSql.setDate(2, new Date(campeonato.getDataCampeonato().getTime()));
-            
+            preparaSql.setBoolean(3, true);            
             preparaSql.executeUpdate();
             resultado = preparaSql.getGeneratedKeys();//essa parte eo return keys é pra quando for salvar ao mesmo tempo ≧◠‿●‿◠≦
             resultado.next();
@@ -72,13 +72,15 @@ public class CampeonatoDaoImpl {
     }
     
     public void alterar(Campeonato campeonato) {
-        String sql = "UPDATE campeonato SET nome = ?, data = ? WHERE id = ?";
+        String sql = "UPDATE campeonato SET nome = ?, data = ?, ativo = ? WHERE id = ?";
         try {
             conexao = FabricaConexao.abrirConexao();
             preparaSql = conexao.prepareStatement(sql);
             preparaSql.setString(1, campeonato.getNomeCampeonato());
             preparaSql.setDate(2, new Date(campeonato.getDataCampeonato().getTime()));
             preparaSql.setInt(3, campeonato.getId());
+            preparaSql.setBoolean(4, false);
+            
             preparaSql.executeUpdate();
 
         } catch (Exception e) {

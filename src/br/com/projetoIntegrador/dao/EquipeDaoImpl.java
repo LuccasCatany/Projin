@@ -26,13 +26,13 @@ public class EquipeDaoImpl {
     public void salvar(Equipe equipe) throws SQLException{
         String sql = "INSERT INTO equipe(nome, campeonato_id) VALUES(?, ?) ";
         try {
-            CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
+//            CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
             conexao = FabricaConexao.abrirConexao();
             preparaSql = conexao.prepareStatement(sql);
             
             preparaSql.setString(1, equipe.getNome());
-            Campeonato camp = campeonatoDaoImpl.pesquisarPorNome("Zoe cinnabar");
-            preparaSql.setInt(2, camp.getId());
+            //Campeonato camp = campeonatoDaoImpl.pesquisarPorNome("Zoe cinnabar");
+            preparaSql.setInt(2, equipe.getCampeonato().getId());
             
             preparaSql.executeUpdate();
 
