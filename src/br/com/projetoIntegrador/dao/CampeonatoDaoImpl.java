@@ -24,7 +24,7 @@ public class CampeonatoDaoImpl {
             preparaSql.setDate(2, new Date(campeonato.getDataCampeonato().getTime()));
             
             preparaSql.executeUpdate();
-            resultado = preparaSql.getGeneratedKeys();
+            resultado = preparaSql.getGeneratedKeys();//essa parte eo return keys é pra quando for salvar ao mesmo tempo ≧◠‿●‿◠≦
             resultado.next();
             campeonato.setId(resultado.getInt(1));
             

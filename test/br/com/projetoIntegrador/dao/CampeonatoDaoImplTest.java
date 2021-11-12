@@ -25,11 +25,12 @@ public class CampeonatoDaoImplTest {
         campeonatoDaoImpl = new CampeonatoDaoImpl();
     }
 
-    @Test
+//    @Test
     public void testSalvar() throws SQLException {
         System.out.println("salvar");
         campeonato = new Campeonato(
-                GeradorUtil.gerarNome(), new Date()
+                GeradorUtil.gerarNome(),
+                new Date()
         );
         Endereco endereco = new Endereco(GeradorUtil.gerarLogradouro(),
                 GeradorUtil.gerarBairro(),  
@@ -46,8 +47,8 @@ public class CampeonatoDaoImplTest {
     
 //    @Test
     public void testePesquisarPorNome(){
-        System.out.println("Pesquisar por nome :)");
-        String nome = "Ankha satsuki";
+        System.out.println("Pesquisar por nome >w<");
+        String nome = "Zoe cinnabar";
         campeonato = campeonatoDaoImpl.pesquisarPorNome(nome);
         mostrarCampeonato(campeonato);
     }

@@ -30,7 +30,7 @@ public class EquipeDaoImplTest {
          equipeDaoImpl = new EquipeDaoImpl();
     }
 
-    //@Test
+    @Test
     public void testSalvar() throws SQLException {
         System.out.println("salvar");
         equipe = new Equipe(

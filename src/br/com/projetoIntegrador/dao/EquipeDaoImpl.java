@@ -5,6 +5,7 @@
  */
 package br.com.projetoIntegrador.dao;
 
+import br.com.projetoIntegrador.entidade.Campeonato;
 import br.com.projetoIntegrador.entidade.Equipe;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,22 +23,19 @@ public class EquipeDaoImpl {
     private PreparedStatement preparaSql;
     private ResultSet resultado;
 
-    //salvando a equipe, associaçao um pra muitos, ao campeonato, pois o campeonato já foi salvo
     public void salvar(Equipe equipe) throws SQLException{
-        String sql = "INSERT INTO equipe(nome, campeonato_id) VALUES(?, 1) ";
+        String sql = "INSERT INTO equipe(nome, campeonato_id) VALUES(?, ?) ";
         try {
+            CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
             conexao = FabricaConexao.abrirConexao();
-            preparaSql = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS );
+            preparaSql = conexao.prepareStatement(sql);
             
             preparaSql.setString(1, equipe.getNome());
-            preparaSql.setInt(2, equipe.getCampeonato().getId());
+            Campeonato camp = campeonatoDaoImpl.pesquisarPorNome("Zoe cinnabar");
+            preparaSql.setInt(2, camp.getId());
             
             preparaSql.executeUpdate();
-            
-            resultado = preparaSql.getGeneratedKeys();//resultado é um objeto
-            resultado.next();//entrando dentro de resultado no primeiro registro
-            equipe.setId(resultado.getInt(1));//pega primeira coluna que retornou do banco de dados de chaves primarias
-            equipe.getCampeonato().setId(resultado.getInt(2));//em teoria seria pegar o valor da segunda chave gerada, que seria a FK mas nem sei se tem uma coluna dois nas chaves geradas
+
             
             
         } catch (Exception e) {
@@ -45,7 +43,7 @@ public class EquipeDaoImpl {
         }finally{
             conexao.close();
             preparaSql.close();
-            resultado.close();
+//close
         }
     }
 
