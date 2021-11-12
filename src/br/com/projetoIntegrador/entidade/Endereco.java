@@ -5,8 +5,9 @@
  */
 package br.com.projetoIntegrador.entidade;
 
-
 public class Endereco {
+
+    private Integer id;
     private String logradouro;
     private String bairro;
     private String cidade;
@@ -14,7 +15,6 @@ public class Endereco {
     private String cep;
     private String complemento;
 
-    
     public Endereco() {
     }
 
@@ -26,7 +26,7 @@ public class Endereco {
         this.cep = cep;
         this.complemento = complemento;
     }
-    
+
     public String getLogradouro() {
         return logradouro;
     }
@@ -34,7 +34,6 @@ public class Endereco {
     public void setLogradouro(String logradouro) {
         this.logradouro = logradouro;
     }
-    
 
     public String getBairro() {
         return bairro;
@@ -75,7 +74,13 @@ public class Endereco {
     public void setComplemento(String complemento) {
         this.complemento = complemento;
     }
-    
-    
-    
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
 }

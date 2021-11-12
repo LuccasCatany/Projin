@@ -14,24 +14,22 @@ public class CampeonatoDaoImpl {
     private PreparedStatement preparaSql;
     private ResultSet resultado;
 
-    public void salvar(Campeonato campeonato) throws SQLException {
-        String sql = "INSERT INTO campeonato(nome, data, endereco_id) VALUES(?, ?) ";
+    public void salvarCampeonato(Campeonato campeonato) throws SQLException {
+        String sql = "INSERT INTO campeonato(nome, data) VALUES(?, ?) ";
 
         try {
             conexao = FabricaConexao.abrirConexao();
-            preparaSql = conexao.prepareStatement(sql);
+            preparaSql= conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparaSql.setString(1, campeonato.getNomeCampeonato());
-            preparaSql.setDate(2, new Date(campeonato.getDataCampeonato().getTime()));
-            preparaSql.executeUpdate();
+            preparaSql.setDate(4, new Date(campeonato.getDataCampeonato().getTime()));
             
+            preparaSql.executeUpdate();
             resultado = preparaSql.getGeneratedKeys();
             resultado.next();
             campeonato.setId(resultado.getInt(1));
             
             EnderecoDaoImpl enderecoDaoImpl = new EnderecoDaoImpl();
-            enderecoDaoImpl.salvarCampeonato(campeonato.getEndereco(), campeonato.getId(), conexao);
-            
-                     
+            enderecoDaoImpl.salvarCampeonato(campeonato.getEndereco(), campeonato.getId(),conexao);
             
         } catch (Exception e) {
             System.out.println("Erro ao salvar o campeonato " + e.getMessage());

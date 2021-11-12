@@ -16,11 +16,10 @@ import java.sql.Statement;
  * @author luccas.espinola
  */
 public class EnderecoDaoImpl {
-    
-    private ResultSet resultado;
-    
+
+
     ParticipanteDaoImpl participanteDaoImpl = new ParticipanteDaoImpl();
-    
+
     public void salvarParticipante(Endereco endereco, int id, Connection conexao) {
         String sql = "INSERT INTO endereco(logradouro, bairro, cidade, estado, cep, complemento, participante_id) VALUES(?, ?, ?, ?, ?, ?, ?)";
         salvar(endereco, id, sql, conexao);
@@ -28,31 +27,22 @@ public class EnderecoDaoImpl {
     }
     
     public void salvarCampeonato(Endereco endereco, int id, Connection conexao) {
-        String sql = "INSERT INTO endereco(logradouro, bairro, cidade, estado, cep, complemento) VALUES(?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO endereco(logradouro, bairro, cidade, estado, cep, complemento, campeonato_id) VALUES(?, ?, ?, ?, ?, ?, ?)";
         salvar(endereco, id, sql, conexao);
 
     }
-
-    
-    private void salvar(Endereco endereco, int id, String sql, Connection conexao) {
-        PreparedStatement preparaInstrucao;
+    private void salvar(Endereco endereco, int id,String sql, Connection conexao) {
+        PreparedStatement prepararSql;
         try {
-            preparaInstrucao = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            preparaInstrucao.setString(1, endereco.getLogradouro());
-            preparaInstrucao.setString(2, endereco.getBairro());
-            preparaInstrucao.setString(3, endereco.getCidade());
-            preparaInstrucao.setString(4, endereco.getEstado());
-            preparaInstrucao.setString(5, endereco.getCep());
-            preparaInstrucao.setString(6, endereco.getComplemento());
-            preparaInstrucao.executeUpdate();
-            
-            resultado = preparaInstrucao.getGeneratedKeys();
-            resultado.next();
-            
-            //endereco.setId
-            
-            
-            
+            prepararSql  = conexao.prepareStatement(sql);
+            prepararSql.setString(1, endereco.getLogradouro());
+            prepararSql.setString(2, endereco.getBairro());
+            prepararSql.setString(3, endereco.getCidade());
+            prepararSql.setString(4, endereco.getEstado());
+            prepararSql.setString(5, endereco.getCep());
+            prepararSql.setString(6, endereco.getComplemento());
+            prepararSql.setInt(7, id);
+            prepararSql.executeUpdate();
         } catch (Exception e) {
             System.out.println("Erro ao salvar o endereço " + e.getMessage());
         }

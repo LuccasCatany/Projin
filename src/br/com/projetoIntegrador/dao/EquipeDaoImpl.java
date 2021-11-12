@@ -27,10 +27,11 @@ public class EquipeDaoImpl {
         String sql = "INSERT INTO equipe(nome, campeonato_id) VALUES(?, 1) ";
         try {
             conexao = FabricaConexao.abrirConexao();
-            preparaSql = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS  );
+            preparaSql = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS );
             
             preparaSql.setString(1, equipe.getNome());
             preparaSql.setInt(2, equipe.getCampeonato().getId());
+            
             preparaSql.executeUpdate();
             
             resultado = preparaSql.getGeneratedKeys();//resultado é um objeto
