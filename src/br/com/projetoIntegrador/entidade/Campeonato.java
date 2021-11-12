@@ -9,8 +9,7 @@ public class Campeonato {
     private String nomeCampeonato;
     private Date dataCampeonato;
     
-    private Endereco endereco;//associação campeonato contem uma parte do endereço, ou seja ele aponda pra um endereço mas não pra toda a lista de endereços
-
+    private Endereco endereco;
     
     public Campeonato() {
     }

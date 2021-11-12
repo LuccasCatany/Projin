@@ -6,6 +6,7 @@
 package br.com.projetoIntegrador.dao;
 
 import br.com.projetoIntegrador.entidade.Campeonato;
+import br.com.projetoIntegrador.entidade.Endereco;
 import br.com.projetoIntegrador.util.GeradorUtil;
 import java.sql.SQLException;
 import java.util.Date;
@@ -30,7 +31,17 @@ public class CampeonatoDaoImplTest {
         campeonato = new Campeonato(
                 GeradorUtil.gerarNome(), new Date()
         );
+        Endereco endereco = new Endereco(GeradorUtil.gerarLogradouro(),
+                GeradorUtil.gerarBairro(),  
+                GeradorUtil.gerarCidade(),
+                GeradorUtil.gerarEstado(),
+                GeradorUtil.gerarCep(),
+                "Teste"
+        );
+        campeonato.setEndereco(endereco);
         campeonatoDaoImpl.salvar(campeonato);
+        
+        
     }
     
 //    @Test

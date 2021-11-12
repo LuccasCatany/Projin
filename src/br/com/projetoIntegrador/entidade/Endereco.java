@@ -14,6 +14,9 @@ public class Endereco {
     private String estado;
     private String cep;
     private String complemento;
+    
+    private Campeonato campeonato;
+    private Participante participante;
 
     public Endereco() {
     }
@@ -27,6 +30,15 @@ public class Endereco {
         this.complemento = complemento;
     }
 
+    
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }    
+    
     public String getLogradouro() {
         return logradouro;
     }
@@ -74,13 +86,21 @@ public class Endereco {
     public void setComplemento(String complemento) {
         this.complemento = complemento;
     }
-
-    public Integer getId() {
-        return id;
+    
+    public Campeonato getCampeonato() {
+        return campeonato;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCampeonato(Campeonato campeonato) {
+        this.campeonato = campeonato;
+    }
+
+    public Participante getParticipante() {
+        return participante;
+    }
+
+    public void setParticipante(Participante participante) {
+        this.participante = participante;
     }
 
 }
