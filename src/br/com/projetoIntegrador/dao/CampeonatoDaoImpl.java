@@ -15,7 +15,7 @@ public class CampeonatoDaoImpl {
     private ResultSet resultado;
 
     public void salvar(Campeonato campeonato) throws SQLException {
-        String sql = "INSERT INTO campeonato(nome, data) VALUES(?, ?) ";
+        String sql = "INSERT INTO campeonato(nome, data, endereco_id) VALUES(?, ?) ";
 
         try {
             conexao = FabricaConexao.abrirConexao();
@@ -23,6 +23,14 @@ public class CampeonatoDaoImpl {
             preparaSql.setString(1, campeonato.getNomeCampeonato());
             preparaSql.setDate(2, new Date(campeonato.getDataCampeonato().getTime()));
             preparaSql.executeUpdate();
+            
+            resultado = preparaSql.getGeneratedKeys();
+            resultado.next();
+            campeonato.setId(resultado.getInt(1));
+            
+            EnderecoDaoImpl enderecoDaoImpl = new EnderecoDaoImpl();
+            enderecoDaoImpl.salvarCampeonato(campeonato.getEndereco(), campeonato.getId(), conexao);
+            
                      
             
         } catch (Exception e) {
