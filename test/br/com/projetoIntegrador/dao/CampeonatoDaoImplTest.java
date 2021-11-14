@@ -25,7 +25,7 @@ public class CampeonatoDaoImplTest {
         campeonatoDaoImpl = new CampeonatoDaoImpl();
     }
 
-    @Test
+//    @Test
     public void testSalvar() throws SQLException {
         System.out.println("salvar");
         campeonato = new Campeonato(
@@ -45,7 +45,7 @@ public class CampeonatoDaoImplTest {
         
     }
     
-    //    @Test
+//        @Test
     public void testeAlterar() throws SQLException {
         System.out.println("Alterar :)");
         campeonato = campeonatoDaoImpl.pesquisarPorNome("Ankha satsuki");
@@ -55,10 +55,10 @@ public class CampeonatoDaoImplTest {
         mostrarCampeonatoEndereco(campeonato);
     }
     
-//    @Test
-    public void testePesquisarPorNome(){
+    @Test
+    public void testePesquisarPorNome() throws SQLException{
         System.out.println("Pesquisar por nome >w<");
-        String nome = "Zoe cinnabar";
+        String nome = "Akane kawasaki";
         campeonato = campeonatoDaoImpl.pesquisarPorNome(nome);
         mostrarCampeonatoEndereco(campeonato);
     }
@@ -73,11 +73,16 @@ public class CampeonatoDaoImplTest {
     
     
     public void mostrarCampeonatoEndereco(Campeonato campeonato){
-        System.out.println("ID " + campeonato.getId());
+	System.out.println("ID " + campeonato.getId());
         System.out.println("Nome " + campeonato.getNomeCampeonato());
         System.out.println("Data " + campeonato.getDataCampeonato());
-        System.out.println("");
-    }
+	System.out.println("Logradouro" + campeonato.getEndereco().getLogradouro());
+        System.out.println("Bairro" + campeonato.getEndereco().getBairro());
+        System.out.println("Cidade" + campeonato.getEndereco().getCidade());
+        System.out.println("Estado" + campeonato.getEndereco().getEstado());
+        System.out.println("Cep" + campeonato.getEndereco().getCep());
+        System.out.println("Complemento" + campeonato.getEndereco().getComplemento());
+	}
     
     
     

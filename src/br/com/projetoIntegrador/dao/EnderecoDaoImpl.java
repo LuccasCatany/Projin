@@ -17,7 +17,6 @@ import java.sql.Statement;
  */
 public class EnderecoDaoImpl {
 
-
     ParticipanteDaoImpl participanteDaoImpl = new ParticipanteDaoImpl();
 
     public void salvarParticipante(Endereco endereco, int id, Connection conexao) {
@@ -25,16 +24,17 @@ public class EnderecoDaoImpl {
         salvar(endereco, id, sql, conexao);
 
     }
-    
+
     public void salvarCampeonato(Endereco endereco, int id, Connection conexao) {
         String sql = "INSERT INTO endereco(logradouro, bairro, cidade, estado, cep, complemento, campeonato_id) VALUES(?, ?, ?, ?, ?, ?, ?)";
         salvar(endereco, id, sql, conexao);
 
     }
-    private void salvar(Endereco endereco, int id,String sql, Connection conexao) {
+
+    private void salvar(Endereco endereco, int id, String sql, Connection conexao) {
         PreparedStatement prepararSql;
         try {
-            prepararSql  = conexao.prepareStatement(sql);
+            prepararSql = conexao.prepareStatement(sql);
             prepararSql.setString(1, endereco.getLogradouro());
             prepararSql.setString(2, endereco.getBairro());
             prepararSql.setString(3, endereco.getCidade());
@@ -47,23 +47,22 @@ public class EnderecoDaoImpl {
             System.out.println("Erro ao salvar o endereço " + e.getMessage());
         }
     }
-    
-    
+
     public void alterarEnderecoParticipante(Endereco endereco, int id, Connection conexao) {
         String sql = "UPDATE endereco SET logradouro=?, bairro = ?, cidade = ?, estado = ?, cep = ?, complemento =  WHERE participante_id = ? ";
         salvar(endereco, id, sql, conexao);
 
     }
-    
+
     public void alterarEnderecoCampeonato(Endereco endereco, int id, Connection conexao) {
         String sql = "UPDATE endereco SET logradouro=?, bairro = ?, cidade = ?, estado = ?, cep = ?, complemento =  WHERE campeonato_id = ? ";
         alterar(endereco, id, sql, conexao);
     }
-    
-    private void alterar(Endereco endereco, int id,String sql, Connection conexao) {
+
+    private void alterar(Endereco endereco, int id, String sql, Connection conexao) {
         PreparedStatement prepararSql;
         try {
-            prepararSql  = conexao.prepareStatement(sql);
+            prepararSql = conexao.prepareStatement(sql);
             prepararSql.setString(1, endereco.getLogradouro());
             prepararSql.setString(2, endereco.getBairro());
             prepararSql.setString(3, endereco.getCidade());
@@ -76,31 +75,59 @@ public class EnderecoDaoImpl {
             System.out.println("Erro ao alterar o endereço " + e.getMessage());
         }
     }
-    
-    
-     public void excluirEnderecoParticipante(int id, Connection conexao) {
-         String sql = "DELETE FROM endereco WHERE participante_id = ?";
-         excluir( id, sql, conexao);
-    }
-     
-       public void excluirEnderecoCampeonato( int id, Connection conexao) {
-         String sql = "DELETE FROM endereco WHERE campeonato_id = ?";
-         excluir( id, sql, conexao);
+
+    public void excluirEnderecoParticipante(int id, Connection conexao) {
+        String sql = "DELETE FROM endereco WHERE participante_id = ?";
+        excluir(id, sql, conexao);
     }
 
-     private void excluir( int id,String sql, Connection conexao){
+    public void excluirEnderecoCampeonato(int id, Connection conexao) {
+        String sql = "DELETE FROM endereco WHERE campeonato_id = ?";
+        excluir(id, sql, conexao);
+    }
+
+    private void excluir(int id, String sql, Connection conexao) {
         PreparedStatement prepararSql;
-         try {
-             conexao = FabricaConexao.abrirConexao();
+        try {
+            conexao = FabricaConexao.abrirConexao();
             prepararSql = conexao.prepareStatement(sql);
             prepararSql.setInt(1, id);
             prepararSql.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println("Erro ao excluir o endereço " + e.getMessage());
+        }
+    }
+
+    public void pesquisarPorCampeonato(Endereco endereco, int id, Connection conexao, ResultSet resultado) {
+        String sql = "SELECT * FROM endereco WHERE campeonato_id = ? ";
+        pesquisar(endereco, id, sql, conexao, resultado);
+    }
+
+    public void pesquisarPorParticipante(Endereco endereco, int id, Connection conexao, ResultSet resultado) {
+        String sql = "SELECT * FROM endereco WHERE participante_id = ? ";
+        pesquisar(endereco, id, sql, conexao, resultado);
+    }
+
+    private Endereco pesquisar(Endereco endereco, int id, String sql, Connection conexao, ResultSet resultado) {
+        PreparedStatement prepararSql;
+        try {
+            prepararSql = conexao.prepareStatement(sql);
+            prepararSql.setInt(1, id);
+                endereco = new Endereco();
+                endereco.setId(resultado.getInt("id"));
+                endereco.setLogradouro(resultado.getString("logradouro"));
+                endereco.setBairro(resultado.getString("bairro"));
+                endereco.setCidade(resultado.getString("cidade"));
+                endereco.setEstado(resultado.getString("estado"));
+                endereco.setCep(resultado.getString("cep"));
+                endereco.setComplemento(resultado.getString("complemento"));
             
-         } catch (Exception e) {
-             System.out.println("Erro ao excluir o endereço " + e.getMessage());
-         }
-}
-    
-    
+        } catch (Exception e) {
+            System.out.println("Erro ao pesquisar o endereço " + e.getMessage());
+        }
+        return endereco;
+    }
+
 
 }
