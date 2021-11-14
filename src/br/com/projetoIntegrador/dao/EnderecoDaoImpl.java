@@ -114,7 +114,6 @@ public class EnderecoDaoImpl {
         try {
             prepararSql = conexao.prepareStatement(sql);
             prepararSql.setInt(1, id);
-                endereco = new Endereco();
                 endereco.setId(resultado.getInt("id"));
                 endereco.setLogradouro(resultado.getString("logradouro"));
                 endereco.setBairro(resultado.getString("bairro"));
