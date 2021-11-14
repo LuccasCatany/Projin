@@ -36,19 +36,20 @@ public class EquipeDaoImplTest {
                 GeradorUtil.gerarNome() + " Equipe"
         );
         CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
-        Campeonato camp = campeonatoDaoImpl.pesquisarPorNome("Zoe cinnabar");
+        //pesquisar por nome esta puxando um ID de um campeonato que já existe no banco, By - ice
+        Campeonato camp = campeonatoDaoImpl.pesquisarPorNome("Michelly tadokoro");
         equipe.setCampeonato(camp);
         
         equipeDaoImpl.salvar(equipe);
     } 
     
-    //@Test 
+//    @Test 
     public void testeAlterar() throws SQLException {
         System.out.println("alterar");
-        equipe = equipeDaoImpl.pesquisarEquipePorNome("Ankha satsuki");
-        equipe.setNome("Nome equipe");
+        equipe = equipeDaoImpl.pesquisarEquipePorNome("Lily inamoto Equipe");
+        equipe.setNome("Name alterTest");
 //        equipe.getCampeonato().setId(1); //na verdade essa linha simularia se a pessoa quer trocar o campeonato da equipe
-        equipeDaoImpl.alterar(equipe);
+        equipeDaoImpl.alterar(equipe, 1);
         mostrarEquipe(equipe);
     }
     
@@ -67,10 +68,10 @@ public class EquipeDaoImplTest {
         mostrarEquipe(equipe);
     }
     
-    //@Test
+    @Test
     public void testPesquisarPorNome() throws Exception {
         System.out.println("Pesquisar por nome");
-        String nome = "Nome equipe";
+        String nome = "Lily";
         equipe = equipeDaoImpl.pesquisarEquipePorNome(nome);
         mostrarEquipe(equipe);             
     }

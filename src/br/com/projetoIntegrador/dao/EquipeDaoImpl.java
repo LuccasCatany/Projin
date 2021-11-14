@@ -39,13 +39,14 @@ public class EquipeDaoImpl {
     }
 
     
-    public void alterar(Equipe equipe) throws SQLException{
+    public void alterar(Equipe equipe, int oqueAlterar) throws SQLException{
             String sql = "UPDATE equipe SET nome = ? WHERE id = ?";
             try {
                 conexao = FabricaConexao.abrirConexao();
                 preparaSql = conexao.prepareStatement(sql);
                 preparaSql.setString(1, equipe.getNome());
                 preparaSql.setInt(2, equipe.getCampeonato().getId());
+                preparaSql.setInt(3, oqueAlterar);
                 preparaSql.executeUpdate();
                 
             } catch (Exception e) {
@@ -100,13 +101,12 @@ public class EquipeDaoImpl {
         return equipe;
     }
      
-    public Equipe pesquisarEquipePorNome(String Nome) throws SQLException {
-        String sql = "SELECT * FROM equipe WHERE nome LIKE ?";
+    public Equipe pesquisarEquipePorNome(String nome) throws SQLException {
+        String sql = "SELECT * FROM equipe WHERE nome LIKE '%" + nome + "%'";
         Equipe equipe = null;
         try {
             conexao = FabricaConexao.abrirConexao();
             preparaSql = conexao.prepareStatement(sql);
-            preparaSql.setString(1, Nome);
             resultado = preparaSql.executeQuery();
             if(resultado.next()){
                 equipe = new Equipe();

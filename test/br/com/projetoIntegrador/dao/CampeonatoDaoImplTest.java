@@ -25,7 +25,7 @@ public class CampeonatoDaoImplTest {
         campeonatoDaoImpl = new CampeonatoDaoImpl();
     }
 
-//    @Test
+    @Test
     public void testSalvar() throws SQLException {
         System.out.println("salvar");
         campeonato = new Campeonato(
