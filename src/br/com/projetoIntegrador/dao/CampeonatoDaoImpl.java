@@ -83,34 +83,35 @@ public class CampeonatoDaoImpl {
     }
 
     //Falta arrumar os pesquisar
-    public Campeonato pesquisarPorNome(String Nome) throws SQLException {
+    public Campeonato pesquisarPorNome(String nome) throws SQLException{
         String sql = "SELECT * FROM campeonato WHERE nome LIKE ?";
-        Campeonato campeonato = null;
+        Campeonato campeonato = new Campeonato();
+
         try {
             conexao = FabricaConexao.abrirConexao();
-            preparaSql = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            preparaSql.setString(1, Nome);
+            preparaSql = conexao.prepareStatement(sql);
+            preparaSql.setString(1, nome);
             resultado = preparaSql.executeQuery();
+            
             if (resultado.next()) {
-                campeonato = new Campeonato();
                 campeonato.setId(resultado.getInt("id"));
                 campeonato.setNomeCampeonato(resultado.getString("nome"));
                 campeonato.setDataCampeonato(resultado.getDate("data"));
-                resultado = preparaSql.getGeneratedKeys();
-//                campeonato.setId(resultado.getInt(1));
-
+                
                 EnderecoDaoImpl enderecoDaoImpl = new EnderecoDaoImpl();
-                enderecoDaoImpl.pesquisarPorCampeonato(campeonato.getEndereco(), campeonato.getId(), conexao, resultado);
+                campeonato.setEndereco(enderecoDaoImpl.pesquisarPorCampeonato(campeonato.getEndereco(), campeonato.getId(), conexao));
+
             }
 
         } catch (Exception e) {
-            System.out.println("Erro ao pesquisar produto por nome " + e.getMessage());
-        } finally {
+            System.out.println("Erro ao pesquisar campeonato por nome " + e.getMessage());
+       
+         } finally {
             conexao.close();
             preparaSql.close();
+            resultado.close();
         }
-
-        return campeonato;
+         return campeonato;
     }
 
 //     public Campeonato pesquisarPorId(int id) {

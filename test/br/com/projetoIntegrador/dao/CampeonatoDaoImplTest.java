@@ -25,7 +25,7 @@ public class CampeonatoDaoImplTest {
         campeonatoDaoImpl = new CampeonatoDaoImpl();
     }
 
-//    @Test
+//@Test
     public void testSalvar() throws SQLException {
         System.out.println("salvar");
         campeonato = new Campeonato(
@@ -45,21 +45,20 @@ public class CampeonatoDaoImplTest {
         
     }
     
-//        @Test
+      //@Test
     public void testeAlterar() throws SQLException {
         System.out.println("Alterar :)");
-        campeonato = campeonatoDaoImpl.pesquisarPorNome("Ankha satsuki");
-        campeonato.setNomeCampeonato("Nome qualquer");
-        campeonato.setDataCampeonato(new Date());
+        campeonato = new Campeonato(
+                "Nome alterado", new Date()
+        );
+      
         campeonatoDaoImpl.alterar(campeonato);
-        mostrarCampeonatoEndereco(campeonato);
     }
     
     @Test
     public void testePesquisarPorNome() throws SQLException{
         System.out.println("Pesquisar por nome >w<");
-        String nome = "Akane kawasaki";
-        campeonato = campeonatoDaoImpl.pesquisarPorNome(nome);
+        campeonato = campeonatoDaoImpl.pesquisarPorNome("Nome qualquer");
         mostrarCampeonatoEndereco(campeonato);
     }
     

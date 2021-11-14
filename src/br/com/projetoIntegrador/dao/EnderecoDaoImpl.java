@@ -5,6 +5,7 @@
  */
 package br.com.projetoIntegrador.dao;
 
+import br.com.projetoIntegrador.entidade.Campeonato;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import br.com.projetoIntegrador.entidade.Endereco;
@@ -18,6 +19,8 @@ import java.sql.Statement;
 public class EnderecoDaoImpl {
 
     ParticipanteDaoImpl participanteDaoImpl = new ParticipanteDaoImpl();
+    CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
+    private ResultSet resultado;
 
     public void salvarParticipante(Endereco endereco, int id, Connection conexao) {
         String sql = "INSERT INTO endereco(logradouro, bairro, cidade, estado, cep, complemento, participante_id) VALUES(?, ?, ?, ?, ?, ?, ?)";
@@ -99,21 +102,27 @@ public class EnderecoDaoImpl {
         }
     }
 
-    public void pesquisarPorCampeonato(Endereco endereco, int id, Connection conexao, ResultSet resultado) {
+    public Endereco pesquisarPorCampeonato(Endereco endereco, int id, Connection conexao) {
         String sql = "SELECT * FROM endereco WHERE campeonato_id = ? ";
-        pesquisar(endereco, id, sql, conexao, resultado);
+        return pesquisar(endereco, id, sql, conexao);
+      
     }
 
-    public void pesquisarPorParticipante(Endereco endereco, int id, Connection conexao, ResultSet resultado) {
+    public Endereco pesquisarPorParticipante(Endereco endereco, int id, Connection conexao) {
         String sql = "SELECT * FROM endereco WHERE participante_id = ? ";
-        pesquisar(endereco, id, sql, conexao, resultado);
+        return pesquisar(endereco, id, sql, conexao);
+        
     }
 
-    private Endereco pesquisar(Endereco endereco, int id, String sql, Connection conexao, ResultSet resultado) {
+    private Endereco pesquisar(Endereco endereco, int id, String sql, Connection conexao) {
         PreparedStatement prepararSql;
+        endereco = new Endereco();
         try {
             prepararSql = conexao.prepareStatement(sql);
             prepararSql.setInt(1, id);
+            resultado = prepararSql.executeQuery();
+
+            if(resultado.next()){
                 endereco.setId(resultado.getInt("id"));
                 endereco.setLogradouro(resultado.getString("logradouro"));
                 endereco.setBairro(resultado.getString("bairro"));
@@ -121,6 +130,8 @@ public class EnderecoDaoImpl {
                 endereco.setEstado(resultado.getString("estado"));
                 endereco.setCep(resultado.getString("cep"));
                 endereco.setComplemento(resultado.getString("complemento"));
+                
+            }   
             
         } catch (Exception e) {
             System.out.println("Erro ao pesquisar o endereço " + e.getMessage());
