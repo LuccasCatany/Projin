@@ -45,12 +45,22 @@ public class CampeonatoDaoImplTest {
         
     }
     
+    //    @Test
+    public void testeAlterar() throws SQLException {
+        System.out.println("Alterar :)");
+        campeonato = campeonatoDaoImpl.pesquisarPorNome("Ankha satsuki");
+        campeonato.setNomeCampeonato("Nome qualquer");
+        campeonato.setDataCampeonato(new Date());
+        campeonatoDaoImpl.alterar(campeonato);
+        mostrarCampeonatoEndereco(campeonato);
+    }
+    
 //    @Test
     public void testePesquisarPorNome(){
         System.out.println("Pesquisar por nome >w<");
         String nome = "Zoe cinnabar";
         campeonato = campeonatoDaoImpl.pesquisarPorNome(nome);
-        mostrarCampeonato(campeonato);
+        mostrarCampeonatoEndereco(campeonato);
     }
     
     
@@ -61,21 +71,12 @@ public class CampeonatoDaoImplTest {
         campeonatoDaoImpl.excluir(i);
     }
     
-//    @Test
-    public void testeAlterar() {
-        System.out.println("Alterar :)");
-        campeonato = campeonatoDaoImpl.pesquisarPorNome("Ankha satsuki");
-        campeonato.setNomeCampeonato("Nome qualquer");
-        campeonato.setDataCampeonato(new Date());
-        campeonatoDaoImpl.alterar(campeonato);
-        mostrarCampeonato(campeonato);
-    }
-
     
-    public void mostrarCampeonato(Campeonato campeonato){
+    public void mostrarCampeonatoEndereco(Campeonato campeonato){
         System.out.println("ID " + campeonato.getId());
         System.out.println("Nome " + campeonato.getNomeCampeonato());
         System.out.println("Data " + campeonato.getDataCampeonato());
+        System.out.println("");
     }
     
     

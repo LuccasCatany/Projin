@@ -12,9 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.junit.Assert;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
 
 /**
  *
@@ -30,20 +29,25 @@ public class EquipeDaoImplTest {
          equipeDaoImpl = new EquipeDaoImpl();
     }
 
-    @Test
+//    @Test 
     public void testSalvar() throws SQLException {
         System.out.println("salvar");
         equipe = new Equipe(
                 GeradorUtil.gerarNome() + " Equipe"
         );
+        CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
+        Campeonato camp = campeonatoDaoImpl.pesquisarPorNome("Zoe cinnabar");
+        equipe.setCampeonato(camp);
+        
         equipeDaoImpl.salvar(equipe);
-    }
+    } 
     
-    //@Test
+    //@Test 
     public void testeAlterar() throws SQLException {
         System.out.println("alterar");
-        equipe = equipeDaoImpl.pesquisarPorNome("Ankha satsuki");
+        equipe = equipeDaoImpl.pesquisarEquipePorNome("Ankha satsuki");
         equipe.setNome("Nome equipe");
+//        equipe.getCampeonato().setId(1); //na verdade essa linha simularia se a pessoa quer trocar o campeonato da equipe
         equipeDaoImpl.alterar(equipe);
         mostrarEquipe(equipe);
     }
@@ -51,19 +55,15 @@ public class EquipeDaoImplTest {
     //@Test
     public void testExcluir()throws Exception {
         System.out.println("excluir");
-//        buscarEquipeBD();
-//        equipeDaoImpl.excluir(equipe.getId());
-          equipeDaoImpl.excluir(1);
+        mostrarEquipe(equipe);
+        equipeDaoImpl.excluir(1);
     }
     
     
     //@Test
     public void testPesquisarPorId() throws Exception {
-        System.out.println("pesquisarPorId");
-//        buscarEquipeBD();
-//        Equipe equipePesquisada = (Equipe) equipeDaoImpl.pesquisarPorId(equipe.getId());
-//        mostrarEquipe(equipePesquisada);
-        equipe = equipeDaoImpl.pesquisarPorId(1);
+        System.out.println("pesquisar por id");
+        equipe = equipeDaoImpl.pesquisarEquipePorId(1);
         mostrarEquipe(equipe);
     }
     
@@ -71,13 +71,11 @@ public class EquipeDaoImplTest {
     public void testPesquisarPorNome() throws Exception {
         System.out.println("Pesquisar por nome");
         String nome = "Nome equipe";
-        equipe = equipeDaoImpl.pesquisarPorNome(nome);
-        mostrarEquipe(equipe);        
-        
-       
+        equipe = equipeDaoImpl.pesquisarEquipePorNome(nome);
+        mostrarEquipe(equipe);             
     }
     
-//    
+  
     //metodo auxiliar 
     private void mostrarEquipe(Equipe equipe){
         System.out.println("Id: "+ equipe.getId());
@@ -87,37 +85,6 @@ public class EquipeDaoImplTest {
         System.out.println("Data campeonato: "+ equipe.getCampeonato().getDataCampeonato());
         
     }
-    
-//     public Equipe buscarEquipeBD() throws SQLException{
-//        String sql = "SELECT * FROM equipe";
-//        Connection conexao = null;
-//        PreparedStatement preparaSql = null;
-//        ResultSet resultado = null;
-//        try {
-//            conexao = FabricaConexao.abrirConexao();
-//             preparaSql= conexao.prepareStatement(sql);
-//            resultado = preparaSql.executeQuery();
-//            
-//            if(resultado.next()){
-//                equipe = new Equipe();
-//                equipe.setId(resultado.getInt("id"));
-//                equipe.setNome(resultado.getString("nome"));
-//                
-//            }else{
-//                testSalvar();
-//            }
-//        } catch (Exception e) {
-//            System.out.println("Erro ao pesquisar buscarEquipe "+ e.getMessage());
-//        }finally{
-//            conexao.close();
-//            preparaSql.close();
-//            resultado.close();
-//        
-//        }
-//        return equipe;
-//    }
-//    
-    
     
     
 }

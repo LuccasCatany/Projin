@@ -5,13 +5,11 @@
  */
 package br.com.projetoIntegrador.dao;
 
-import br.com.projetoIntegrador.entidade.Campeonato;
 import br.com.projetoIntegrador.entidade.Equipe;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  *
@@ -26,24 +24,17 @@ public class EquipeDaoImpl {
     public void salvar(Equipe equipe) throws SQLException{
         String sql = "INSERT INTO equipe(nome, campeonato_id) VALUES(?, ?) ";
         try {
-//            CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
             conexao = FabricaConexao.abrirConexao();
             preparaSql = conexao.prepareStatement(sql);
-            
             preparaSql.setString(1, equipe.getNome());
-            //Campeonato camp = campeonatoDaoImpl.pesquisarPorNome("Zoe cinnabar");
             preparaSql.setInt(2, equipe.getCampeonato().getId());
-            
             preparaSql.executeUpdate();
-
-            
             
         } catch (Exception e) {
             System.out.println("Erro ao salvar a equipe " + e.getMessage());
         }finally{
             conexao.close();
             preparaSql.close();
-//close
         }
     }
 
@@ -82,7 +73,7 @@ public class EquipeDaoImpl {
         }
     }
      
-      public Equipe pesquisarPorId(int id) {
+      public Equipe pesquisarEquipePorId(int id) throws SQLException {
         String sql = "SELECT * FROM equipe WHERE id = ?";
         Equipe equipe = null;
         try {
@@ -94,17 +85,23 @@ public class EquipeDaoImpl {
                 equipe = new Equipe();
                 equipe.setId(id);
                 equipe.setNome(resultado.getString("nome"));
+                equipe.getCampeonato().setId(resultado.getInt("campeonato_id"));
                 
             }
 
         } catch (Exception e) {
             System.out.println("Erro ao pesquisar por id do participante " + e.getMessage());
+        }finally{
+            conexao.close();
+            preparaSql.close();
+            resultado.close();
         }
+        
         return equipe;
     }
      
-    public Equipe pesquisarPorNome(String Nome) {
-        String sql = "SELECT * FROM campeonato WHERE nome LIKE ?";
+    public Equipe pesquisarEquipePorNome(String Nome) throws SQLException {
+        String sql = "SELECT * FROM equipe WHERE nome LIKE ?";
         Equipe equipe = null;
         try {
             conexao = FabricaConexao.abrirConexao();
@@ -115,9 +112,15 @@ public class EquipeDaoImpl {
                 equipe = new Equipe();
                 equipe.setId(resultado.getInt("id"));
                 equipe.setNome(resultado.getString("nome"));
+                equipe.getCampeonato().setId(resultado.getInt("campeonato_id"));
+               
             }
         } catch (Exception e) {
-            System.out.println("Erro ao pesquisar produto por nome de equipe " + e.getMessage());
+            System.out.println("Erro ao pesquisar por nome de equipe " + e.getMessage());
+        }finally{
+            conexao.close();
+            preparaSql.close();
+            resultado.close();
         }
         return equipe;
     }

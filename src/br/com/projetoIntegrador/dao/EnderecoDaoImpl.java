@@ -47,5 +47,60 @@ public class EnderecoDaoImpl {
             System.out.println("Erro ao salvar o endereço " + e.getMessage());
         }
     }
+    
+    
+    public void alterarEnderecoParticipante(Endereco endereco, int id, Connection conexao) {
+        String sql = "UPDATE endereco SET logradouro=?, bairro = ?, cidade = ?, estado = ?, cep = ?, complemento =  WHERE participante_id = ? ";
+        salvar(endereco, id, sql, conexao);
+
+    }
+    
+    public void alterarEnderecoCampeonato(Endereco endereco, int id, Connection conexao) {
+        String sql = "UPDATE endereco SET logradouro=?, bairro = ?, cidade = ?, estado = ?, cep = ?, complemento =  WHERE campeonato_id = ? ";
+        alterar(endereco, id, sql, conexao);
+    }
+    
+    private void alterar(Endereco endereco, int id,String sql, Connection conexao) {
+        PreparedStatement prepararSql;
+        try {
+            prepararSql  = conexao.prepareStatement(sql);
+            prepararSql.setString(1, endereco.getLogradouro());
+            prepararSql.setString(2, endereco.getBairro());
+            prepararSql.setString(3, endereco.getCidade());
+            prepararSql.setString(4, endereco.getEstado());
+            prepararSql.setString(5, endereco.getCep());
+            prepararSql.setString(6, endereco.getComplemento());
+            prepararSql.setInt(7, id);
+            prepararSql.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Erro ao alterar o endereço " + e.getMessage());
+        }
+    }
+    
+    
+     public void excluirEnderecoParticipante(int id, Connection conexao) {
+         String sql = "DELETE FROM endereco WHERE participante_id = ?";
+         excluir( id, sql, conexao);
+    }
+     
+       public void excluirEnderecoCampeonato( int id, Connection conexao) {
+         String sql = "DELETE FROM endereco WHERE campeonato_id = ?";
+         excluir( id, sql, conexao);
+    }
+
+     private void excluir( int id,String sql, Connection conexao){
+        PreparedStatement prepararSql;
+         try {
+             conexao = FabricaConexao.abrirConexao();
+            prepararSql = conexao.prepareStatement(sql);
+            prepararSql.setInt(1, id);
+            prepararSql.executeUpdate();
+            
+         } catch (Exception e) {
+             System.out.println("Erro ao excluir o endereço " + e.getMessage());
+         }
+}
+    
+    
 
 }
