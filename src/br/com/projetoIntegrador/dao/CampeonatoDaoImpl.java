@@ -42,14 +42,12 @@ public class CampeonatoDaoImpl {
         String sql = "UPDATE campeonato SET nome = ?, data = ? WHERE id = ?";
         try {
             conexao = FabricaConexao.abrirConexao();
-            preparaSql = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            preparaSql = conexao.prepareStatement(sql);
             preparaSql.setString(1, campeonato.getNomeCampeonato());
             preparaSql.setDate(2, new Date(campeonato.getDataCampeonato().getTime()));
             preparaSql.setInt(3, campeonato.getId());
             preparaSql.executeUpdate();
-            resultado = preparaSql.getGeneratedKeys();
-            resultado.next();
-            campeonato.setId(resultado.getInt(1));
+           
 
             EnderecoDaoImpl enderecoDaoImpl = new EnderecoDaoImpl();
             enderecoDaoImpl.alterarEnderecoCampeonato(campeonato.getEndereco(), campeonato.getId(), conexao);

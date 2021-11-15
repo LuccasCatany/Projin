@@ -48,29 +48,29 @@ public class CampeonatoDaoImplTest {
     @Test
     public void testeAlterar() throws SQLException{
         System.out.println("Alterar :)");
-        campeonato = campeonatoDaoImpl.pesquisarPorNome("Nome Alterado");
+        campeonato = campeonatoDaoImpl.pesquisarPorNome("Silvio alterado");
         mostrarCampeonatoEndereco(campeonato); // So pra verificar se o endereço esta vindo
-        campeonato.setNomeCampeonato("Nome Alterado Novo");
+        campeonato.setNomeCampeonato("Junior alterado");
         campeonato.setDataCampeonato(new Date());
-        endereco.setLogradouro("Logradouro Alterado");
-        endereco.setBairro("Bairro Alterado");
-        endereco.setEstado("Estado Alterado");
-        endereco.setCidade("Cidade Alterado");
-        endereco.setCep("Cep Alterado");
-        endereco.setComplemento("Complemento Alterado");
-        campeonato.setEndereco(endereco);
+        campeonato.getEndereco().setLogradouro("Logradouro");
+        campeonato.getEndereco().setBairro("Bairro");
+        campeonato.getEndereco().setEstado("Estado");
+        campeonato.getEndereco().setCidade("Cidade");
+        campeonato.getEndereco().setCep("Cep alt");
+        campeonato.getEndereco().setComplemento("Complemento");
                 
         campeonatoDaoImpl.alterar(campeonato);
+        
     }
 
-//    @Test
+    //@Test
     public void testePesquisarPorNome() throws SQLException {
         System.out.println("Pesquisar por nome");
-        campeonato = campeonatoDaoImpl.pesquisarPorNome("Nome Alterado");
+        campeonato = campeonatoDaoImpl.pesquisarPorNome("Nome Qualquer");
         mostrarCampeonatoEndereco(campeonato);
     }
 
-//    @Test
+   // @Test
     public void testeExcluir() {
         System.out.println("Excluir :)");
         int i = 3;

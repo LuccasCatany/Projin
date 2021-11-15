@@ -52,13 +52,13 @@ public class EnderecoDaoImpl {
     }
 
     public void alterarEnderecoParticipante(Endereco endereco, int id, Connection conexao) {
-        String sql = "UPDATE endereco SET logradouro=?, bairro = ?, cidade = ?, estado = ?, cep = ?, complemento =  WHERE participante_id = ? ";
+        String sql = "UPDATE endereco SET logradouro=?, bairro = ?, cidade = ?, estado = ?, cep = ?, complemento = ?  WHERE participante_id = ? ";
         salvar(endereco, id, sql, conexao);
 
     }
 
     public void alterarEnderecoCampeonato(Endereco endereco, int id, Connection conexao) {
-        String sql = "UPDATE endereco SET logradouro=?, bairro = ?, cidade = ?, estado = ?, cep = ?, complemento =  WHERE campeonato_id = ? ";
+        String sql = "UPDATE endereco SET logradouro=?, bairro = ?, cidade = ?, estado = ?, cep = ?, complemento = ?  WHERE campeonato_id = ? ";
         alterar(endereco, id, sql, conexao);
     }
 
@@ -104,14 +104,15 @@ public class EnderecoDaoImpl {
 
     public Endereco pesquisarPorCampeonato(Endereco endereco, int id, Connection conexao) {
         String sql = "SELECT * FROM endereco WHERE campeonato_id = ? ";
-        return pesquisar(endereco, id, sql, conexao);
+        endereco = pesquisar(endereco, id, sql, conexao);
+        return endereco;
       
     }
 
     public Endereco pesquisarPorParticipante(Endereco endereco, int id, Connection conexao) {
         String sql = "SELECT * FROM endereco WHERE participante_id = ? ";
-        return pesquisar(endereco, id, sql, conexao);
-        
+        endereco = pesquisar(endereco, id, sql, conexao);
+        return endereco;
     }
 
     private Endereco pesquisar(Endereco endereco, int id, String sql, Connection conexao) {
