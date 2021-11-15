@@ -102,6 +102,7 @@ public class EnderecoDaoImpl {
         }
     }
 
+    
     public Endereco pesquisarPorCampeonato(Endereco endereco, int id, Connection conexao) {
         String sql = "SELECT * FROM endereco WHERE campeonato_id = ? ";
         endereco = pesquisar(endereco, id, sql, conexao);

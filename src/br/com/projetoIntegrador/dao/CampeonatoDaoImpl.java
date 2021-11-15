@@ -111,24 +111,32 @@ public class CampeonatoDaoImpl {
          return campeonato;
     }
 
-//     public Campeonato pesquisarPorId(int id) {
-//        String sql = "SELECT * FROM campeonato WHERE id = ?";
-//        Campeonato campeonato = null;
-//        try {
-//            conexao = FabricaConexao.abrirConexao();
-//            preparaSql = conexao.prepareStatement(sql);
-//            preparaSql.setInt(1, id);
-//            resultado = preparaSql.executeQuery();
-//            if (resultado.next()) {
-//                campeonato = new Campeonato();
-//                campeonato.setId(id);
-//                campeonato.setNomeCampeonato(resultado.getString("nome"));
-//                campeonato.setDataCampeonato(resultado.getDate("dataCampeonato"));
-//            }
-//
-//        } catch (Exception e) {
-//            System.out.println("Erro ao pesquisar por id do campeonato " + e.getMessage());
-//        }
-//        return campeonato;
-//    }
+     public Campeonato pesquisarPorId(int id) throws SQLException {
+        String sql = "SELECT * FROM campeonato WHERE id = ?";
+        Campeonato campeonato = null;
+        try {
+            conexao = FabricaConexao.abrirConexao();
+            preparaSql = conexao.prepareStatement(sql);
+            preparaSql.setInt(1, id);
+            resultado = preparaSql.executeQuery();
+            if (resultado.next()) {
+                campeonato = new Campeonato();
+                campeonato.setId(id);
+                campeonato.setNomeCampeonato(resultado.getString("nome"));
+                campeonato.setDataCampeonato(resultado.getDate("data"));
+                
+                EnderecoDaoImpl enderecoDaoImpl = new EnderecoDaoImpl();
+                campeonato.setEndereco(enderecoDaoImpl.pesquisarPorCampeonato(campeonato.getEndereco(), campeonato.getId(), conexao));
+                
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro ao pesquisar por id do campeonato " + e.getMessage());
+        } finally {
+            conexao.close();
+            preparaSql.close();
+            resultado.close();
+        }        
+        return campeonato;
+    }
 }
