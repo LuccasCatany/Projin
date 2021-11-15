@@ -12,6 +12,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
+import junit.framework.Assert;
+import static junit.framework.Assert.assertNotNull;
 import org.junit.Test;
 
 
@@ -44,14 +47,14 @@ public class EquipeDaoImplTest {
     } 
     
 //    @Test 
-    public void testeAlterar() throws SQLException {
-        System.out.println("alterar");
-        equipe = equipeDaoImpl.pesquisarEquipePorNome("Lily inamoto Equipe");
-        equipe.setNome("Name alterTest");
-//        equipe.getCampeonato().setId(1); //na verdade essa linha simularia se a pessoa quer trocar o campeonato da equipe
-        equipeDaoImpl.alterar(equipe, 1);
-        mostrarEquipe(equipe);
-    }
+//    public void testeAlterar() throws SQLException {
+//        System.out.println("alterar");
+//        equipe = equipeDaoImpl.pesquisarEquipePorNome("Lily inamoto Equipe");
+//        equipe.setNome("Name alterTest");
+////        equipe.getCampeonato().setId(1); //na verdade essa linha simularia se a pessoa quer trocar o campeonato da equipe
+//        equipeDaoImpl.alterar(equipe, 1);
+//        mostrarEquipe(equipe);
+//    }
     
     //@Test
     public void testExcluir()throws Exception {
@@ -66,14 +69,16 @@ public class EquipeDaoImplTest {
         System.out.println("pesquisar por id");
         equipe = equipeDaoImpl.pesquisarEquipePorId(1);
         mostrarEquipe(equipe);
+        
     }
     
     @Test
     public void testPesquisarPorNome() throws Exception {
         System.out.println("Pesquisar por nome");
-        String nome = "Lily";
-        equipe = equipeDaoImpl.pesquisarEquipePorNome(nome);
-        mostrarEquipe(equipe);             
+        List<Equipe> equipes = equipeDaoImpl.pesquisarEquipePorNome("Lily inamoto Equipe");
+        for (Equipe equipe1 : equipes) {
+            mostrarEquipe(equipe1);
+        }
     }
     
   

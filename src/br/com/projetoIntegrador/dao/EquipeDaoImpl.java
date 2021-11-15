@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -101,27 +103,25 @@ public class EquipeDaoImpl {
         return equipe;
     }
      
-    public Equipe pesquisarEquipePorNome(String nome) throws SQLException {
-        String sql = "SELECT * FROM equipe WHERE nome LIKE '%" + nome + "%'";
-        Equipe equipe = null;
+    public List<Equipe> pesquisarEquipePorNome(String nome) throws SQLException {
+        String sql = "SELECT * FROM equipe WHERE nome LIKE ?";
+        Equipe equipe;
+        List<Equipe> equipes = new ArrayList<>();
         try {
             conexao = FabricaConexao.abrirConexao();
             preparaSql = conexao.prepareStatement(sql);
+            preparaSql.setString(1, "%" + nome + "%");
             resultado = preparaSql.executeQuery();
-            if(resultado.next()){
+            while(resultado.next()){
                 equipe = new Equipe();
                 equipe.setId(resultado.getInt("id"));
                 equipe.setNome(resultado.getString("nome"));
                 equipe.getCampeonato().setId(resultado.getInt("campeonato_id"));
-               
+                equipes.add(equipe);
             }
         } catch (Exception e) {
             System.out.println("Erro ao pesquisar por nome de equipe " + e.getMessage());
-        }finally{
-            conexao.close();
-            preparaSql.close();
-            resultado.close();
         }
-        return equipe;
+        return equipes;
     }
 }
