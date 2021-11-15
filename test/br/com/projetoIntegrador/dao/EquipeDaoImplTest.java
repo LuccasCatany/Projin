@@ -32,7 +32,7 @@ public class EquipeDaoImplTest {
          equipeDaoImpl = new EquipeDaoImpl();
     }
 
-//    @Test 
+//@Test 
     public void testSalvar() throws SQLException {
         System.out.println("salvar");
         equipe = new Equipe(
@@ -40,21 +40,21 @@ public class EquipeDaoImplTest {
         );
         CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
         //pesquisar por nome esta puxando um ID de um campeonato que já existe no banco, By - ice
-        Campeonato camp = campeonatoDaoImpl.pesquisarPorNome("Michelly tadokoro");
+        Campeonato camp = campeonatoDaoImpl.pesquisarPorNome("Junior alterado");
         equipe.setCampeonato(camp);
-        
+        mostrarEquipe(equipe);
         equipeDaoImpl.salvar(equipe);
     } 
     
-//    @Test 
-//    public void testeAlterar() throws SQLException {
-//        System.out.println("alterar");
-//        equipe = equipeDaoImpl.pesquisarEquipePorNome("Lily inamoto Equipe");
-//        equipe.setNome("Name alterTest");
-////        equipe.getCampeonato().setId(1); //na verdade essa linha simularia se a pessoa quer trocar o campeonato da equipe
-//        equipeDaoImpl.alterar(equipe, 1);
-//        mostrarEquipe(equipe);
-//    }
+    //@Test //não funciona ainda, dá muitas voltas 
+    public void testeAlterar() throws SQLException {
+        System.out.println("alterar");
+        equipe = equipeDaoImpl.pesquisarEquipePorIdEquipe(2);
+        equipe.setNome("Name alterTest");
+        equipe.getCampeonato().setId(1); //na verdade essa linha simularia se a pessoa quer trocar o campeonato da equipe
+        equipeDaoImpl.alterar(equipe, 1);
+        mostrarEquipe(equipe);
+    }
     
     //@Test
     public void testExcluir()throws Exception {
@@ -65,17 +65,17 @@ public class EquipeDaoImplTest {
     
     
     //@Test
-    public void testPesquisarPorId() throws Exception {
+    public void testPesquisarEquipePorIdEquipe() throws Exception {
         System.out.println("pesquisar por id");
-        equipe = equipeDaoImpl.pesquisarEquipePorId(1);
+        equipe = equipeDaoImpl.pesquisarEquipePorIdEquipe(1);
         mostrarEquipe(equipe);
         
     }
     
-    @Test
-    public void testPesquisarPorNome() throws Exception {
+    //@Test
+    public void testPesquisarPorNomeEquipe() throws Exception {
         System.out.println("Pesquisar por nome");
-        List<Equipe> equipes = equipeDaoImpl.pesquisarEquipePorNome("Lily inamoto Equipe");
+        List<Equipe> equipes = equipeDaoImpl.pesquisarEquipePorNomeEquipe("Roberto");
         for (Equipe equipe1 : equipes) {
             mostrarEquipe(equipe1);
         }

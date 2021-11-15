@@ -48,8 +48,14 @@ public class EquipeDaoImpl {
                 preparaSql = conexao.prepareStatement(sql);
                 preparaSql.setString(1, equipe.getNome());
                 preparaSql.setInt(2, equipe.getCampeonato().getId());
-                preparaSql.setInt(3, oqueAlterar);
                 preparaSql.executeUpdate();
+                
+                //erro no na linha 55, aparentemente o resultado tá fechando antes ou algo assim
+                CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
+                equipe.setCampeonato(campeonatoDaoImpl.pesquisarPorId(resultado.getInt("campeonato_id")));
+                
+                
+                
                 
             } catch (Exception e) {
                  System.out.println("Erro ao alterar equipe " + e.getMessage());
@@ -76,7 +82,7 @@ public class EquipeDaoImpl {
         }
     }
      
-      public Equipe pesquisarEquipePorId(int id) throws SQLException {
+      public Equipe pesquisarEquipePorIdEquipe(int id) throws SQLException {
         String sql = "SELECT * FROM equipe WHERE id = ?";
         Equipe equipe = null;
         try {
@@ -88,7 +94,9 @@ public class EquipeDaoImpl {
                 equipe = new Equipe();
                 equipe.setId(id);
                 equipe.setNome(resultado.getString("nome"));
-                equipe.getCampeonato().setId(resultado.getInt("campeonato_id"));
+                
+                CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
+                equipe.setCampeonato(campeonatoDaoImpl.pesquisarPorId(resultado.getInt("campeonato_id")));
                 
             }
 
@@ -103,7 +111,7 @@ public class EquipeDaoImpl {
         return equipe;
     }
      
-    public List<Equipe> pesquisarEquipePorNome(String nome) throws SQLException {
+    public List<Equipe> pesquisarEquipePorNomeEquipe(String nome) throws SQLException {
         String sql = "SELECT * FROM equipe WHERE nome LIKE ?";
         Equipe equipe;
         List<Equipe> equipes = new ArrayList<>();
@@ -116,7 +124,11 @@ public class EquipeDaoImpl {
                 equipe = new Equipe();
                 equipe.setId(resultado.getInt("id"));
                 equipe.setNome(resultado.getString("nome"));
-                equipe.getCampeonato().setId(resultado.getInt("campeonato_id"));
+                
+                CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
+                equipe.setCampeonato(campeonatoDaoImpl.pesquisarPorId(resultado.getInt("campeonato_id")));
+                
+                
                 equipes.add(equipe);
             }
         } catch (Exception e) {
