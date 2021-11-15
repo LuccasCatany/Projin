@@ -20,6 +20,7 @@ public class CampeonatoDaoImplTest {
 
     private CampeonatoDaoImpl campeonatoDaoImpl;
     private Campeonato campeonato;
+    private Endereco endereco;
 
     public CampeonatoDaoImplTest() {
         campeonatoDaoImpl = new CampeonatoDaoImpl();
@@ -33,7 +34,7 @@ public class CampeonatoDaoImplTest {
                 new Date()
         );
         Endereco endereco = new Endereco(GeradorUtil.gerarLogradouro(),
-                GeradorUtil.gerarBairro(),  
+                GeradorUtil.gerarBairro(),
                 GeradorUtil.gerarCidade(),
                 GeradorUtil.gerarEstado(),
                 GeradorUtil.gerarCep(),
@@ -41,48 +42,51 @@ public class CampeonatoDaoImplTest {
         );
         campeonato.setEndereco(endereco);
         campeonatoDaoImpl.salvar(campeonato);
-        
-        
+
     }
-    
-      //@Test
-    public void testeAlterar() throws SQLException {
+
+    @Test
+    public void testeAlterar() throws SQLException{
         System.out.println("Alterar :)");
-        campeonato = new Campeonato(
-                "Nome alterado", new Date()
-        );
-      
+        campeonato = campeonatoDaoImpl.pesquisarPorNome("Nome Alterado");
+        mostrarCampeonatoEndereco(campeonato); // So pra verificar se o endereço esta vindo
+        campeonato.setNomeCampeonato("Nome Alterado Novo");
+        campeonato.setDataCampeonato(new Date());
+        endereco.setLogradouro("Logradouro Alterado");
+        endereco.setBairro("Bairro Alterado");
+        endereco.setEstado("Estado Alterado");
+        endereco.setCidade("Cidade Alterado");
+        endereco.setCep("Cep Alterado");
+        endereco.setComplemento("Complemento Alterado");
+        campeonato.setEndereco(endereco);
+                
         campeonatoDaoImpl.alterar(campeonato);
     }
-    
-    //@Test
-    public void testePesquisarPorNome() throws SQLException{
-        System.out.println("Pesquisar por nome >w<");
-        campeonato = campeonatoDaoImpl.pesquisarPorNome("Lily sasamura");
+
+//    @Test
+    public void testePesquisarPorNome() throws SQLException {
+        System.out.println("Pesquisar por nome");
+        campeonato = campeonatoDaoImpl.pesquisarPorNome("Nome Alterado");
         mostrarCampeonatoEndereco(campeonato);
     }
-    
-    
+
 //    @Test
     public void testeExcluir() {
         System.out.println("Excluir :)");
         int i = 3;
         campeonatoDaoImpl.excluir(i);
     }
-    
-    
-    public void mostrarCampeonatoEndereco(Campeonato campeonato){
-	System.out.println("ID " + campeonato.getId());
+
+    public void mostrarCampeonatoEndereco(Campeonato campeonato) {
+        System.out.println("ID " + campeonato.getId());
         System.out.println("Nome " + campeonato.getNomeCampeonato());
         System.out.println("Data " + campeonato.getDataCampeonato());
-	System.out.println("Logradouro " + campeonato.getEndereco().getLogradouro());
+        System.out.println("Logradouro " + campeonato.getEndereco().getLogradouro());
         System.out.println("Bairro " + campeonato.getEndereco().getBairro());
         System.out.println("Cidade " + campeonato.getEndereco().getCidade());
         System.out.println("Estado " + campeonato.getEndereco().getEstado());
         System.out.println("Cep " + campeonato.getEndereco().getCep());
         System.out.println("Complemento " + campeonato.getEndereco().getComplemento());
-	}
-    
-    
-    
+    }
+
 }

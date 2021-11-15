@@ -26,7 +26,7 @@ public class ParticipanteDaoImplTest {
         participanteDaoImpl = new ParticipanteDaoImpl();
     }
 
-    @Test
+//    @Test
     public void testSalvar() throws SQLException {
         System.out.println("salvar");
         Equipe equipe = new Equipe();
@@ -56,8 +56,26 @@ public class ParticipanteDaoImplTest {
 
     }
 
-    private Equipe pesquisarEquipeDb() {
-        return null;
+    
+    @Test
+    public void testePesquisarPorNome() throws SQLException {
+        System.out.println("Pesquisar por nome");
+        participante = participanteDaoImpl.pesquisarPorNome("Roberto satsuki");
+        mostrarParticipanteEndereco(participante);
     }
-    //TODO Test do CRUD
+
+    public void mostrarParticipanteEndereco(Participante participante) {
+        System.out.println("ID " + participante.getId());
+        System.out.println("Nome " + participante.getNome());
+        System.out.println("Cpf " + participante.getCpf());
+        System.out.println("Telefone " + participante.getTelefone());
+        System.out.println("Data Nascimento " + participante.getNascimento());
+        System.out.println("Logradouro " + participante.getEndereco().getLogradouro());
+        System.out.println("Bairro " + participante.getEndereco().getBairro());
+        System.out.println("Cidade " + participante.getEndereco().getCidade());
+        System.out.println("Estado " + participante.getEndereco().getEstado());
+        System.out.println("Cep " + participante.getEndereco().getCep());
+        System.out.println("Complemento " + participante.getEndereco().getComplemento());
+    }
+
 }

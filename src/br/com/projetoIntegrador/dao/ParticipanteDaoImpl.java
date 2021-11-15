@@ -16,7 +16,7 @@ public class ParticipanteDaoImpl {
 
     //TODO CRUD ( Salvar, Pesquisar por id/nome , Alterar, Excluir)
     public void salvar(Participante participante) throws SQLException {
-        String sql = "INSERT INTO participante(nome, cpf, telefone, dataNascimnto, Equipe_id) VALUES(?, ?, ?, ?, ?) ";
+        String sql = "INSERT INTO participante(nome, cpf, telefone, dataNascimento, Equipe_id) VALUES(?, ?, ?, ?, ?) ";
         try {
             conexao = FabricaConexao.abrirConexao();
             preparaSql = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -52,6 +52,39 @@ public class ParticipanteDaoImpl {
         } catch (Exception e) {
             System.out.println("Erro ao excluir o participante" + e.getMessage());
         }
+    }
+    
+    public Participante pesquisarPorNome(String nome) throws SQLException{
+        String sql = "SELECT * FROM participante WHERE nome LIKE ?";
+        Participante participante = new Participante();
+
+        try {
+            conexao = FabricaConexao.abrirConexao();
+            preparaSql = conexao.prepareStatement(sql);
+            preparaSql.setString(1, nome);
+            resultado = preparaSql.executeQuery();
+            
+            if (resultado.next()) {
+                participante.setId(resultado.getInt("id"));
+                participante.setNome(resultado.getString("nome"));
+                participante.setCpf(resultado.getString("cpf"));
+                participante.setTelefone(resultado.getString("telefone"));
+	  	participante.setNascimento(resultado.getDate("dataNascimento"));
+	  
+                EnderecoDaoImpl enderecoDaoImpl = new EnderecoDaoImpl();
+                participante.setEndereco(enderecoDaoImpl.pesquisarPorParticipante(participante.getEndereco(), participante.getId(), conexao));
+
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro ao pesquisar participante por nome " + e.getMessage());
+       
+         } finally {
+            conexao.close();
+            preparaSql.close();
+            resultado.close();
+        }
+         return participante;
     }
 
 //        public Participante pesquisarPorId(int id) {
