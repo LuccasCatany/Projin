@@ -9,7 +9,6 @@ public class Campeonato {
     private String nomeCampeonato;
     private Date dataCampeonato;
     
-    private boolean ativo;
     private Endereco endereco;
     
     public Campeonato() {

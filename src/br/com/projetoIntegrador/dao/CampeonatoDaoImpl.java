@@ -82,7 +82,6 @@ public class CampeonatoDaoImpl {
         }
     }
 
-    //Falta arrumar os pesquisar
     public Campeonato pesquisarPorNome(String nome) throws SQLException{
         String sql = "SELECT * FROM campeonato WHERE nome LIKE ?";
         Campeonato campeonato = new Campeonato();
