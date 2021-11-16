@@ -8,13 +8,8 @@ package br.com.projetoIntegrador.dao;
 import br.com.projetoIntegrador.entidade.Campeonato;
 import br.com.projetoIntegrador.entidade.Equipe;
 import br.com.projetoIntegrador.util.GeradorUtil;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import junit.framework.Assert;
-import static junit.framework.Assert.assertNotNull;
 import org.junit.Test;
 
 
@@ -45,13 +40,16 @@ public class EquipeDaoImplTest {
         equipeDaoImpl.salvar(equipe);
     } 
     
-    @Test //não funciona ainda, dá muitas voltas 
+    @Test 
     public void testeAlterar() throws SQLException {
         System.out.println("alterar");
-        equipe = equipeDaoImpl.pesquisarEquipePorIdEquipe(2);
-        equipe.setNome("Cinnabar alterTest");
-//        equipe.getCampeonato().setId(2); //na verdade essa linha simularia se a pessoa quer trocar o campeonato da equipe
-        equipeDaoImpl.alterar(equipe, 2);
+        equipe = equipeDaoImpl.pesquisarEquipePorIdEquipe(1);
+        equipe.setNome("Equipe testAlter");
+        equipe.getCampeonato().setId(9);
+        //CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
+       // int idCampeonatoAtual = campeonatoDaoImpl.pesquisarPorId(equipe.getCampeonato().getId());
+                
+        equipeDaoImpl.alterar(equipe);
         mostrarEquipe(equipe);
     }
     

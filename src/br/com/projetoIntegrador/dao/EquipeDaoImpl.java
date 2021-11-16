@@ -41,20 +41,20 @@ public class EquipeDaoImpl {
     }
 
     
-    public void alterar(Equipe equipe, int oqueAlterar) throws SQLException{
+    public void alterar(Equipe equipe) throws SQLException{
             String sql = "UPDATE equipe SET nome = ?, campeonato_id = ? WHERE id = ?";
             try {
-                int idCampeonatoAtual = equipe.getCampeonato().getId();
                 
                 conexao = FabricaConexao.abrirConexao();
                 preparaSql = conexao.prepareStatement(sql);
                 preparaSql.setString(1, equipe.getNome());
                 
                 CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
-                equipe.setCampeonato(campeonatoDaoImpl.pesquisarPorId(3));
+                equipe.setCampeonato(campeonatoDaoImpl.pesquisarPorId(equipe.getCampeonato().getId()));
                 
                 preparaSql.setInt(2, equipe.getCampeonato().getId());
-                preparaSql.setInt(3, idCampeonatoAtual);
+                preparaSql.setInt(3, equipe.getId());
+                
                 preparaSql.executeUpdate();
                 
                 //Lembrando que na interface grafica a gente vai ter que expecificar
@@ -62,6 +62,13 @@ public class EquipeDaoImpl {
                 //ou seja, nesse alterar ele sempre muda o nome e o campeonato
                 //mas tera vezes que a pessoa so irá querer mudar uma parte, Obs: trabalhar nisso na quarta
                 
+                //Entao ali na equipe ta chegando o nome alterado mais o id do campeonato que 
+                //passei no teste, ai eu mando o nome alterado pro preparaSql e o campeonato_id
+                //alterado que chega ali eu pesquiso na tabela campeonato, me retorna todo o campeonato
+                //que corresponde a aquele id e ai sim eu mando o id do campeonato pro preparaSql pra
+                //mandar pra tabela equipe. Todo esse caminho vai acontecer mesmo que a pessoa não altere o campeonato
+                // daquela equipe, quando fizer a interface grafica a pessoa vai ter uma lista de campeonatos já 
+                //cadastrados pra selecionar, essa lista vai me retornar o campeonato_id do selecionado, o que chega aqui atraves da equipe-maria
                 
                 
                 
