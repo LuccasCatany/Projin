@@ -39,43 +39,41 @@ public class EquipeDaoImplTest {
                 GeradorUtil.gerarNome() + " Equipe"
         );
         CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
-        //pesquisar por nome esta puxando um ID de um campeonato que já existe no banco, By - ice
-        Campeonato camp = campeonatoDaoImpl.pesquisarPorNome("Junior alterado");
+        Campeonato camp = campeonatoDaoImpl.pesquisarPorNome("Tomori aihara");
         equipe.setCampeonato(camp);
         mostrarEquipe(equipe);
         equipeDaoImpl.salvar(equipe);
     } 
     
-    //@Test //não funciona ainda, dá muitas voltas 
+    @Test //não funciona ainda, dá muitas voltas 
     public void testeAlterar() throws SQLException {
         System.out.println("alterar");
         equipe = equipeDaoImpl.pesquisarEquipePorIdEquipe(2);
-        equipe.setNome("Name alterTest");
-        equipe.getCampeonato().setId(1); //na verdade essa linha simularia se a pessoa quer trocar o campeonato da equipe
-        equipeDaoImpl.alterar(equipe, 1);
+        equipe.setNome("Cinnabar alterTest");
+//        equipe.getCampeonato().setId(2); //na verdade essa linha simularia se a pessoa quer trocar o campeonato da equipe
+        equipeDaoImpl.alterar(equipe, 2);
         mostrarEquipe(equipe);
     }
     
-    //@Test
+//    @Test
     public void testExcluir()throws Exception {
         System.out.println("excluir");
-        mostrarEquipe(equipe);
-        equipeDaoImpl.excluir(1);
+        equipeDaoImpl.excluir(3);
     }
     
     
-    //@Test
+//    @Test
     public void testPesquisarEquipePorIdEquipe() throws Exception {
         System.out.println("pesquisar por id");
-        equipe = equipeDaoImpl.pesquisarEquipePorIdEquipe(1);
+        equipe = equipeDaoImpl.pesquisarEquipePorIdEquipe(4);
         mostrarEquipe(equipe);
         
     }
     
-    //@Test
+//    @Test
     public void testPesquisarPorNomeEquipe() throws Exception {
         System.out.println("Pesquisar por nome");
-        List<Equipe> equipes = equipeDaoImpl.pesquisarEquipePorNomeEquipe("Roberto");
+        List<Equipe> equipes = equipeDaoImpl.pesquisarEquipePorNomeEquipe("Tomori azuma Equipe");
         for (Equipe equipe1 : equipes) {
             mostrarEquipe(equipe1);
         }
@@ -89,6 +87,7 @@ public class EquipeDaoImplTest {
         System.out.println("Id do campeonato: "+ equipe.getCampeonato().getId());
         System.out.println("Nome campeonato: "+ equipe.getCampeonato().getNomeCampeonato());
         System.out.println("Data campeonato: "+ equipe.getCampeonato().getDataCampeonato());
+        System.out.println("");
         
     }
     

@@ -42,17 +42,25 @@ public class EquipeDaoImpl {
 
     
     public void alterar(Equipe equipe, int oqueAlterar) throws SQLException{
-            String sql = "UPDATE equipe SET nome = ? WHERE id = ?";
+            String sql = "UPDATE equipe SET nome = ?, campeonato_id = ? WHERE id = ?";
             try {
+                int idCampeonatoAtual = equipe.getCampeonato().getId();
+                
                 conexao = FabricaConexao.abrirConexao();
                 preparaSql = conexao.prepareStatement(sql);
                 preparaSql.setString(1, equipe.getNome());
+                
+                CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
+                equipe.setCampeonato(campeonatoDaoImpl.pesquisarPorId(3));
+                
                 preparaSql.setInt(2, equipe.getCampeonato().getId());
+                preparaSql.setInt(3, idCampeonatoAtual);
                 preparaSql.executeUpdate();
                 
-                //erro no na linha 55, aparentemente o resultado tá fechando antes ou algo assim
-                CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
-                equipe.setCampeonato(campeonatoDaoImpl.pesquisarPorId(resultado.getInt("campeonato_id")));
+                //Lembrando que na interface grafica a gente vai ter que expecificar
+                //oqeu a gente quer mudar e oque a gente não quer mudar
+                //ou seja, nesse alterar ele sempre muda o nome e o campeonato
+                //mas tera vezes que a pessoa so irá querer mudar uma parte, Obs: trabalhar nisso na quarta
                 
                 
                 
@@ -127,7 +135,6 @@ public class EquipeDaoImpl {
                 
                 CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
                 equipe.setCampeonato(campeonatoDaoImpl.pesquisarPorId(resultado.getInt("campeonato_id")));
-                
                 
                 equipes.add(equipe);
             }
