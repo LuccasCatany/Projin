@@ -154,7 +154,7 @@ public class EquipeDaoImpl {
                 equipe.setNome(resultado.getString("nome"));
                 
                 CampeonatoDaoImpl campeonatoDaoImpl= new CampeonatoDaoImpl();
-                equipe.setCampeonato(campeonatoDaoImpl.pesquisarPorNome(equipe.getCampeonato().getNomeCampeonato()));
+                equipe.setCampeonato(campeonatoDaoImpl.pesquisarPorId(id));
                 equipes.add(equipe);
             }
             

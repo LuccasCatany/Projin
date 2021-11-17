@@ -77,10 +77,10 @@ public class EquipeDaoImplTest {
         }
     }
     
-           @Test
+//           @Test
     public void testePesuisarCampeonatos() throws SQLException {
         System.out.println("Pesquisar por Equipes");
-        
+
         CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
         campeonato = campeonatoDaoImpl.pesquisarPorNome("Tomori matsuri");
         int id = campeonato.getId();
