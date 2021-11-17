@@ -10,6 +10,7 @@ import br.com.projetoIntegrador.entidade.Endereco;
 import br.com.projetoIntegrador.util.GeradorUtil;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 import org.junit.Test;
 
 /**
@@ -90,6 +91,17 @@ public class CampeonatoDaoImplTest {
         int i = 1;
         campeonatoDaoImpl.excluir(i);
     }
+    
+       @Test
+    public void testePesuisarCampeonatos() {
+        System.out.println("Pesquisar por campeonatos");
+        List<Campeonato> campeonatos = campeonatoDaoImpl.pesquisarCampeonatos(campeonato);
+        for(Campeonato camp : campeonatos) {
+            mostrarCampeonatoEndereco(camp);
+        }
+        
+        
+    }
 
     public void mostrarCampeonatoEndereco(Campeonato campeonato) {
         System.out.println("ID " + campeonato.getId());
@@ -100,7 +112,7 @@ public class CampeonatoDaoImplTest {
         System.out.println("Cidade " + campeonato.getEndereco().getCidade());
         System.out.println("Estado " + campeonato.getEndereco().getEstado());
         System.out.println("Cep " + campeonato.getEndereco().getCep());
-        System.out.println("Complemento " + campeonato.getEndereco().getComplemento());
+        System.out.println("Complemento \n\n" + campeonato.getEndereco().getComplemento());
     }
 
 }

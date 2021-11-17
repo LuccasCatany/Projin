@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CampeonatoDaoImpl {
 
@@ -104,6 +106,33 @@ public class CampeonatoDaoImpl {
         }
         return campeonato;
     }
+    
+    public List<Campeonato> pesquisarCampeonatos(Campeonato campeonato){
+        String sql = "SELECT * FROM campeonato";
+        List<Campeonato> campeonatos = new ArrayList<>();
+        try {
+            conexao = FabricaConexao.abrirConexao();
+            preparaSql = conexao.prepareStatement(sql);
+            resultado = preparaSql.executeQuery();
+            
+             while(resultado.next()){
+                campeonato = new Campeonato();
+                campeonato.setId(resultado.getInt("id"));
+                campeonato.setNomeCampeonato(resultado.getString("nome"));
+                campeonato.setDataCampeonato(resultado.getDate("data"));
+                
+                EnderecoDaoImpl enderecoDaoImpl = new EnderecoDaoImpl();
+                campeonato.setEndereco(enderecoDaoImpl.pesquisarPorCampeonato(campeonato.getEndereco(), campeonato.getId(), conexao));
+                campeonatos.add(campeonato);
+            }
+            
+        } catch (Exception e) {
+            System.out.println("Erro ao pesquisar por campeonatos " + e.getMessage());
+        }
+        return campeonatos;
+    }
+    
+    
 
     public Campeonato pesquisarPorId(int id) throws SQLException {
         String sql = "SELECT * FROM campeonato WHERE id = ?";
