@@ -34,7 +34,7 @@ public class EquipeDaoImplTest {
                 GeradorUtil.gerarNome() + " Equipe"
         );
         CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
-        Campeonato camp = campeonatoDaoImpl.pesquisarPorNome("Tomori matsuri");
+        Campeonato camp = campeonatoDaoImpl.pesquisarPorNome("Yuzu ulysses");
         equipe.setCampeonato(camp);
         mostrarEquipe(equipe);
         equipeDaoImpl.salvar(equipe);

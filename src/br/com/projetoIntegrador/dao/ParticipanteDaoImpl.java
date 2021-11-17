@@ -123,7 +123,7 @@ public class ParticipanteDaoImpl {
     }
 
     public List<Participante> pesquisarParticipantesDaEquipe(int id) throws SQLException {
-        String sql = "SELECT * FROM participante WHERE id = ?";
+        String sql = "SELECT * FROM participante WHERE equipe_id = ?";
         List<Participante> participantes = new ArrayList<>();
 
         try {
@@ -134,7 +134,6 @@ public class ParticipanteDaoImpl {
             resultado = preparaSql.executeQuery();
 
             while (resultado.next()) {
-
                 Participante participante = new Participante();
                 participante.setId(resultado.getInt("id"));
                 participante.setNome(resultado.getString("nome"));
@@ -144,7 +143,11 @@ public class ParticipanteDaoImpl {
 
                 EquipeDaoImpl equipeDaoImpl = new EquipeDaoImpl();
                 participante.setEquipe(equipeDaoImpl.pesquisarEquipePorIdEquipe(id));
-
+                
+                EnderecoDaoImpl enderecoDaoImpl = new EnderecoDaoImpl();
+                participante.setEndereco(enderecoDaoImpl.pesquisarPorParticipante(participante.getEndereco(), participante.getId(), conexao));
+                
+                participantes.add(participante);
             }
         } catch (Exception e) {
             System.out.println("Erro ao pesquisar participantes da equipe" + e);

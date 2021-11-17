@@ -30,7 +30,6 @@ public class ParticipanteDaoImplTest {
 //    @Test
     public void testSalvar() throws SQLException {
         System.out.println("salvar");
-        
 
         participante = new Participante(
                 GeradorUtil.gerarNome(),
@@ -47,14 +46,14 @@ public class ParticipanteDaoImplTest {
                 "Teste do ice"
         );
         EquipeDaoImpl equipeDaoImpl = new EquipeDaoImpl();
-        
+
         participante.setEquipe(equipeDaoImpl.pesquisarEquipePorIdEquipe(1));
-        
+
         participante.setEndereco(endereco);
 //        participante.setEquipe(equipe);
         participanteDaoImpl.salvar(participante);
     }
-    
+
 //      @Test
     public void testeAlterar() throws SQLException {
         System.out.println("Alterar :)");
@@ -64,7 +63,7 @@ public class ParticipanteDaoImplTest {
         participante.setCpf(GeradorUtil.gerarCpf());
         participante.setTelefone(GeradorUtil.gerarTelefone());
         participante.setNascimento(new Date());
-        
+
         participante.getEndereco().setLogradouro("Logradouro");
         participante.getEndereco().setBairro("Bairro");
         participante.getEndereco().setEstado("Estado");
@@ -72,13 +71,10 @@ public class ParticipanteDaoImplTest {
         participante.getEndereco().setCep("Cep alt");
         participante.getEndereco().setComplemento("Complemento");
 
-        
         participante.getEquipe().setId(2);
         participanteDaoImpl.alterar(participante);
-        
-        
 
-        }
+    }
 
 //       @Test
     public void testeExcluir() {
@@ -87,8 +83,7 @@ public class ParticipanteDaoImplTest {
         participanteDaoImpl.excluir(i);
     }
 
-    
- //   @Test
+    //   @Test
     public void testePesquisarPorNome() throws SQLException {
         System.out.println("Pesquisar por nome");
         participante = participanteDaoImpl.pesquisarPorNome("Roberto satsuki");
@@ -107,17 +102,18 @@ public class ParticipanteDaoImplTest {
         System.out.println("Estado " + participante.getEndereco().getEstado());
         System.out.println("Cep " + participante.getEndereco().getCep());
         System.out.println("Complemento " + participante.getEndereco().getComplemento());
-        System.out.println("Nome da Equipe " + participante.getEquipe().getNome());
-        
+        System.out.println("Nome da Equipe " + participante.getEquipe().getNome() + "\n");
     }
 
     @Test
-    public void pesquisarParticipantesDaEquipe() throws SQLException{
+    public void pesquisarParticipantesDaEquipe() throws SQLException {
         System.out.println("Pesquisar participantes da equipe ");
-        
-        List<Participante> participantes = participanteDaoImpl.pesquisarParticipantesDaEquipe(2);
-        System.out.println();
-        
+
+        List<Participante> participantes = participanteDaoImpl.pesquisarParticipantesDaEquipe(1);
+
+        for (Participante participante1 : participantes) {
+            mostrarParticipanteEndereco(participante1);
+        }
+
     }
-    
 }
