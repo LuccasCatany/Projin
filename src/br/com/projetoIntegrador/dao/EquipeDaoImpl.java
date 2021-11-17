@@ -57,21 +57,6 @@ public class EquipeDaoImpl {
                 
                 preparaSql.executeUpdate();
                 
-                //Lembrando que na interface grafica a gente vai ter que expecificar
-                //oqeu a gente quer mudar e oque a gente não quer mudar
-                //ou seja, nesse alterar ele sempre muda o nome e o campeonato
-                //mas tera vezes que a pessoa so irá querer mudar uma parte, Obs: trabalhar nisso na quarta
-                
-                //Entao ali na equipe ta chegando o nome alterado mais o id do campeonato que 
-                //passei no teste, ai eu mando o nome alterado pro preparaSql e o campeonato_id
-                //alterado que chega ali eu pesquiso na tabela campeonato, me retorna todo o campeonato
-                //que corresponde a aquele id e ai sim eu mando o id do campeonato pro preparaSql pra
-                //mandar pra tabela equipe. Todo esse caminho vai acontecer mesmo que a pessoa não altere o campeonato
-                // daquela equipe, quando fizer a interface grafica a pessoa vai ter uma lista de campeonatos já 
-                //cadastrados pra selecionar, essa lista vai me retornar o campeonato_id do selecionado, o que chega aqui atraves da equipe-maria
-                
-                
-                
             } catch (Exception e) {
                  System.out.println("Erro ao alterar equipe " + e.getMessage());
             }finally{
@@ -152,4 +137,33 @@ public class EquipeDaoImpl {
         }
         return equipes;
     }
+    
+    
+    public List<Equipe> pesquisarEquipes (Equipe equipe, int id){
+        String sql = "SELECT * FROM equipe WHERE campeonato_id = ?";
+        List<Equipe> equipes = new ArrayList<>();
+        try {
+            conexao = FabricaConexao.abrirConexao();
+            preparaSql = conexao.prepareStatement(sql);
+	    preparaSql.setInt(1, id);
+            resultado = preparaSql.executeQuery();
+            
+             while(resultado.next()){
+                equipe = new Equipe();
+                equipe.setId(resultado.getInt("id"));
+                equipe.setNome(resultado.getString("nome"));
+                
+                CampeonatoDaoImpl campeonatoDaoImpl= new CampeonatoDaoImpl();
+                equipe.setCampeonato(campeonatoDaoImpl.pesquisarPorNome(equipe.getCampeonato().getNomeCampeonato()));
+                equipes.add(equipe);
+            }
+            
+        } catch (Exception e) {
+            System.out.println("Erro ao pesquisar por equipes " + e.getMessage());
+        }
+        return equipes;
+    }
+    
+    
+    
 }
