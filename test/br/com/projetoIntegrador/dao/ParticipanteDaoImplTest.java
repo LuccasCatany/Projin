@@ -12,6 +12,7 @@ import br.com.projetoIntegrador.util.GeradorUtil;
 import java.sql.SQLException;
 import org.junit.Test;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -110,4 +111,13 @@ public class ParticipanteDaoImplTest {
         
     }
 
+    @Test
+    public void pesquisarParticipantesDaEquipe() throws SQLException{
+        System.out.println("Pesquisar participantes da equipe ");
+        
+        List<Participante> participantes = participanteDaoImpl.pesquisarParticipantesDaEquipe(2);
+        System.out.println();
+        
+    }
+    
 }

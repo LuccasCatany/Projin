@@ -135,7 +135,9 @@ public class EquipeDaoImpl {
             preparaSql = conexao.prepareStatement(sql);
             preparaSql.setString(1, "%" + nome + "%");
             resultado = preparaSql.executeQuery();
+            
             while(resultado.next()){
+                
                 equipe = new Equipe();
                 equipe.setId(resultado.getInt("id"));
                 equipe.setNome(resultado.getString("nome"));

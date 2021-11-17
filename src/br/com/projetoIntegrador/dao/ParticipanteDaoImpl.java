@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ParticipanteDaoImpl {
 
@@ -120,4 +122,38 @@ public class ParticipanteDaoImpl {
         }
     }
 
+    public List<Participante> pesquisarParticipantesDaEquipe(int id) throws SQLException {
+        String sql = "SELECT * FROM participante WHERE id = ?";
+        List<Participante> participantes = new ArrayList<>();
+
+        try {
+
+            conexao = FabricaConexao.abrirConexao();
+            preparaSql = conexao.prepareStatement(sql);
+            preparaSql.setInt(1, id);
+            resultado = preparaSql.executeQuery();
+
+            while (resultado.next()) {
+
+                Participante participante = new Participante();
+                participante.setId(resultado.getInt("id"));
+                participante.setNome(resultado.getString("nome"));
+                participante.setCpf(resultado.getString("cpf"));
+                participante.setTelefone(resultado.getString("telefone"));
+                participante.setNascimento(resultado.getDate("dataNascimento"));
+
+                EquipeDaoImpl equipeDaoImpl = new EquipeDaoImpl();
+                participante.setEquipe(equipeDaoImpl.pesquisarEquipePorIdEquipe(id));
+
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao pesquisar participantes da equipe" + e);
+            
+        } finally {
+            conexao.close();
+            preparaSql.close();
+            resultado.close();
+        }
+        return participantes;
+    }
 }
