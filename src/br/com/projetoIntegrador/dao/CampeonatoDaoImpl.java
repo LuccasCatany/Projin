@@ -47,7 +47,6 @@ public class CampeonatoDaoImpl {
             preparaSql.setDate(2, new Date(campeonato.getDataCampeonato().getTime()));
             preparaSql.setInt(3, campeonato.getId());
             preparaSql.executeUpdate();
-           
 
             EnderecoDaoImpl enderecoDaoImpl = new EnderecoDaoImpl();
             enderecoDaoImpl.alterarEnderecoCampeonato(campeonato.getEndereco(), campeonato.getId(), conexao);
@@ -64,23 +63,18 @@ public class CampeonatoDaoImpl {
         String sql = "DELETE FROM campeonato WHERE id = ?";
         try {
             conexao = FabricaConexao.abrirConexao();
-            preparaSql = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            preparaSql = conexao.prepareStatement(sql);
             preparaSql.setInt(1, id);
-            preparaSql.executeUpdate();
-
-            resultado = preparaSql.getGeneratedKeys();
-            resultado.next();
-            id = resultado.getInt(1);//tenho serias duvidas se isso ta certo
 
             EnderecoDaoImpl enderecoDaoImpl = new EnderecoDaoImpl();
             enderecoDaoImpl.excluirEnderecoCampeonato(id, conexao);
-
+            preparaSql.executeUpdate();
         } catch (Exception e) {
             System.out.println("Erro ao excluir o campeonato" + e.getMessage());
         }
     }
 
-    public Campeonato pesquisarPorNome(String nome) throws SQLException{
+    public Campeonato pesquisarPorNome(String nome) throws SQLException {
         String sql = "SELECT * FROM campeonato WHERE nome LIKE ?";
         Campeonato campeonato = new Campeonato();
 
@@ -89,12 +83,12 @@ public class CampeonatoDaoImpl {
             preparaSql = conexao.prepareStatement(sql);
             preparaSql.setString(1, nome);
             resultado = preparaSql.executeQuery();
-            
+
             if (resultado.next()) {
                 campeonato.setId(resultado.getInt("id"));
                 campeonato.setNomeCampeonato(resultado.getString("nome"));
                 campeonato.setDataCampeonato(resultado.getDate("data"));
-                
+
                 EnderecoDaoImpl enderecoDaoImpl = new EnderecoDaoImpl();
                 campeonato.setEndereco(enderecoDaoImpl.pesquisarPorCampeonato(campeonato.getEndereco(), campeonato.getId(), conexao));
 
@@ -102,16 +96,16 @@ public class CampeonatoDaoImpl {
 
         } catch (Exception e) {
             System.out.println("Erro ao pesquisar campeonato por nome " + e.getMessage());
-       
-         } finally {
+
+        } finally {
             conexao.close();
             preparaSql.close();
             resultado.close();
         }
-         return campeonato;
+        return campeonato;
     }
 
-     public Campeonato pesquisarPorId(int id) throws SQLException {
+    public Campeonato pesquisarPorId(int id) throws SQLException {
         String sql = "SELECT * FROM campeonato WHERE id = ?";
         Campeonato campeonato = null;
         try {
@@ -124,10 +118,10 @@ public class CampeonatoDaoImpl {
                 campeonato.setId(id);
                 campeonato.setNomeCampeonato(resultado.getString("nome"));
                 campeonato.setDataCampeonato(resultado.getDate("data"));
-                
+
                 EnderecoDaoImpl enderecoDaoImpl = new EnderecoDaoImpl();
                 campeonato.setEndereco(enderecoDaoImpl.pesquisarPorCampeonato(campeonato.getEndereco(), campeonato.getId(), conexao));
-                
+
             }
 
         } catch (Exception e) {
@@ -136,7 +130,7 @@ public class CampeonatoDaoImpl {
             conexao.close();
             preparaSql.close();
             resultado.close();
-        }        
+        }
         return campeonato;
     }
 }

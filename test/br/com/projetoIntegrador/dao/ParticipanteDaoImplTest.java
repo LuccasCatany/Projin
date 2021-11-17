@@ -29,7 +29,7 @@ public class ParticipanteDaoImplTest {
 //    @Test
     public void testSalvar() throws SQLException {
         System.out.println("salvar");
-        Equipe equipe = new Equipe();
+        
 
         participante = new Participante(
                 GeradorUtil.gerarNome(),
@@ -45,19 +45,49 @@ public class ParticipanteDaoImplTest {
                 GeradorUtil.gerarCep(),
                 "Teste do ice"
         );
+        EquipeDaoImpl equipeDaoImpl = new EquipeDaoImpl();
+        
+        participante.setEquipe(equipeDaoImpl.pesquisarEquipePorIdEquipe(1));
+        
         participante.setEndereco(endereco);
 //        participante.setEquipe(equipe);
         participanteDaoImpl.salvar(participante);
     }
+    
+//      @Test
+    public void testeAlterar() throws SQLException {
+        System.out.println("Alterar :)");
+        participante = participanteDaoImpl.pesquisarPorNome("Ankha inamoto");
+        mostrarParticipanteEndereco(participante);
+        participante.setNome("Junior alterado2");
+        participante.setCpf(GeradorUtil.gerarCpf());
+        participante.setTelefone(GeradorUtil.gerarTelefone());
+        participante.setNascimento(new Date());
+        
+        participante.getEndereco().setLogradouro("Logradouro");
+        participante.getEndereco().setBairro("Bairro");
+        participante.getEndereco().setEstado("Estado");
+        participante.getEndereco().setCidade("Cidade");
+        participante.getEndereco().setCep("Cep alt");
+        participante.getEndereco().setComplemento("Complemento");
 
-//    @Test
-    public void testExcluir() {
-        System.out.println("excluir");
+        
+        participante.getEquipe().setId(2);
+        participanteDaoImpl.alterar(participante);
+        
+        
 
+        }
+
+//       @Test
+    public void testeExcluir() {
+        System.out.println("Excluir :)");
+        int i = 1;
+        participanteDaoImpl.excluir(i);
     }
 
     
-    @Test
+ //   @Test
     public void testePesquisarPorNome() throws SQLException {
         System.out.println("Pesquisar por nome");
         participante = participanteDaoImpl.pesquisarPorNome("Roberto satsuki");
@@ -76,6 +106,8 @@ public class ParticipanteDaoImplTest {
         System.out.println("Estado " + participante.getEndereco().getEstado());
         System.out.println("Cep " + participante.getEndereco().getCep());
         System.out.println("Complemento " + participante.getEndereco().getComplemento());
+        System.out.println("Nome da Equipe " + participante.getEquipe().getNome());
+        
     }
 
 }

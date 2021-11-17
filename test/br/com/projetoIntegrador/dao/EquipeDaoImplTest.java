@@ -27,20 +27,20 @@ public class EquipeDaoImplTest {
          equipeDaoImpl = new EquipeDaoImpl();
     }
 
-//@Test 
+@Test 
     public void testSalvar() throws SQLException {
         System.out.println("salvar");
         equipe = new Equipe(
                 GeradorUtil.gerarNome() + " Equipe"
         );
         CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
-        Campeonato camp = campeonatoDaoImpl.pesquisarPorNome("Tomori aihara");
+        Campeonato camp = campeonatoDaoImpl.pesquisarPorNome("Tomori matsuri");
         equipe.setCampeonato(camp);
         mostrarEquipe(equipe);
         equipeDaoImpl.salvar(equipe);
     } 
     
-    @Test 
+//    @Test 
     public void testeAlterar() throws SQLException {
         System.out.println("alterar");
         equipe = equipeDaoImpl.pesquisarEquipePorIdEquipe(1);

@@ -24,7 +24,7 @@ public class ParticipanteDaoImpl {
             preparaSql.setString(2, participante.getCpf());
             preparaSql.setString(3, participante.getTelefone());
             preparaSql.setDate(4, new Date(participante.getNascimento().getTime()));
-            preparaSql.setInt(5, 1);
+            preparaSql.setInt(5, participante.getEquipe().getId());
             preparaSql.executeUpdate();
             resultado = preparaSql.getGeneratedKeys();
             resultado.next();
@@ -48,13 +48,16 @@ public class ParticipanteDaoImpl {
             conexao = FabricaConexao.abrirConexao();
             preparaSql = conexao.prepareStatement(sql);
             preparaSql.setInt(1, id);
+
+            EnderecoDaoImpl enderecoDaoImpl = new EnderecoDaoImpl();
+            enderecoDaoImpl.excluirEnderecoParticipante(id, conexao);
             preparaSql.executeUpdate();
         } catch (Exception e) {
             System.out.println("Erro ao excluir o participante" + e.getMessage());
         }
     }
-    
-    public Participante pesquisarPorNome(String nome) throws SQLException{
+
+    public Participante pesquisarPorNome(String nome) throws SQLException {
         String sql = "SELECT * FROM participante WHERE nome LIKE ?";
         Participante participante = new Participante();
 
@@ -63,50 +66,58 @@ public class ParticipanteDaoImpl {
             preparaSql = conexao.prepareStatement(sql);
             preparaSql.setString(1, nome);
             resultado = preparaSql.executeQuery();
-            
+
             if (resultado.next()) {
                 participante.setId(resultado.getInt("id"));
                 participante.setNome(resultado.getString("nome"));
                 participante.setCpf(resultado.getString("cpf"));
                 participante.setTelefone(resultado.getString("telefone"));
-	  	participante.setNascimento(resultado.getDate("dataNascimento"));
-	  
+                participante.setNascimento(resultado.getDate("dataNascimento"));
+
                 EnderecoDaoImpl enderecoDaoImpl = new EnderecoDaoImpl();
                 participante.setEndereco(enderecoDaoImpl.pesquisarPorParticipante(participante.getEndereco(), participante.getId(), conexao));
 
+                EquipeDaoImpl equipeDaoImpl = new EquipeDaoImpl();
+                participante.setEquipe(equipeDaoImpl.pesquisarEquipePorIdEquipe(resultado.getInt("equipe_id")));
             }
 
         } catch (Exception e) {
             System.out.println("Erro ao pesquisar participante por nome " + e.getMessage());
-       
-         } finally {
+
+        } finally {
             conexao.close();
             preparaSql.close();
             resultado.close();
         }
-         return participante;
+        return participante;
     }
 
-//        public Participante pesquisarPorId(int id) {
-//        String sql = "SELECT * FROM participante WHERE id = ?";
-//        Participante participante = null;
-//        try {
-//            conexao = FabricaConexao.abrirConexao();
-//            preparaSql = conexao.prepareStatement(sql);
-//            preparaSql.setInt(1, id);
-//            resultado = preparaSql.executeQuery();
-//            if (resultado.next()) {
-//                participante = new Participante();
-//                participante.setId(id);
-//                participante.setNome(resultado.getString("nome"));
-//                participante.setCpf(resultado.getString("cpf"));
-//                participante.setTelefone(resultado.getString("telefone"));
-//                participante.setNascimento(resultado.getDate("nascimento"));
-//            }
-//
-//        } catch (Exception e) {
-//            System.out.println("Erro ao pesquisar por id do participante " + e.getMessage());
-//        }
-//        return participante;
-//    }
+    public void alterar(Participante participante) throws SQLException {
+        String sql = "UPDATE participante SET nome = ?, cpf = ?, telefone = ?, dataNascimento = ?, equipe_id = ? WHERE id = ?";
+        try {
+            conexao = FabricaConexao.abrirConexao();
+            preparaSql = conexao.prepareStatement(sql);
+            preparaSql.setString(1, participante.getNome());
+            preparaSql.setString(2, participante.getCpf());
+            preparaSql.setString(3, participante.getTelefone());
+            preparaSql.setDate(4, new Date(participante.getNascimento().getTime()));
+
+            preparaSql.setInt(6, participante.getId());
+
+            EnderecoDaoImpl enderecoDaoImpl = new EnderecoDaoImpl();
+            enderecoDaoImpl.alterarEnderecoParticipante(participante.getEndereco(), participante.getId(), conexao);
+
+            EquipeDaoImpl equipeDaoImpl = new EquipeDaoImpl();
+            participante.setEquipe(equipeDaoImpl.pesquisarEquipePorIdEquipe(participante.getEquipe().getId()));
+            preparaSql.setInt(5, participante.getEquipe().getId());
+            preparaSql.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println("Erro ao alterar o participante" + e.getMessage());
+        } finally {
+            conexao.close();
+            preparaSql.close();
+        }
+    }
+
 }

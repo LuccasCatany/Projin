@@ -26,7 +26,7 @@ public class CampeonatoDaoImplTest {
         campeonatoDaoImpl = new CampeonatoDaoImpl();
     }
 
-@Test
+//@Test
     public void testSalvar() throws SQLException {
         System.out.println("salvar");
         campeonato = new Campeonato(
@@ -45,12 +45,19 @@ public class CampeonatoDaoImplTest {
 
     }
 
+//    @Test
+    public void salvandoVarios() throws SQLException {
+        for (int i = 0; i < 5; i++) {
+            testSalvar();
+        }
+    }
+
     //@Test
-    public void testeAlterar() throws SQLException{
+    public void testeAlterar() throws SQLException {
         System.out.println("Alterar :)");
-        campeonato = campeonatoDaoImpl.pesquisarPorNome("Silvio alterado");
+        campeonato = campeonatoDaoImpl.pesquisarPorNome("Junior alterado");
         mostrarCampeonatoEndereco(campeonato); // So pra verificar se o endereço esta vindo
-        campeonato.setNomeCampeonato("Junior alterado");
+        campeonato.setNomeCampeonato("Junior alterado2");
         campeonato.setDataCampeonato(new Date());
         campeonato.getEndereco().setLogradouro("Logradouro");
         campeonato.getEndereco().setBairro("Bairro");
@@ -58,9 +65,9 @@ public class CampeonatoDaoImplTest {
         campeonato.getEndereco().setCidade("Cidade");
         campeonato.getEndereco().setCep("Cep alt");
         campeonato.getEndereco().setComplemento("Complemento");
-                
+
         campeonatoDaoImpl.alterar(campeonato);
-        
+
     }
 
     //@Test
@@ -69,18 +76,18 @@ public class CampeonatoDaoImplTest {
         campeonato = campeonatoDaoImpl.pesquisarPorNome("Nome Qualquer");
         mostrarCampeonatoEndereco(campeonato);
     }
-    
-     //@Test
+
+    //@Test
     public void testePesquisarPorId() throws SQLException {
         System.out.println("Pesquisar por id");
         campeonato = campeonatoDaoImpl.pesquisarPorId(6);
         mostrarCampeonatoEndereco(campeonato);
     }
 
-   // @Test
+    //   @Test
     public void testeExcluir() {
         System.out.println("Excluir :)");
-        int i = 3;
+        int i = 1;
         campeonatoDaoImpl.excluir(i);
     }
 
