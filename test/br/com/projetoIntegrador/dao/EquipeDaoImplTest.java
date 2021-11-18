@@ -102,7 +102,7 @@ public class EquipeDaoImplTest {
         
     }
     
-    @Test 
+    //@Test 
     public void testSorteiaDuasEquipes() throws SQLException{
        System.out.println("Sortear duas equipes");
        
