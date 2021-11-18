@@ -9,6 +9,7 @@ import br.com.projetoIntegrador.entidade.Campeonato;
 import br.com.projetoIntegrador.entidade.Equipe;
 import br.com.projetoIntegrador.util.GeradorUtil;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 
@@ -34,11 +35,18 @@ public class EquipeDaoImplTest {
                 GeradorUtil.gerarNome() + " Equipe"
         );
         CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
-        Campeonato camp = campeonatoDaoImpl.pesquisarPorNome("Yuzu ulysses");
+        Campeonato camp = campeonatoDaoImpl.pesquisarPorNome("Katarina sasamura");
         equipe.setCampeonato(camp);
         mostrarEquipe(equipe);
         equipeDaoImpl.salvar(equipe);
     } 
+    
+//        @Test
+    public void salvandoVarios() throws SQLException {
+        for (int i = 0; i < 5; i++) {
+            testSalvar();
+        }
+    }
     
 //    @Test 
     public void testeAlterar() throws SQLException {
@@ -92,6 +100,28 @@ public class EquipeDaoImplTest {
         }
         
         
+    }
+    
+    @Test 
+    public void testSorteiaDuasEquipes() throws SQLException{
+       System.out.println("Sortear duas equipes");
+       
+       CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
+       campeonato = campeonatoDaoImpl.pesquisarPorNome("Katarina sasamura");
+       int idCampeonato = campeonato.getId();
+       
+      
+      List<Equipe> equipes = equipeDaoImpl.pesquisarEquipes(equipe, idCampeonato);
+       int numeroDePartidas = 3;       
+       
+        for(int i = 1; i <= numeroDePartidas; i++){
+                System.out.println("Partida " + i + "\n");
+                List<Equipe> partida1 = equipeDaoImpl.sorteiaDuasEquipes(equipes);
+
+            for(Equipe equipe : partida1) {
+                mostrarEquipe(equipe);
+            }
+        }         
     }
     
   

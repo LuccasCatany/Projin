@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  *
@@ -164,6 +165,19 @@ public class EquipeDaoImpl {
         return equipes;
     }
     
+    
+    //Tentativa sistema de sorteio
+    public List<Equipe> sorteiaDuasEquipes ( List<Equipe> equipes){
+        Equipe equipe = new Equipe();
+        List<Equipe> duasEquipes = new ArrayList<>();
+        Random random = new Random();
+        
+        for(int b = 0; b< 2; b++){
+            equipe = equipes.get(random.nextInt(equipes.size()));
+            duasEquipes.add(equipe);
+            }      
+        return duasEquipes;
+    }
     
     
 }

@@ -27,7 +27,7 @@ public class ParticipanteDaoImplTest {
         participanteDaoImpl = new ParticipanteDaoImpl();
     }
 
-//    @Test
+//@Test
     public void testSalvar() throws SQLException {
         System.out.println("salvar");
 
@@ -54,6 +54,13 @@ public class ParticipanteDaoImplTest {
         participanteDaoImpl.salvar(participante);
     }
 
+   //@Test
+    public void salvandoVarios() throws SQLException {
+        for (int i = 0; i < 5; i++) {
+            testSalvar();
+        }
+    }    
+    
 //      @Test
     public void testeAlterar() throws SQLException {
         System.out.println("Alterar :)");
@@ -105,7 +112,7 @@ public class ParticipanteDaoImplTest {
         System.out.println("Nome da Equipe " + participante.getEquipe().getNome() + "\n");
     }
 
-    @Test
+    //@Test
     public void pesquisarParticipantesDaEquipe() throws SQLException {
         System.out.println("Pesquisar participantes da equipe ");
 
