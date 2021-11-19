@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -24,7 +25,7 @@ public class EquipeDaoImpl {
     private PreparedStatement preparaSql;
     private ResultSet resultado;
 
-    public void salvar(Equipe equipe) throws SQLException{
+    public void salvar(Equipe equipe) throws SQLException {
         String sql = "INSERT INTO equipe(nome, campeonato_id) VALUES(?, ?) ";
         try {
             conexao = FabricaConexao.abrirConexao();
@@ -32,58 +33,57 @@ public class EquipeDaoImpl {
             preparaSql.setString(1, equipe.getNome());
             preparaSql.setInt(2, equipe.getCampeonato().getId());
             preparaSql.executeUpdate();
-            
+
         } catch (Exception e) {
             System.out.println("Erro ao salvar a equipe " + e.getMessage());
-        }finally{
+        } finally {
             conexao.close();
             preparaSql.close();
         }
     }
 
-    
-    public void alterar(Equipe equipe) throws SQLException{
-            String sql = "UPDATE equipe SET nome = ?, campeonato_id = ? WHERE id = ?";
-            try {
-                
-                conexao = FabricaConexao.abrirConexao();
-                preparaSql = conexao.prepareStatement(sql);
-                preparaSql.setString(1, equipe.getNome());
-                
-                CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
-                equipe.setCampeonato(campeonatoDaoImpl.pesquisarPorId(equipe.getCampeonato().getId()));
-                
-                preparaSql.setInt(2, equipe.getCampeonato().getId());
-                preparaSql.setInt(3, equipe.getId());
-                
-                preparaSql.executeUpdate();
-                
-            } catch (Exception e) {
-                 System.out.println("Erro ao alterar equipe " + e.getMessage());
-            }finally{
-                conexao.close();
-                preparaSql.close();
-                resultado.close();
-            }
+    public void alterar(Equipe equipe) throws SQLException {
+        String sql = "UPDATE equipe SET nome = ?, campeonato_id = ? WHERE id = ?";
+        try {
+
+            conexao = FabricaConexao.abrirConexao();
+            preparaSql = conexao.prepareStatement(sql);
+            preparaSql.setString(1, equipe.getNome());
+
+            CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
+            equipe.setCampeonato(campeonatoDaoImpl.pesquisarPorId(equipe.getCampeonato().getId()));
+
+            preparaSql.setInt(2, equipe.getCampeonato().getId());
+            preparaSql.setInt(3, equipe.getId());
+
+            preparaSql.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println("Erro ao alterar equipe " + e.getMessage());
+        } finally {
+            conexao.close();
+            preparaSql.close();
+            resultado.close();
         }
-    
-     public void excluir(int id) throws SQLException {
+    }
+
+    public void excluir(int id) throws SQLException {
         String sql = "DELETE FROM equipe WHERE id = ?";
         try {
             conexao = FabricaConexao.abrirConexao();
             preparaSql = conexao.prepareStatement(sql);
             preparaSql.setInt(1, id);
             preparaSql.executeUpdate();
-            
+
         } catch (Exception e) {
             System.out.println("Erro ao excluir o equipe" + e.getMessage());
-        }finally{
+        } finally {
             conexao.close();
             preparaSql.close();
         }
     }
-     
-      public Equipe pesquisarEquipePorIdEquipe(int id) throws SQLException {
+
+    public Equipe pesquisarEquipePorIdEquipe(int id) throws SQLException {
         String sql = "SELECT * FROM equipe WHERE id = ?";
         Equipe equipe = null;
         try {
@@ -95,23 +95,23 @@ public class EquipeDaoImpl {
                 equipe = new Equipe();
                 equipe.setId(id);
                 equipe.setNome(resultado.getString("nome"));
-                
+
                 CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
                 equipe.setCampeonato(campeonatoDaoImpl.pesquisarPorId(resultado.getInt("campeonato_id")));
-                
+
             }
 
         } catch (Exception e) {
             System.out.println("Erro ao pesquisar por id do participante " + e.getMessage());
-        }finally{
+        } finally {
             conexao.close();
             preparaSql.close();
             resultado.close();
         }
-        
+
         return equipe;
     }
-     
+
     public List<Equipe> pesquisarEquipePorNomeEquipe(String nome) throws SQLException {
         String sql = "SELECT * FROM equipe WHERE nome LIKE ?";
         Equipe equipe;
@@ -121,16 +121,16 @@ public class EquipeDaoImpl {
             preparaSql = conexao.prepareStatement(sql);
             preparaSql.setString(1, "%" + nome + "%");
             resultado = preparaSql.executeQuery();
-            
-            while(resultado.next()){
-                
+
+            while (resultado.next()) {
+
                 equipe = new Equipe();
                 equipe.setId(resultado.getInt("id"));
                 equipe.setNome(resultado.getString("nome"));
-                
+
                 CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
                 equipe.setCampeonato(campeonatoDaoImpl.pesquisarPorId(resultado.getInt("campeonato_id")));
-                
+
                 equipes.add(equipe);
             }
         } catch (Exception e) {
@@ -138,46 +138,37 @@ public class EquipeDaoImpl {
         }
         return equipes;
     }
-    
-    
-    public List<Equipe> pesquisarEquipes (Equipe equipe, int id){
+
+    public List<Equipe> pesquisarEquipes(Equipe equipe, int id) {
         String sql = "SELECT * FROM equipe WHERE campeonato_id = ?";
         List<Equipe> equipes = new ArrayList<>();
         try {
             conexao = FabricaConexao.abrirConexao();
             preparaSql = conexao.prepareStatement(sql);
-	    preparaSql.setInt(1, id);
+            preparaSql.setInt(1, id);
             resultado = preparaSql.executeQuery();
-            
-             while(resultado.next()){
+
+            while (resultado.next()) {
                 equipe = new Equipe();
                 equipe.setId(resultado.getInt("id"));
                 equipe.setNome(resultado.getString("nome"));
-                
-                CampeonatoDaoImpl campeonatoDaoImpl= new CampeonatoDaoImpl();
+
+                CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
                 equipe.setCampeonato(campeonatoDaoImpl.pesquisarPorId(id));
                 equipes.add(equipe);
             }
-            
+
         } catch (Exception e) {
             System.out.println("Erro ao pesquisar por equipes " + e.getMessage());
         }
         return equipes;
     }
-    
-    
+
     //Tentativa sistema de sorteio
-    public List<Equipe> sorteiaDuasEquipes ( List<Equipe> equipes){
-        Equipe equipe = new Equipe();
-        List<Equipe> duasEquipes = new ArrayList<>();
-        Random random = new Random();
-        
-        for(int b = 0; b< 2; b++){
-            equipe = equipes.get(random.nextInt(equipes.size()));
-            duasEquipes.add(equipe);
-            }      
-        return duasEquipes;
+    public List<Equipe> sorteiaEquipes(List<Equipe> equipes) {
+
+        Collections.shuffle(equipes);
+        return equipes;
     }
-    
-    
+
 }
