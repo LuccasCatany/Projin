@@ -32,7 +32,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         lbTitulo = new javax.swing.JLabel();
-        imagemFundo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
@@ -56,10 +55,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lbTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbTitulo.setText("Campeonato de Vôlei");
         getContentPane().add(lbTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 0, 570, 70));
-
-        imagemFundo.setBackground(new java.awt.Color(102, 102, 102));
-        imagemFundo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagensIcons/imagemProjinComSombra.jpg"))); // NOI18N
-        getContentPane().add(imagemFundo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 760, 400));
 
         pack();
         setLocationRelativeTo(null);
@@ -106,7 +101,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel imagemFundo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
