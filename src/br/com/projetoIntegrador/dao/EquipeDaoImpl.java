@@ -139,22 +139,18 @@ public class EquipeDaoImpl {
         return equipes;
     }
 
-    public List<Equipe> pesquisarEquipes(Equipe equipe, int id) {
-        String sql = "SELECT * FROM equipe WHERE campeonato_id = ?";
+    public List<Equipe> pesquisarEquipes(Equipe equipe) {
+        String sql = "SELECT * FROM equipe";
         List<Equipe> equipes = new ArrayList<>();
         try {
             conexao = FabricaConexao.abrirConexao();
             preparaSql = conexao.prepareStatement(sql);
-            preparaSql.setInt(1, id);
             resultado = preparaSql.executeQuery();
 
             while (resultado.next()) {
                 equipe = new Equipe();
                 equipe.setId(resultado.getInt("id"));
                 equipe.setNome(resultado.getString("nome"));
-
-                CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
-                equipe.setCampeonato(campeonatoDaoImpl.pesquisarPorId(id));
                 equipes.add(equipe);
             }
 

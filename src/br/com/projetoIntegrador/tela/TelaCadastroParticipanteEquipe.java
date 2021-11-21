@@ -5,8 +5,10 @@
  */
 package br.com.projetoIntegrador.tela;
 
+import br.com.projetoIntegrador.dao.CampeonatoDaoImpl;
 import br.com.projetoIntegrador.dao.EquipeDaoImpl;
 import br.com.projetoIntegrador.dao.ParticipanteDaoImpl;
+import br.com.projetoIntegrador.entidade.Campeonato;
 import br.com.projetoIntegrador.entidade.Endereco;
 import br.com.projetoIntegrador.entidade.Equipe;
 import br.com.projetoIntegrador.entidade.Participante;
@@ -15,6 +17,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -30,6 +33,23 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
      */
     public TelaCadastroParticipanteEquipe() {
         initComponents();
+        CampeonatoDaoImpl campDao = new CampeonatoDaoImpl();
+        Campeonato campeonato = new Campeonato();
+        Equipe equipe = new Equipe();
+        EquipeDaoImpl equipeDao = new EquipeDaoImpl();
+        
+        
+        
+        
+        List<Campeonato> campeonatos = campDao.pesquisarCampeonatos(campeonato);
+        for(Campeonato camp : campeonatos) {
+            varCampeonatoDisputa.addItem(camp);
+        }
+        
+        List<Equipe> equipes = equipeDao.pesquisarEquipes(equipe);
+        for (Equipe equipe1 : equipes) {
+            varEscolhaEquipe.addItem(equipe1);
+        }
     }
 
     /**
@@ -45,7 +65,6 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
         lbCadastroEquipe = new javax.swing.JLabel();
         lbNomeEquipe = new javax.swing.JLabel();
         varNomeEquipe = new javax.swing.JTextField();
-        VarCampeonatoDisputa = new javax.swing.JComboBox<>();
         lbCampeonatoDisputa = new javax.swing.JLabel();
         lbCadastroEquipe1 = new javax.swing.JLabel();
         btSalvarEquipe = new javax.swing.JButton();
@@ -70,11 +89,12 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
         lbLogradouroParticipante = new javax.swing.JLabel();
         lbCidadeParticipante = new javax.swing.JLabel();
         varCidadeParticipante = new javax.swing.JTextField();
-        varEquipeParticipante = new javax.swing.JComboBox<>();
+        varEscolhaEquipe = new javax.swing.JComboBox<>();
         lbEquipeParticipante = new javax.swing.JLabel();
         btSalvarParticipante = new javax.swing.JButton();
         btLimparParticipante = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        varCampeonatoDisputa = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,8 +110,6 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
         lbNomeEquipe.setForeground(new java.awt.Color(102, 102, 102));
         lbNomeEquipe.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbNomeEquipe.setText("Nome Da Equipe:");
-
-        VarCampeonatoDisputa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lbCampeonatoDisputa.setFont(new java.awt.Font("Ink Free", 1, 16)); // NOI18N
         lbCampeonatoDisputa.setForeground(new java.awt.Color(102, 102, 102));
@@ -190,8 +208,6 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
         lbCidadeParticipante.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbCidadeParticipante.setText("Cidade:");
 
-        varEquipeParticipante.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         lbEquipeParticipante.setFont(new java.awt.Font("Ink Free", 1, 16)); // NOI18N
         lbEquipeParticipante.setForeground(new java.awt.Color(102, 102, 102));
         lbEquipeParticipante.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -264,35 +280,32 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(varCepParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(varBairroParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(lbLogradouroParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(lbEquipeParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGap(18, 18, 18)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(varLogradouroParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(varEquipeParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGap(10, 10, 10)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(varEscolhaEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(layout.createSequentialGroup()
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(lbCidadeParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGap(18, 18, 18)
                                             .addComponent(varCidadeParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
-                                            .addGap(95, 95, 95)
                                             .addComponent(btSalvarParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(48, 48, 48)
-                                            .addComponent(btLimparParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(0, 0, Short.MAX_VALUE)))))
+                                            .addGap(45, 45, 45)
+                                            .addComponent(btLimparParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(lbCampeonatoDisputa, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
                                     .addComponent(lbNomeEquipe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(28, 28, 28)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(VarCampeonatoDisputa, 0, 150, Short.MAX_VALUE)
-                                    .addComponent(varNomeEquipe))
+                                    .addComponent(varNomeEquipe, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                    .addComponent(varCampeonatoDisputa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(89, 89, 89)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(btSalvarEquipe, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
@@ -322,9 +335,9 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
                     .addComponent(btSalvarEquipe))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(VarCampeonatoDisputa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbCampeonatoDisputa)
-                    .addComponent(btLimparEquipe))
+                    .addComponent(btLimparEquipe)
+                    .addComponent(varCampeonatoDisputa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
                 .addComponent(lbCadastroEquipe1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -370,7 +383,7 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
                         .addComponent(varLogradouroParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(varEquipeParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(varEscolhaEquipe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbEquipeParticipante)
                     .addComponent(btSalvarParticipante)
                     .addComponent(btLimparParticipante))
@@ -389,7 +402,8 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
             Equipe equipe = new Equipe();
 
             equipe.setNome(varNomeEquipe.getText().trim());
-            //Esta faltando passar o Campeonato
+            Campeonato camp = (Campeonato) varCampeonatoDisputa.getSelectedItem();
+            equipe.setCampeonato(camp);
             try {
                 equipeDaoImpl.salvar(equipe);
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso!!");
@@ -397,10 +411,7 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 System.out.println("Erro ao salvar Equipe: " + ex);
             }
-
         }
-
-
     }//GEN-LAST:event_btSalvarEquipeActionPerformed
 
     private void btLimparEquipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparEquipeActionPerformed
@@ -409,7 +420,6 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
 
     private void limparEquipe() {
         varNomeEquipe.setText("");
-        //esta Faltando limpar a parte do campeonato
     }
 
     private boolean validarFormularioEquipe() {
@@ -418,11 +428,9 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Nome da Equipe invalido!!");
             return true;
         }
-        //Precisa pegar o valor que esta vindo o varCampeonatoDisputa que a pessoa selecionar.
-
         return false;
     }
-
+  
     //Salvar participante
     private void btSalvarParticipanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarParticipanteActionPerformed
         if (!validarFormularioParticipante()) {
@@ -433,8 +441,10 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
             participante.setCpf(varCpfParticipante.getText().trim());
             participante.setTelefone(varTelefoneParticipante.getText().trim());
             participante.setNascimento(converterDateCampeonato(varDataParticipante.getText().trim()));
-            //Esta faltando passar a equipe
-
+            Equipe equipe = (Equipe) varEscolhaEquipe.getSelectedItem();
+            participante.setEquipe(equipe);
+            
+            
             Endereco endereco = new Endereco();
             endereco.setLogradouro(varLogradouroParticipante.getText().trim());
             endereco.setBairro(varBairroParticipante.getText().trim());
@@ -555,17 +565,18 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
         return valorCampo.equals("");
     }
 
+
     private Date converterDateCampeonato(String dateParaConverter) {
         String[] dateSeparado = dateParaConverter.split("/");
         LocalDate stringConvertidoParaLocalDate = LocalDate.of(
                 Integer.parseInt(dateSeparado[2]),
                 Integer.parseInt(dateSeparado[1]),
                 Integer.parseInt(dateSeparado[0]));
-
+        
         ZonedDateTime localConvertidoParaZoned = stringConvertidoParaLocalDate.atStartOfDay(ZoneId.systemDefault());
-
+        
         Date zonedConvertidoParaDate = Date.from(localConvertidoParaZoned.toInstant());
-
+                
         return zonedConvertidoParaDate;
 
     }
@@ -603,7 +614,6 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> VarCampeonatoDisputa;
     private javax.swing.JButton btLimparEquipe;
     private javax.swing.JButton btLimparParticipante;
     private javax.swing.JButton btSalvarEquipe;
@@ -626,12 +636,13 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
     private javax.swing.JLabel lbTelefoneParticipante;
     private javax.swing.JLabel lbTituloPrincipal;
     private javax.swing.JTextField varBairroParticipante;
+    private javax.swing.JComboBox<Object> varCampeonatoDisputa;
     private javax.swing.JFormattedTextField varCepParticipante;
     private javax.swing.JTextField varCidadeParticipante;
     private javax.swing.JTextField varComplementoParticipante;
     private javax.swing.JFormattedTextField varCpfParticipante;
     private javax.swing.JFormattedTextField varDataParticipante;
-    private javax.swing.JComboBox<String> varEquipeParticipante;
+    private javax.swing.JComboBox<Object> varEscolhaEquipe;
     private javax.swing.JTextField varEstadoParticipante;
     private javax.swing.JTextField varLogradouroParticipante;
     private javax.swing.JTextField varNomeEquipe;

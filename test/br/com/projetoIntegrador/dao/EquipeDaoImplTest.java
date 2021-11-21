@@ -34,13 +34,13 @@ public class EquipeDaoImplTest {
                 GeradorUtil.gerarNome() + " Equipe"
         );
         CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
-        Campeonato camp = campeonatoDaoImpl.pesquisarPorNome("Tomori matsuri");
+        Campeonato camp = campeonatoDaoImpl.pesquisarPorNome("Roberto tadokoro");
         equipe.setCampeonato(camp);
         mostrarEquipe(equipe);
         equipeDaoImpl.salvar(equipe);
     }
 
-//        @Test
+        //@Test
     public void salvandoVarios() throws SQLException {
         for (int i = 0; i < 10; i++) {
             testSalvar();
@@ -83,15 +83,11 @@ public class EquipeDaoImplTest {
         }
     }
 
-//           @Test
+           //@Test
     public void testePesuisarCampeonatos() throws SQLException {
         System.out.println("Pesquisar por Equipes");
 
-        CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
-        campeonato = campeonatoDaoImpl.pesquisarPorNome("Tomori matsuri");
-        int id = campeonato.getId();
-
-        List<Equipe> equipes = equipeDaoImpl.pesquisarEquipes(equipe, id);
+        List<Equipe> equipes = equipeDaoImpl.pesquisarEquipes(equipe);
         for (Equipe equipe : equipes) {
 
             mostrarEquipe(equipe);
@@ -99,15 +95,13 @@ public class EquipeDaoImplTest {
 
     }
 
-    @Test
+    //@Test
     public void testSorteiaDuasEquipes() throws SQLException {
         System.out.println("Sortear duas equipes");
 
         CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
         campeonato = campeonatoDaoImpl.pesquisarPorNome("Tomori matsuri");
-        int idCampeonato = campeonato.getId();
 
-        List<Equipe> equipes = equipeDaoImpl.pesquisarEquipes(equipe, idCampeonato);
 
     }
 
@@ -115,15 +109,15 @@ public class EquipeDaoImplTest {
     private void mostrarEquipe(Equipe equipe) {
         System.out.println("Id: " + equipe.getId());
         System.out.println("Nome: " + equipe.getNome());
-        System.out.println("Id do campeonato: " + equipe.getCampeonato().getId());
-        System.out.println("Nome campeonato: " + equipe.getCampeonato().getNomeCampeonato());
-        System.out.println("Data campeonato: " + equipe.getCampeonato().getDataCampeonato());
-        System.out.println("Logradouro: " + equipe.getCampeonato().getEndereco().getLogradouro());
-        System.out.println("Bairro: " + equipe.getCampeonato().getEndereco().getBairro());
-        System.out.println("Cidade: " + equipe.getCampeonato().getEndereco().getCidade());
-        System.out.println("Estado: " + equipe.getCampeonato().getEndereco().getEstado());
-        System.out.println("Cep: " + equipe.getCampeonato().getEndereco().getCep());
-        System.out.println("Complemento: \n\n" + equipe.getCampeonato().getEndereco().getComplemento());
+//        System.out.println("Id do campeonato: " + equipe.getCampeonato().getId());
+//        System.out.println("Nome campeonato: " + equipe.getCampeonato().getNomeCampeonato());
+//        System.out.println("Data campeonato: " + equipe.getCampeonato().getDataCampeonato());
+//        System.out.println("Logradouro: " + equipe.getCampeonato().getEndereco().getLogradouro());
+//        System.out.println("Bairro: " + equipe.getCampeonato().getEndereco().getBairro());
+//        System.out.println("Cidade: " + equipe.getCampeonato().getEndereco().getCidade());
+//        System.out.println("Estado: " + equipe.getCampeonato().getEndereco().getEstado());
+//        System.out.println("Cep: " + equipe.getCampeonato().getEndereco().getCep());
+//        System.out.println("Complemento: \n\n" + equipe.getCampeonato().getEndereco().getComplemento());
 
     }
 

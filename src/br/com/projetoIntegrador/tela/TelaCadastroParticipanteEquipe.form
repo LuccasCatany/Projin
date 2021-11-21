@@ -84,7 +84,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="lbLogradouroParticipante" min="-2" pref="190" max="-2" attributes="0"/>
                                       <Component id="lbEquipeParticipante" min="-2" pref="190" max="-2" attributes="0"/>
@@ -92,22 +92,19 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="varLogradouroParticipante" min="-2" pref="150" max="-2" attributes="0"/>
-                                      <Component id="varEquipeParticipante" min="-2" pref="150" max="-2" attributes="0"/>
+                                      <Component id="varEscolhaEquipe" min="-2" pref="150" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="102" alignment="1" attributes="0">
                                           <Component id="lbCidadeParticipante" min="-2" pref="143" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="varCidadeParticipante" min="-2" pref="150" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="1" attributes="0">
                                           <Component id="btSalvarParticipante" min="-2" pref="80" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                                           <Component id="btLimparParticipante" min="-2" pref="80" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -119,8 +116,8 @@
                               </Group>
                               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="VarCampeonatoDisputa" pref="150" max="32767" attributes="0"/>
-                                  <Component id="varNomeEquipe" max="32767" attributes="0"/>
+                                  <Component id="varNomeEquipe" pref="150" max="32767" attributes="0"/>
+                                  <Component id="varCampeonatoDisputa" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="89" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -161,9 +158,9 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="VarCampeonatoDisputa" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lbCampeonatoDisputa" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btLimparEquipe" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="varCampeonatoDisputa" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
               <Component id="lbCadastroEquipe1" min="-2" max="-2" attributes="0"/>
@@ -223,7 +220,7 @@
               </Group>
               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="varEquipeParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="varEscolhaEquipe" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lbEquipeParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btSalvarParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btLimparParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -267,21 +264,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="varNomeEquipe">
-    </Component>
-    <Component class="javax.swing.JComboBox" name="VarCampeonatoDisputa">
-      <Properties>
-        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
-        </Property>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="lbCampeonatoDisputa">
       <Properties>
@@ -480,19 +462,14 @@
     </Component>
     <Component class="javax.swing.JTextField" name="varCidadeParticipante">
     </Component>
-    <Component class="javax.swing.JComboBox" name="varEquipeParticipante">
+    <Component class="javax.swing.JComboBox" name="varEscolhaEquipe">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="Item 1"/>
-            <StringItem index="1" value="Item 2"/>
-            <StringItem index="2" value="Item 3"/>
-            <StringItem index="3" value="Item 4"/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Object&gt;"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="lbEquipeParticipante">
@@ -527,6 +504,16 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Voltar ao Menu"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="varCampeonatoDisputa">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="0"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Object&gt;"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

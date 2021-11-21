@@ -51,6 +51,11 @@ public class Campeonato {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
+
+    @Override
+    public String toString() {
+        return getNomeCampeonato(); //To change body of generated methods, choose Tools | Templates.
+    }
     
      
 }
