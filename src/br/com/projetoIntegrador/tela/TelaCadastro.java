@@ -62,6 +62,7 @@ public class TelaCadastro extends javax.swing.JFrame {
         varCepCamp = new javax.swing.JFormattedTextField();
         varDataCamp = new javax.swing.JFormattedTextField();
         btLimpar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         jButton2.setText("jButton2");
 
@@ -142,6 +143,13 @@ public class TelaCadastro extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Voltar ao menu");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -156,6 +164,8 @@ public class TelaCadastro extends javax.swing.JFrame {
                         .addComponent(varPesquisarCamp, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(95, 95, 95)
                         .addComponent(btLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65)
+                        .addComponent(jButton1)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lbTituloPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE)
@@ -232,7 +242,8 @@ public class TelaCadastro extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(varSalvarCamp)
                     .addComponent(varPesquisarCamp)
-                    .addComponent(btLimpar))
+                    .addComponent(btLimpar)
+                    .addComponent(jButton1))
                 .addGap(17, 17, 17))
         );
 
@@ -285,6 +296,11 @@ public class TelaCadastro extends javax.swing.JFrame {
     private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
         limpar();
     }//GEN-LAST:event_btLimparActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new TelaPrincipal().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void limpar() {
         varNomeCamp.setText("");
@@ -422,6 +438,7 @@ public class TelaCadastro extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btLimpar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JPanel jPanel1;
