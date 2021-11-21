@@ -254,8 +254,6 @@ public class TelaCadastro extends javax.swing.JFrame {
     private void varSalvarCampActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varSalvarCampActionPerformed
 
         if (!validarFormulario()) {
-            JOptionPane.showMessageDialog(null, "Esta chegando aqui!!"); //Somente para teste
-
             CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
             Campeonato campeonato = new Campeonato();
 
@@ -274,9 +272,12 @@ public class TelaCadastro extends javax.swing.JFrame {
             
             try {
                 campeonatoDaoImpl.salvar(campeonato);
+                JOptionPane.showMessageDialog(null, "Salvo com sucesso!!");
+                limpar();
             } catch (SQLException ex) {
                 System.out.println("Erro ao salvar campeonato: " + ex);
             }
+            
         }
 
     }//GEN-LAST:event_varSalvarCampActionPerformed
@@ -300,23 +301,16 @@ public class TelaCadastro extends javax.swing.JFrame {
     private boolean validarFormulario() {
 
         if (validandoQuaseTodosCamposVazios()) {
-            //JOptionPane.showMessageDialog(null, "Algum Campo Vazio!!"); //Somente para teste
             return true;
-        } else {
-            //JOptionPane.showMessageDialog(null, "Nenhum Campo Vazio!!"); //Somente para teste
         }
 
         if (validarCepVazio()) {
-            System.out.println("nop"); //Somente para teste
+            JOptionPane.showMessageDialog(null, "Cep inválido!!");
             return true;
-        } else {
-            //JOptionPane.showMessageDialog(null, "Cep valido!!"); //Somente para teste
         }
         if (validarData()) {
-            //JOptionPane.showMessageDialog(null, "Data invalido, informe outra!!"); //Somente para teste
+            JOptionPane.showMessageDialog(null, "Data invalida, informe outra!!");
             return true;
-        } else {
-            //JOptionPane.showMessageDialog(null, "Data valida!!"); //Somente para teste
         }
 
         return false;
@@ -370,7 +364,6 @@ public class TelaCadastro extends javax.swing.JFrame {
 
     private boolean validarCepVazio() {
         String valorCampo = varCepCamp.getText().trim();
-        System.out.println(valorCampo.trim().equals("-"));
         return valorCampo.trim().equals("-");
     }
 

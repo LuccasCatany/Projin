@@ -27,7 +27,7 @@ public class CampeonatoDaoImplTest {
         campeonatoDaoImpl = new CampeonatoDaoImpl();
     }
 
-//@Test
+@Test
     public void testSalvar() throws SQLException {
         System.out.println("salvar");
         campeonato = new Campeonato(
@@ -92,7 +92,7 @@ public class CampeonatoDaoImplTest {
         campeonatoDaoImpl.excluir(i);
     }
     
-       @Test
+       //@Test
     public void testePesuisarCampeonatos() {
         System.out.println("Pesquisar por campeonatos");
         List<Campeonato> campeonatos = campeonatoDaoImpl.pesquisarCampeonatos(campeonato);
