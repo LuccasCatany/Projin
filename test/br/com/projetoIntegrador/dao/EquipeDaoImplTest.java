@@ -34,8 +34,9 @@ public class EquipeDaoImplTest {
                 GeradorUtil.gerarNome() + " Equipe"
         );
         CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
-        Campeonato camp = campeonatoDaoImpl.pesquisarPorNome("Roberto tadokoro");
-        equipe.setCampeonato(camp);
+        List<Campeonato> campeonatos = campeonatoDaoImpl.pesquisarCampeonatoPorNome("");
+        campeonato = campeonatos.get(0);
+        equipe.setCampeonato(campeonato);
         mostrarEquipe(equipe);
         equipeDaoImpl.salvar(equipe);
     }
@@ -100,7 +101,8 @@ public class EquipeDaoImplTest {
         System.out.println("Sortear duas equipes");
 
         CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
-        campeonato = campeonatoDaoImpl.pesquisarPorNome("Tomori matsuri");
+        List<Campeonato> campeonatos = campeonatoDaoImpl.pesquisarCampeonatoPorNome("");
+        campeonato = campeonatos.get(0);
 
 
     }

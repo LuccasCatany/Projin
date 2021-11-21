@@ -56,7 +56,9 @@ public class CampeonatoDaoImplTest {
     //@Test
     public void testeAlterar() throws SQLException {
         System.out.println("Alterar :)");
-        campeonato = campeonatoDaoImpl.pesquisarPorNome("Junior alterado");
+        List<Campeonato> campeonatos = campeonatoDaoImpl.pesquisarCampeonatoPorNome("");
+        campeonato = campeonatos.get(0);
+        
         mostrarCampeonatoEndereco(campeonato); // So pra verificar se o endereço esta vindo
         campeonato.setNomeCampeonato("Junior alterado2");
         campeonato.setDataCampeonato(new Date());
@@ -74,7 +76,8 @@ public class CampeonatoDaoImplTest {
     //@Test
     public void testePesquisarPorNome() throws SQLException {
         System.out.println("Pesquisar por nome");
-        campeonato = campeonatoDaoImpl.pesquisarPorNome("Nome Qualquer");
+        List<Campeonato> campeonatos = campeonatoDaoImpl.pesquisarCampeonatoPorNome("");
+        campeonato = campeonatos.get(0);
         mostrarCampeonatoEndereco(campeonato);
     }
 

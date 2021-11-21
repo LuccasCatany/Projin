@@ -76,17 +76,18 @@ public class CampeonatoDaoImpl {
         }
     }
 
-    public Campeonato pesquisarPorNome(String nome) throws SQLException {
+    public List<Campeonato> pesquisarCampeonatoPorNome(String nome) throws SQLException {
         String sql = "SELECT * FROM campeonato WHERE nome LIKE ?";
-        Campeonato campeonato = new Campeonato();
+        List<Campeonato> campeonatos = new ArrayList<>();
 
         try {
             conexao = FabricaConexao.abrirConexao();
             preparaSql = conexao.prepareStatement(sql);
-            preparaSql.setString(1, nome);
+            preparaSql.setString(1, "%" + nome + "%");
             resultado = preparaSql.executeQuery();
 
-            if (resultado.next()) {
+            while (resultado.next()) {
+                Campeonato campeonato = new Campeonato();
                 campeonato.setId(resultado.getInt("id"));
                 campeonato.setNomeCampeonato(resultado.getString("nome"));
                 campeonato.setDataCampeonato(resultado.getDate("data"));
@@ -94,6 +95,7 @@ public class CampeonatoDaoImpl {
                 EnderecoDaoImpl enderecoDaoImpl = new EnderecoDaoImpl();
                 campeonato.setEndereco(enderecoDaoImpl.pesquisarPorCampeonato(campeonato.getEndereco(), campeonato.getId(), conexao));
 
+                campeonatos.add(campeonato);
             }
 
         } catch (Exception e) {
@@ -104,7 +106,7 @@ public class CampeonatoDaoImpl {
             preparaSql.close();
             resultado.close();
         }
-        return campeonato;
+        return campeonatos;
     }
     
     public List<Campeonato> pesquisarCampeonatos(Campeonato campeonato){
