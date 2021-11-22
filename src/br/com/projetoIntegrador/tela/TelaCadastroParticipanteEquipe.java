@@ -37,15 +37,12 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
         Campeonato campeonato = new Campeonato();
         Equipe equipe = new Equipe();
         EquipeDaoImpl equipeDao = new EquipeDaoImpl();
-        
-        
-        
-        
+
         List<Campeonato> campeonatos = campDao.pesquisarCampeonatos(campeonato);
-        for(Campeonato camp : campeonatos) {
+        for (Campeonato camp : campeonatos) {
             varCampeonatoDisputa.addItem(camp);
         }
-        
+
         List<Equipe> equipes = equipeDao.pesquisarEquipes(equipe);
         for (Equipe equipe1 : equipes) {
             varEscolhaEquipe.addItem(equipe1);
@@ -347,22 +344,9 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
                 .addComponent(lbCadastroEquipe1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(varNomeParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbNomeParticipante))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbDataParticipante)
-                            .addComponent(varDataParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbCpfParticipante)
-                            .addComponent(varCpfParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lbTelefoneParticipante)
-                            .addComponent(varTelefoneParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(varNomeParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbNomeParticipante))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbEstadoParticipante)
@@ -370,15 +354,21 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lbBairroParticipante)
-                            .addComponent(varBairroParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(varBairroParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(varDataParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbDataParticipante))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(varCepParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbCepParticipante))
+                            .addComponent(lbCepParticipante)
+                            .addComponent(varCpfParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbCpfParticipante))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(varComplementoParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbComplementoParticipante))))
+                            .addComponent(lbComplementoParticipante)
+                            .addComponent(varTelefoneParticipante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbTelefoneParticipante))))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbLogradouroParticipante)
@@ -436,7 +426,7 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
         }
         return false;
     }
-  
+
     //Salvar participante
     private void btSalvarParticipanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarParticipanteActionPerformed
         if (!validarFormularioParticipante()) {
@@ -449,8 +439,7 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
             participante.setNascimento(converterDateCampeonato(varDataParticipante.getText().trim()));
             Equipe equipe = (Equipe) varEscolhaEquipe.getSelectedItem();
             participante.setEquipe(equipe);
-            
-            
+
             Endereco endereco = new Endereco();
             endereco.setLogradouro(varLogradouroParticipante.getText().trim());
             endereco.setBairro(varBairroParticipante.getText().trim());
@@ -501,6 +490,18 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
 
         if (validarCpf()) {
             JOptionPane.showMessageDialog(null, "Cpf inválido!!");
+            return true;
+        }
+        if (validarDiaData()) {
+            JOptionPane.showMessageDialog(null, "Dia inválido!!");
+            return true;
+        }
+        if (validarMesData()) {
+            JOptionPane.showMessageDialog(null, "Mes inválido!!");
+            return true;
+        }
+        if (validarAnoData()) {
+            JOptionPane.showMessageDialog(null, "Ano inválido!!");
             return true;
         }
         if (validarData()) {
@@ -576,6 +577,23 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
         return valorCampo.equals("");
     }
 
+    private boolean validarDiaData() {
+        String data = varDataParticipante.getText().trim();
+        int dias = Integer.parseInt(data.substring(0, 2));
+        return dias > 31;
+    }
+
+    private boolean validarMesData() {
+        String data = varDataParticipante.getText().trim();
+        int mes = Integer.parseInt(data.substring(3, 5));
+        return mes > 12;
+    }
+
+    private boolean validarAnoData() {
+        String data = varDataParticipante.getText().trim();
+        int ano = Integer.parseInt(data.substring(6, 10));
+        return ano < 2021;
+    }
 
     private Date converterDateCampeonato(String dateParaConverter) {
         String[] dateSeparado = dateParaConverter.split("/");
@@ -583,11 +601,11 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
                 Integer.parseInt(dateSeparado[2]),
                 Integer.parseInt(dateSeparado[1]),
                 Integer.parseInt(dateSeparado[0]));
-        
+
         ZonedDateTime localConvertidoParaZoned = stringConvertidoParaLocalDate.atStartOfDay(ZoneId.systemDefault());
-        
+
         Date zonedConvertidoParaDate = Date.from(localConvertidoParaZoned.toInstant());
-                
+
         return zonedConvertidoParaDate;
 
     }

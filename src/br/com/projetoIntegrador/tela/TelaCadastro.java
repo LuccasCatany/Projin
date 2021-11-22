@@ -270,7 +270,7 @@ public class TelaCadastro extends javax.swing.JFrame {
 
             campeonato.setNomeCampeonato(varNomeCamp.getText().trim());
             campeonato.setDataCampeonato(converterDateCampeonato(varDataCamp.getText()));
-            
+
             Endereco endereco = new Endereco();
             endereco.setLogradouro(varLogradouroCamp.getText().trim());
             endereco.setBairro(varBairroCamp.getText().trim());
@@ -278,9 +278,9 @@ public class TelaCadastro extends javax.swing.JFrame {
             endereco.setEstado(varEstadoCamp.getText().trim());
             endereco.setCep(varCepCamp.getText().trim());
             endereco.setComplemento(varComplementoCamp.getText().trim());
-            
+
             campeonato.setEndereco(endereco);
-            
+
             try {
                 campeonatoDaoImpl.salvar(campeonato);
                 JOptionPane.showMessageDialog(null, "Salvo com sucesso!!");
@@ -288,7 +288,7 @@ public class TelaCadastro extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 System.out.println("Erro ao salvar campeonato: " + ex);
             }
-            
+
         }
 
     }//GEN-LAST:event_varSalvarCampActionPerformed
@@ -324,8 +324,20 @@ public class TelaCadastro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Cep inválido!!");
             return true;
         }
+        if (validarDiaData()) {
+            JOptionPane.showMessageDialog(null, "Dia inválido!!");
+            return true;
+        }
+        if (validarMesData()) {
+            JOptionPane.showMessageDialog(null, "Mes inválido!!");
+            return true;
+        }
+        if(validarAnoData()){
+            JOptionPane.showMessageDialog(null, "Ano inválido!!");
+            return true;
+        }
         if (validarData()) {
-            JOptionPane.showMessageDialog(null, "Data invalida, informe outra!!");
+            JOptionPane.showMessageDialog(null, "Data invalida!!");
             return true;
         }
 
@@ -339,38 +351,27 @@ public class TelaCadastro extends javax.swing.JFrame {
         String estado = varEstadoCamp.getText().trim();
         String cidade = varCidadeCamp.getText().trim();
         String bairro = varBairroCamp.getText().trim();
-        String cep = varCepCamp.getText().trim();
-        String complemento = varComplementoCamp.getText().trim();
 
         if (validarCampoVazio(nome)) {
-            System.out.println("O campo Nome está vazio ou tem componentes faltando");
+            JOptionPane.showMessageDialog(null, "Nome inválido!!");
             return true;
         }
         if (validarCampoVazio(logradouro)) {
-            System.out.println("O campo Logradouro está vazio ou tem componentes faltando");
+            JOptionPane.showMessageDialog(null, "Logradouro inválido!!");
             return true;
         }
         if (validarCampoVazio(estado)) {
-            System.out.println("O campo Estado está vazio ou tem componentes faltando");
+            JOptionPane.showMessageDialog(null, "Estado inválido!!");
             return true;
         }
         if (validarCampoVazio(cidade)) {
-            System.out.println("O campo Cidade está vazio ou tem componentes faltando");
+            JOptionPane.showMessageDialog(null, "Cidade inválida!!");
             return true;
         }
         if (validarCampoVazio(bairro)) {
-            System.out.println("O campo Bairro está vazio ou tem componentes faltando");
+            JOptionPane.showMessageDialog(null, "Bairro inválido!!");
             return true;
         }
-        if (validarCampoVazio(cep)) {
-            System.out.println("O campo CEP está vazio ou tem componentes faltando");
-            return true;
-        }
-        if (validarCampoVazio(complemento)) {
-            System.out.println("O campo Complemento está vazio ou tem componentes faltando");
-            return true;
-        }
-
         return false;
     }
 
@@ -386,7 +387,24 @@ public class TelaCadastro extends javax.swing.JFrame {
     private boolean validarData() {
         String data = varDataCamp.getText().trim();
         return data.equals("/  /");
+    }
 
+    private boolean validarDiaData() {
+        String data = varDataCamp.getText().trim();
+        int dias = Integer.parseInt(data.substring(0, 2));
+        return dias > 31;
+    }
+
+    private boolean validarMesData() {
+        String data = varDataCamp.getText().trim();
+        int mes = Integer.parseInt(data.substring(3, 5));
+        return mes > 12;
+    }
+
+    private boolean validarAnoData() {
+        String data = varDataCamp.getText().trim();
+        int ano = Integer.parseInt(data.substring(6, 10));
+        return ano < 2021;
     }
 
     private Date converterDateCampeonato(String dateParaConverter) {
@@ -395,11 +413,11 @@ public class TelaCadastro extends javax.swing.JFrame {
                 Integer.parseInt(dateSeparado[2]),
                 Integer.parseInt(dateSeparado[1]),
                 Integer.parseInt(dateSeparado[0]));
-        
+
         ZonedDateTime localConvertidoParaZoned = stringConvertidoParaLocalDate.atStartOfDay(ZoneId.systemDefault());
-        
+
         Date zonedConvertidoParaDate = Date.from(localConvertidoParaZoned.toInstant());
-                
+
         return zonedConvertidoParaDate;
 
     }

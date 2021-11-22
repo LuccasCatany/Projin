@@ -166,26 +166,9 @@
               <Component id="lbCadastroEquipe1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="varNomeParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="lbNomeParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbDataParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="varDataParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbCpfParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="varCpfParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="lbTelefoneParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="varTelefoneParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="varNomeParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbNomeParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -196,16 +179,22 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="lbBairroParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="varBairroParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="varDataParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbDataParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="varCepParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lbCepParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="varCpfParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbCpfParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="varComplementoParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="lbComplementoParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="varTelefoneParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="lbTelefoneParticipante" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
