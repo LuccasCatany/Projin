@@ -93,7 +93,7 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
         lbEquipeParticipante = new javax.swing.JLabel();
         btSalvarParticipante = new javax.swing.JButton();
         btLimparParticipante = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btVoltarAoMenu = new javax.swing.JButton();
         varCampeonatoDisputa = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -227,7 +227,12 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Voltar ao Menu");
+        btVoltarAoMenu.setText("Voltar ao Menu");
+        btVoltarAoMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVoltarAoMenuActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -318,7 +323,7 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
                 .addGap(274, 274, 274))
             .addGroup(layout.createSequentialGroup()
                 .addGap(318, 318, 318)
-                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btVoltarAoMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -388,11 +393,12 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
                     .addComponent(btSalvarParticipante)
                     .addComponent(btLimparParticipante))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                .addComponent(jButton3)
+                .addComponent(btVoltarAoMenu)
                 .addGap(24, 24, 24))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     //Salvar Equipe
@@ -468,6 +474,11 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
     private void btLimparParticipanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparParticipanteActionPerformed
         limparParticipante();
     }//GEN-LAST:event_btLimparParticipanteActionPerformed
+
+    private void btVoltarAoMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarAoMenuActionPerformed
+        new TelaPrincipal().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btVoltarAoMenuActionPerformed
 
     private void limparParticipante() {
         varNomeParticipante.setText("");
@@ -618,7 +629,7 @@ public class TelaCadastroParticipanteEquipe extends javax.swing.JFrame {
     private javax.swing.JButton btLimparParticipante;
     private javax.swing.JButton btSalvarEquipe;
     private javax.swing.JButton btSalvarParticipante;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btVoltarAoMenu;
     private javax.swing.JLabel lbBairroParticipante;
     private javax.swing.JLabel lbCadastroEquipe;
     private javax.swing.JLabel lbCadastroEquipe1;
