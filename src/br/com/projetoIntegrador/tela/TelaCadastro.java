@@ -93,6 +93,11 @@ public class TelaCadastro extends javax.swing.JFrame {
         });
 
         varPesquisarCamp.setText("Pesquisar");
+        varPesquisarCamp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                varPesquisarCampActionPerformed(evt);
+            }
+        });
 
         lbLogradouroCamp.setFont(new java.awt.Font("Ink Free", 1, 16)); // NOI18N
         lbLogradouroCamp.setForeground(new java.awt.Color(102, 102, 102));
@@ -301,6 +306,12 @@ public class TelaCadastro extends javax.swing.JFrame {
         new TelaPrincipal().setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void varPesquisarCampActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_varPesquisarCampActionPerformed
+        new TelaPesquisa().setVisible(true);
+        dispose();
+
+    }//GEN-LAST:event_varPesquisarCampActionPerformed
 
     private void limpar() {
         varNomeCamp.setText("");
