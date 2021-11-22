@@ -66,7 +66,7 @@ public class ParticipanteDaoImpl {
         try {
             conexao = FabricaConexao.abrirConexao();
             preparaSql = conexao.prepareStatement(sql);
-            preparaSql.setString(1, nome);
+            preparaSql.setString(1, "%"+ nome + "%");
             resultado = preparaSql.executeQuery();
 
             if (resultado.next()) {
@@ -159,4 +159,43 @@ public class ParticipanteDaoImpl {
         }
         return participantes;
     }
+    
+    public List<Participante> pesquisarParticipantesPorNome(String nome) throws SQLException{
+        String sql = "SELECT * FROM participante WHERE nome LIKE ?";
+        List<Participante> participantes = new ArrayList<>();
+        
+        try {
+            conexao = FabricaConexao.abrirConexao();
+            preparaSql = conexao.prepareStatement(sql);
+            preparaSql.setString(1, "%" + nome + "%");
+            resultado = preparaSql.executeQuery();
+            
+            while (resultado.next()) {
+                Participante participante = new Participante();
+                participante.setId(resultado.getInt("id"));
+                participante.setNome(resultado.getString("nome"));
+                participante.setCpf(resultado.getString("cpf"));
+                participante.setTelefone(resultado.getString("telefone"));
+                participante.setNascimento(resultado.getDate("dataNascimento"));
+
+                EquipeDaoImpl equipeDaoImpl = new EquipeDaoImpl();
+                participante.setEquipe(equipeDaoImpl.pesquisarEquipePorIdEquipe(resultado.getInt("equipe_id")));
+                
+                EnderecoDaoImpl enderecoDaoImpl = new EnderecoDaoImpl();
+                participante.setEndereco(enderecoDaoImpl.pesquisarPorParticipante(participante.getEndereco(), participante.getId(), conexao));
+                
+                participantes.add(participante);
+                
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao pesquisar participante por nome " + e.getMessage());
+        }finally {
+            conexao.close();
+            preparaSql.close();
+            resultado.close();
+        }
+        
+        return participantes;
+    }
+    
 }

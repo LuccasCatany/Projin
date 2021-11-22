@@ -124,4 +124,13 @@ public class ParticipanteDaoImplTest {
 
     }
     
+    @Test
+    public void testPesquisarParticipantesPorNome() throws SQLException{
+        System.out.println("Pesquisar por nome retornando lista");
+        List<Participante> participantes = participanteDaoImpl.pesquisarParticipantesPorNome("Jenny");
+        for (Participante participante : participantes) {
+            mostrarParticipanteEndereco(participante);
+        }
+    }
+    
 }
