@@ -23,6 +23,7 @@ import java.util.logging.Logger;
  */
 public class TelaPesquisa extends javax.swing.JFrame {
 
+    private  List<Campeonato> campeonatos;
     /**
      * Creates new form TelaPesquisa
      */
@@ -176,8 +177,13 @@ public class TelaPesquisa extends javax.swing.JFrame {
         int linha = jTable1.getSelectedRow();
 //        int indexLinha = jTable1.
         if (linha >= 0) {
-            jTable1.remove(linha);
-            
+           
+            campeonatos.remove(linha);
+            try {
+                leTabelaEquipe("");
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaPesquisa.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }else{
             System.out.println("Nenhuma linha selecionada.");
         }
