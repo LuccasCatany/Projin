@@ -33,10 +33,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         lbTitulo = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
+        lbFoto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(102, 102, 102));
-        setPreferredSize(new java.awt.Dimension(760, 400));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton2.setText("Pesquisar");
@@ -70,6 +70,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 150, 48));
+
+        lbFoto.setIcon(new javax.swing.ImageIcon("C:\\Users\\maria.souza28\\Downloads\\imagemProjinComSombra.jpg")); // NOI18N
+        getContentPane().add(lbFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -133,6 +136,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JLabel lbFoto;
     private javax.swing.JLabel lbTitulo;
     // End of variables declaration//GEN-END:variables
 }
