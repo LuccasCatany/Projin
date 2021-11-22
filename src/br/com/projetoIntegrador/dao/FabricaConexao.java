@@ -9,7 +9,7 @@ public class FabricaConexao {
         Class.forName("com.mysql.cj.jdbc.Driver");
         // TODO mudar o nome do banco ali onde tem associacao
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/dbintegrador?useTimezone=true&serverTimezone=America/Sao_Paulo&zeroDateTimeBehavior=convertToNull", 
-                                                            "root", "lolis");
+                                                            "root", "admin");
         
         
     }
