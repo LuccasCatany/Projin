@@ -41,7 +41,7 @@ public class EquipeDaoImplTest {
         equipeDaoImpl.salvar(equipe);
     }
 
-        //@Test
+    //@Test
     public void salvandoVarios() throws SQLException {
         for (int i = 0; i < 10; i++) {
             testSalvar();
@@ -84,11 +84,11 @@ public class EquipeDaoImplTest {
         }
     }
 
-           //@Test
+//    @Test
     public void testePesuisarCampeonatos() throws SQLException {
         System.out.println("Pesquisar por Equipes");
-
-        List<Equipe> equipes = equipeDaoImpl.pesquisarEquipes(equipe);
+        int idCampeonato = 8;
+        List<Equipe> equipes = equipeDaoImpl.pesquisarEquipesPorIdCampeonato(idCampeonato);
         for (Equipe equipe : equipes) {
 
             mostrarEquipe(equipe);
@@ -103,7 +103,6 @@ public class EquipeDaoImplTest {
         CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
         List<Campeonato> campeonatos = campeonatoDaoImpl.pesquisarCampeonatoPorNome("");
         campeonato = campeonatos.get(0);
-
 
     }
 

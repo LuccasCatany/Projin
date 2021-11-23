@@ -111,7 +111,30 @@ public class EquipeDaoImpl {
 
         return equipe;
     }
+    
+     public List<Equipe> pesquisarEquipes(Equipe equipe) {
+        String sql = "SELECT * FROM equipe";
+        List<Equipe> equipes = new ArrayList<>();
+        try {
+            conexao = FabricaConexao.abrirConexao();
+            preparaSql = conexao.prepareStatement(sql);
+            resultado = preparaSql.executeQuery();
 
+            while (resultado.next()) {
+                equipe = new Equipe();
+                equipe.setId(resultado.getInt("id"));
+                equipe.setNome(resultado.getString("nome"));
+                equipes.add(equipe);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro ao pesquisar por equipes " + e.getMessage());
+        }
+        return equipes;
+    }
+
+    
+    //usado no lêTabelaEquipe
     public List<Equipe> pesquisarEquipePorNomeEquipe(String nome) throws SQLException {
         String sql = "SELECT * FROM equipe WHERE nome LIKE ?";
         Equipe equipe;
@@ -138,13 +161,15 @@ public class EquipeDaoImpl {
         }
         return equipes;
     }
-
-    public List<Equipe> pesquisarEquipes(Equipe equipe) {
-        String sql = "SELECT * FROM equipe";
+    //usado no excluiCampeonato
+    public List<Equipe> pesquisarEquipesPorIdCampeonato(int id) {
+        String sql = "SELECT * FROM equipe WHERE campeonato_id = ?";
+        Equipe equipe;
         List<Equipe> equipes = new ArrayList<>();
         try {
             conexao = FabricaConexao.abrirConexao();
             preparaSql = conexao.prepareStatement(sql);
+            preparaSql.setInt(1, id);
             resultado = preparaSql.executeQuery();
 
             while (resultado.next()) {

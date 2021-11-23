@@ -67,7 +67,7 @@ public class CampeonatoDaoImpl {
             conexao = FabricaConexao.abrirConexao();
             preparaSql = conexao.prepareStatement(sql);
             preparaSql.setInt(1, id);
-
+            
             EnderecoDaoImpl enderecoDaoImpl = new EnderecoDaoImpl();
             enderecoDaoImpl.excluirEnderecoCampeonato(id, conexao);
             preparaSql.executeUpdate();

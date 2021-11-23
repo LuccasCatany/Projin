@@ -23,7 +23,14 @@ import java.util.logging.Logger;
  */
 public class TelaPesquisa extends javax.swing.JFrame {
 
-    private  List<Campeonato> campeonatos;
+    private List<Campeonato> campeonatos;
+    private List<Equipe> equipes;
+    private List<Participante> participantes;
+    private CampeonatoDaoImpl campeonatoDaoImpl;
+    private  EquipeDaoImpl equipeDaoImpl;
+    private ParticipanteDaoImpl participanteDaoImpl;
+    private String nomePesquisado;
+
     /**
      * Creates new form TelaPesquisa
      */
@@ -49,6 +56,7 @@ public class TelaPesquisa extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btExcluir = new javax.swing.JButton();
+        btVoltaMenu = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,6 +103,13 @@ public class TelaPesquisa extends javax.swing.JFrame {
             }
         });
 
+        btVoltaMenu.setText("Voltar ao menu");
+        btVoltaMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btVoltaMenuActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -118,8 +133,10 @@ public class TelaPesquisa extends javax.swing.JFrame {
                         .addComponent(lbTituloPrincipal))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(346, 346, 346)
-                        .addComponent(btExcluir)))
-                .addContainerGap(186, Short.MAX_VALUE))
+                        .addComponent(btExcluir)
+                        .addGap(88, 88, 88)
+                        .addComponent(btVoltaMenu)))
+                .addContainerGap(158, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,7 +153,9 @@ public class TelaPesquisa extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                .addComponent(btExcluir)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btExcluir)
+                    .addComponent(btVoltaMenu))
                 .addGap(37, 37, 37))
         );
 
@@ -145,25 +164,26 @@ public class TelaPesquisa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
-        String nomePesquisado = varPesquisa.getText().trim();//não to usando por enquanto
+
+        nomePesquisado = varPesquisa.getText().trim();
         String grupoPesquisado = String.valueOf(jComboBox.getSelectedItem());
         if (grupoPesquisado.equals("Campeonato")) {
             try {
-                leTabelaCampeonato(nomePesquisado);
+                preenchePesquisaCampeonato(nomePesquisado);
             } catch (SQLException ex) {
                 System.out.println("Erro ao preencher equipe " + ex.getMessage());
             }
         };
         if (grupoPesquisado.equals("Equipe")) {
             try {
-                leTabelaEquipe(nomePesquisado);
+                preenchePesquisaEquipe(nomePesquisado);
             } catch (SQLException ex) {
                 System.out.println("Erro ao preencher equipe " + ex.getMessage());
             }
         }
         if (grupoPesquisado.equals("Participante")) {
             try {
-                leTabelaParticipante(nomePesquisado);
+                preenchePesquisaParticipante(nomePesquisado);
             } catch (SQLException ex) {
                 System.out.println("Erro ao preencher participante " + ex.getMessage());
             }
@@ -171,83 +191,86 @@ public class TelaPesquisa extends javax.swing.JFrame {
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
+        nomePesquisado = varPesquisa.getText().trim();
         String grupoPesquisado = String.valueOf(jComboBox.getSelectedItem());
-        ModeloTabela modelo = new ModeloTabela();
+//        ModeloTabela modelo = new ModeloTabela();
 
         int linha = jTable1.getSelectedRow();
+//        int[] colunas = jTable1.getSelectedColumns();
 //        int indexLinha = jTable1.
         if (linha >= 0) {
-           
-            campeonatos.remove(linha);
             try {
-                leTabelaEquipe("");
+
+                if (grupoPesquisado.equals("Campeonato")) {
+                    int id = (int) jTable1.getValueAt(linha, 0);
+                    excluiCampeonato(id);
+                    campeonatos.remove(linha);
+                    preenchePesquisaCampeonato(nomePesquisado);
+
+                }
+
+                if (grupoPesquisado.equals("Equipe")) {
+                    equipes.remove(linha);
+                    Equipe equipe = equipes.get(linha);
+                    excluirEquipe(equipe.getId());
+                    preenchePesquisaEquipe(nomePesquisado);
+
+                }
+
+                if (grupoPesquisado.equals("Participante")) {
+                    participantes.remove(linha);
+                    Participante participante = participantes.get(linha);
+                    excluirParticipante(participante.getId());
+                    preenchePesquisaParticipante(nomePesquisado);
+                }
             } catch (SQLException ex) {
-                Logger.getLogger(TelaPesquisa.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Erro ao excluir " + ex.getMessage());
             }
-        }else{
+        } else {
             System.out.println("Nenhuma linha selecionada.");
         }
-        if (grupoPesquisado.equals("Campeonato")) {
 
-            CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
-            String nomeCampeonato = modelo.getValueAt(1, 1).toString();
-            List<Campeonato> campeonatos;
-            try {
-                campeonatos = campeonatoDaoImpl.pesquisarCampeonatoPorNome(nomeCampeonato);
-                for (Campeonato campeonato : campeonatos) {
-                    campeonatoDaoImpl.excluir(campeonato.getId());
-                }//Tomar cuidado pois aqui exclue todos os campeonatos com mesmo nome                       
-            } catch (SQLException ex) {
-                System.out.println("Erro ao excluir campeonato " + ex.getMessage());
-            }            
-            }
-        
-        
-        if (grupoPesquisado.equals("Equipe")) {
-            
-            String nomeEquipe = modelo.getValueAt(linha, 1).toString();
-            EquipeDaoImpl equipeDaoImpl = new EquipeDaoImpl();
-            List<Equipe> equipes;
-            try {
-                equipes = equipeDaoImpl.pesquisarEquipePorNomeEquipe(nomeEquipe);
-                for (Equipe equipe : equipes) {
-                    equipeDaoImpl.excluir(equipe.getId());
-                    
-                }
-                
-            } catch (SQLException ex) {
-                System.out.println("Erro ao excluir equipe " + ex.getMessage());
-            }
-        }
-        
-        if (grupoPesquisado.equals("Participante")) {
-
-            String nomeParticipante = modelo.getValueAt(linha, 1).toString();
-            ParticipanteDaoImpl participanteDaoImpl = new ParticipanteDaoImpl();
-            List<Participante> participantes;
-            
-            try {
-                participantes = participanteDaoImpl.pesquisarParticipantesPorNome(nomeParticipante);
-                for (Participante participante : participantes) {
-                    participanteDaoImpl.excluir(participante.getId());
-                }
-            } catch (SQLException ex) {
-                System.out.println("Erro ao excluir participante " + ex.getMessage());
-            }
-        }
 
     }//GEN-LAST:event_btExcluirActionPerformed
 
-    public void leTabelaCampeonato(String nomePesquisado) throws SQLException {
+    private void btVoltaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltaMenuActionPerformed
+        new TelaPrincipal().setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btVoltaMenuActionPerformed
+
+    //Metodos que apagam o objeto selecionado no banco chamando classes DaoImpl
+    public void excluiCampeonato(int id) {
+        equipes = equipeDaoImpl.pesquisarEquipesPorIdCampeonato(id);
+        if(equipes != null){
+             campeonatoDaoImpl.excluir(id);
+        }else{
+            System.out.println("O campeonato não pode ser excluido pois possue equipes, por favor exclua as equipes primeiro!");
+        }
+       
+    }
+
+    public void excluirEquipe(int id) throws SQLException {
+       
+        equipeDaoImpl.excluir(id);
+    }
+
+    public void excluirParticipante(int id) {
+        
+        participanteDaoImpl.excluir(id);
+    }
+
+    //Metodos que preenchem a tabela de acordo com o grupo escolhido na common box 
+    public void preenchePesquisaCampeonato(String nomePesquisado) throws SQLException {
 
         CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
-        List<Campeonato> campeonatos = campeonatoDaoImpl.pesquisarCampeonatoPorNome(nomePesquisado);//retorna todos os campeonatos que tenho
+        campeonatos = campeonatoDaoImpl.pesquisarCampeonatoPorNome(nomePesquisado);//retorna todos os campeonatos que tenho
 
-        String[] coluna = new String[]{"Campeonato", "Data", "Logradouro", "Bairro", "Cidade", "Estado", "Cep", "Complemento"};
+        String[] coluna = new String[]{"ID", "Campeonato", "Data", "Logradouro", "Bairro", "Cidade", "Estado", "Cep", "Complemento"};
         ArrayList dados = new ArrayList();
         for (Campeonato campeonato : campeonatos) {
 
             dados.add(new Object[]{
+                campeonato.getId(),
                 campeonato.getNomeCampeonato(),
                 campeonato.getDataCampeonato(),
                 campeonato.getEndereco().getLogradouro(),
@@ -264,16 +287,17 @@ public class TelaPesquisa extends javax.swing.JFrame {
 
     }
 
-    public void leTabelaEquipe(String nomePesquisado) throws SQLException {
+    public void preenchePesquisaEquipe(String nomePesquisado) throws SQLException {
         EquipeDaoImpl equipeDaoImpl = new EquipeDaoImpl();
-        List<Equipe> equipes = equipeDaoImpl.pesquisarEquipePorNomeEquipe(nomePesquisado);
+        equipes = equipeDaoImpl.pesquisarEquipePorNomeEquipe(nomePesquisado);
 
-        String[] coluna = new String[]{"Equipe", "Campeonato", "Data"};
+        String[] coluna = new String[]{"ID", "Equipe", "Campeonato", "Data"};
         ArrayList dados = new ArrayList();
 
         for (Equipe equipe : equipes) {
 
             dados.add(new Object[]{
+                equipe.getId(),
                 equipe.getNome(),
                 equipe.getCampeonato().getNomeCampeonato(),
                 equipe.getCampeonato().getDataCampeonato()
@@ -283,15 +307,16 @@ public class TelaPesquisa extends javax.swing.JFrame {
         jTable1.setModel(modelo);
     }
 
-    public void leTabelaParticipante(String nomePesquisado) throws SQLException {
+    public void preenchePesquisaParticipante(String nomePesquisado) throws SQLException {
         ParticipanteDaoImpl participanteDaoImpl = new ParticipanteDaoImpl();
-        List<Participante> participantes = participanteDaoImpl.pesquisarParticipantesPorNome(nomePesquisado);
+        participantes = participanteDaoImpl.pesquisarParticipantesPorNome(nomePesquisado);
 
-        String[] coluna = new String[]{"Nome", "CPF", "Telefone", "Equipe", "Logradouro", "Bairro", "Cidade", "Estado", "Cep", "Complemento"};
+        String[] coluna = new String[]{"ID", "Nome", "CPF", "Telefone", "Equipe", "Logradouro", "Bairro", "Cidade", "Estado", "Cep", "Complemento"};
         ArrayList dados = new ArrayList();
 
         for (Participante participante : participantes) {
             dados.add(new Object[]{
+                participante.getId(),
                 participante.getNome(),
                 participante.getCpf(),
                 participante.getTelefone(),
@@ -348,6 +373,7 @@ public class TelaPesquisa extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btPesquisar;
+    private javax.swing.JButton btVoltaMenu;
     private javax.swing.JComboBox<String> jComboBox;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
