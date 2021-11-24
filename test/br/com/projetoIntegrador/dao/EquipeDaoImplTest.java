@@ -34,14 +34,14 @@ public class EquipeDaoImplTest {
                 GeradorUtil.gerarNome() + " Equipe"
         );
         CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
-        List<Campeonato> campeonatos = campeonatoDaoImpl.pesquisarCampeonatoPorNome("");
+        List<Campeonato> campeonatos = campeonatoDaoImpl.pesquisarCampeonatoPorNome("Jhon silver");
         campeonato = campeonatos.get(0);
         equipe.setCampeonato(campeonato);
         mostrarEquipe(equipe);
         equipeDaoImpl.salvar(equipe);
     }
 
-    //@Test
+//    @Test
     public void salvandoVarios() throws SQLException {
         for (int i = 0; i < 10; i++) {
             testSalvar();

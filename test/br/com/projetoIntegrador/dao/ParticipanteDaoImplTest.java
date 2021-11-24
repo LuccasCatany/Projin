@@ -46,15 +46,15 @@ public class ParticipanteDaoImplTest {
                 "Teste do ice"
         );
         EquipeDaoImpl equipeDaoImpl = new EquipeDaoImpl();
-
-        participante.setEquipe(equipeDaoImpl.pesquisarEquipePorIdEquipe(1));
+        int idEquipe = 36;
+        participante.setEquipe(equipeDaoImpl.pesquisarEquipePorIdEquipe(idEquipe));
 
         participante.setEndereco(endereco);
 //        participante.setEquipe(equipe);
         participanteDaoImpl.salvar(participante);
     }
 
-   //@Test
+//   @Test
     public void salvandoVarios() throws SQLException {
         for (int i = 0; i < 5; i++) {
             testSalvar();
@@ -116,7 +116,7 @@ public class ParticipanteDaoImplTest {
     public void pesquisarParticipantesDaEquipe() throws SQLException {
         System.out.println("Pesquisar participantes da equipe ");
 
-        List<Participante> participantes = participanteDaoImpl.pesquisarParticipantesDaEquipe(1);
+        List<Participante> participantes = participanteDaoImpl.pesquisarParticipantesPorEquipe(1);
 
         for (Participante participante1 : participantes) {
             mostrarParticipanteEndereco(participante1);

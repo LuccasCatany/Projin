@@ -176,6 +176,10 @@ public class EquipeDaoImpl {
                 equipe = new Equipe();
                 equipe.setId(resultado.getInt("id"));
                 equipe.setNome(resultado.getString("nome"));
+                
+                CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
+                equipe.setCampeonato(campeonatoDaoImpl.pesquisarPorId(id));
+                
                 equipes.add(equipe);
             }
 

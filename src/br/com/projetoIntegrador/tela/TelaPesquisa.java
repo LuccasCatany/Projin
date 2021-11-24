@@ -52,15 +52,15 @@ public class TelaPesquisa extends javax.swing.JFrame {
         lbPesquisa = new javax.swing.JLabel();
         varPesquisa = new javax.swing.JTextField();
         lbPesquisarEm = new javax.swing.JLabel();
-        jComboBox = new javax.swing.JComboBox<String>();
+        jComboBox = new javax.swing.JComboBox<>();
         btPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtPesquisa = new javax.swing.JTable();
         btExcluir = new javax.swing.JButton();
         btVoltaMenu = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(900, 609));
 
         lbTituloPrincipal.setFont(new java.awt.Font("Ink Free", 0, 50)); // NOI18N
         lbTituloPrincipal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -74,14 +74,10 @@ public class TelaPesquisa extends javax.swing.JFrame {
         lbPesquisarEm.setFont(new java.awt.Font("Ink Free", 1, 16)); // NOI18N
         lbPesquisarEm.setForeground(new java.awt.Color(102, 102, 102));
         lbPesquisarEm.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        lbPesquisarEm.setText("Pesquisar em:");
+        lbPesquisarEm.setText(" em:");
 
-        jComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Campeonato", "Equipe", "Participante" }));
-        jComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxActionPerformed(evt);
-            }
-        });
+        jComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Campeonatos", "Equipes", "Participantes", "Equipes por campeonato", "Participantes por equipe" }));
+        jComboBox.setActionCommand("");
 
         btPesquisar.setText("Pesquisar");
         btPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -117,13 +113,6 @@ public class TelaPesquisa extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -132,50 +121,47 @@ public class TelaPesquisa extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addComponent(lbPesquisa)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(varPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(lbPesquisarEm)
-                        .addGap(4, 4, 4)
-                        .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btPesquisar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(346, 346, 346)
-                        .addComponent(btExcluir)
-                        .addGap(88, 88, 88)
-                        .addComponent(btVoltaMenu)))
-                .addContainerGap(158, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(271, 271, 271)
-                .addComponent(lbTituloPrincipal)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(55, 55, 55))
+                        .addGap(273, 273, 273)
+                        .addComponent(lbTituloPrincipal)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(128, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btVoltaMenu))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(lbPesquisa)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(varPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lbPesquisarEm)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(77, 77, 77)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(9, 9, 9)
+                .addComponent(lbTituloPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbTituloPrincipal)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbPesquisa)
-                    .addComponent(varPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbPesquisarEm)
+                    .addComponent(btPesquisar)
                     .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btPesquisar))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                    .addComponent(lbPesquisarEm)
+                    .addComponent(varPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbPesquisa))
+                .addGap(2, 2, 2)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btExcluir)
                     .addComponent(btVoltaMenu))
-                .addGap(37, 37, 37))
+                .addContainerGap())
         );
 
         pack();
@@ -207,6 +193,23 @@ public class TelaPesquisa extends javax.swing.JFrame {
                 System.out.println("Erro ao preencher participante " + ex.getMessage());
             }
         }
+        if (grupoPesquisado == 3) {
+            try {
+                preenchePesquisaEquipesPorCampeonato(nomePesquisado);
+            } catch (Exception e) {
+                System.out.println("Erro ao preencher equipes por campeonato " + e.getMessage());
+            }
+        }
+        if (grupoPesquisado == 4) {
+            try {
+                preenchePesquisaParticipantePorEquipe(nomePesquisado);
+            } catch (Exception e) {
+                System.out.println("Erro ao preencher equipes por campeonato " + e.getMessage());
+
+            }
+        }
+        // numeros não são amigaveis, mas deixei assim, preferia o if(grupoPesquisado.equals("Equipes por campeonato"))- maria 
+
     }//GEN-LAST:event_btPesquisarActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
@@ -218,27 +221,35 @@ public class TelaPesquisa extends javax.swing.JFrame {
             try {
 
                 if (grupoPesquisado.equals("Campeonato")) {
-                    System.out.println(campeonatos.get(index).getId());
                     int id = campeonatos.get(index).getId();
                     excluiCampeonato(id);
                     campeonatos.remove(index);
                     preenchePesquisaCampeonato(nomePesquisado);
-
                 }
-
                 if (grupoPesquisado.equals("Equipe")) {
+                    int id = equipes.get(index).getId();
+                    excluirEquipe(id);
                     equipes.remove(index);
-                    Equipe equipe = equipes.get(index);
-                    excluirEquipe(equipe.getId());
                     preenchePesquisaEquipe(nomePesquisado);
-
                 }
-
                 if (grupoPesquisado.equals("Participante")) {
+
+                    int id = participantes.get(index).getId();
+                    excluirParticipante(id);
                     participantes.remove(index);
-                    Participante participante = participantes.get(index);
-                    excluirParticipante(participante.getId());
                     preenchePesquisaParticipante(nomePesquisado);
+                }
+                if(grupoPesquisado.equals("Equipes por campeonato")){
+                    int id = equipes.get(index).getId();
+                    excluirEquipe(id);
+                    equipes.remove(index);
+                    preenchePesquisaEquipesPorCampeonato(nomePesquisado);
+                }
+                if(grupoPesquisado.equals("Participantes por equipe")){
+                    int id = participantes.get(index).getId();
+                    excluirParticipante(id);
+                    participantes.remove(index);
+                    preenchePesquisaParticipantePorEquipe(nomePesquisado);
                 }
             } catch (SQLException ex) {
                 System.out.println("Erro ao excluir " + ex.getMessage());
@@ -254,44 +265,6 @@ public class TelaPesquisa extends javax.swing.JFrame {
         new TelaPrincipal().setVisible(true);
         dispose();
     }//GEN-LAST:event_btVoltaMenuActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int yuu = -1;
-        while (yuu < 0) {
-            yuu = JOptionPane.showConfirmDialog(null, ":3");
-            System.out.println(yuu);
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxActionPerformed
-
-    //Metodos que apagam o objeto selecionado no banco chamando classes DaoImpl
-    public void excluiCampeonato(int id) {
-        EquipeDaoImpl equip = new EquipeDaoImpl();
-        equipes = equip.pesquisarEquipesPorIdCampeonato(id);
-        if (equipes.size() <= 0) {
-            campeonatoDaoImpl.excluir(id);
-        } else {
-            int resultadoDojop = JOptionPane.showConfirmDialog(null, "oi");
-
-            if (resultadoDojop == 0) {
-                CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
-                campeonatoDaoImpl.excluir(id);
-            }
-        }
-    }
-
-    public void excluirEquipe(int id) throws SQLException {
-
-        equipeDaoImpl.excluir(id);
-    }
-
-    public void excluirParticipante(int id) {
-
-        participanteDaoImpl.excluir(id);
-    }
 
     //Metodos que preenchem a tabela de acordo com o grupo escolhido na common box 
     public void preenchePesquisaCampeonato(String nomePesquisado) throws SQLException {
@@ -324,13 +297,12 @@ public class TelaPesquisa extends javax.swing.JFrame {
         EquipeDaoImpl equip = new EquipeDaoImpl();
         equipes = equip.pesquisarEquipePorNomeEquipe(nomePesquisado);
 
-        String[] coluna = new String[]{"ID", "Equipe", "Campeonato", "Data"};
+        String[] coluna = new String[]{"Equipe", "Campeonato", "Data"};
         ArrayList dados = new ArrayList();
 
         for (Equipe equipe : equipes) {
 
             dados.add(new Object[]{
-                equipe.getId(),
                 equipe.getNome(),
                 equipe.getCampeonato().getNomeCampeonato(),
                 equipe.getCampeonato().getDataCampeonato()
@@ -341,7 +313,7 @@ public class TelaPesquisa extends javax.swing.JFrame {
     }
 
     public void preenchePesquisaParticipante(String nomePesquisado) throws SQLException {
-        ParticipanteDaoImpl participanteDaoImpl = new ParticipanteDaoImpl();
+        participanteDaoImpl = new ParticipanteDaoImpl();
         participantes = participanteDaoImpl.pesquisarParticipantesPorNome(nomePesquisado);
 
         String[] coluna = new String[]{"Nome", "CPF", "Telefone", "Equipe", "Logradouro", "Bairro", "Cidade", "Estado", "Cep", "Complemento"};
@@ -366,6 +338,111 @@ public class TelaPesquisa extends javax.swing.JFrame {
         jtPesquisa.setModel(modelo);
 
     }
+
+    public void preenchePesquisaEquipesPorCampeonato(String nomeCampeonato) throws SQLException {
+
+        campeonatoDaoImpl = new CampeonatoDaoImpl();
+        campeonatos = campeonatoDaoImpl.pesquisarCampeonatoPorNome(nomeCampeonato);
+        if (campeonatos.size() == 1) {
+            for (Campeonato campeonato : campeonatos) {
+                int idCampeonato = campeonato.getId();
+                equipeDaoImpl = new EquipeDaoImpl();
+                equipes = equipeDaoImpl.pesquisarEquipesPorIdCampeonato(idCampeonato);
+
+                String[] coluna = new String[]{"Equipe", "Campeonato", "Data"};
+                ArrayList dados = new ArrayList();
+
+                for (Equipe equipe : equipes) {
+
+                    dados.add(new Object[]{
+                        equipe.getNome(),
+                        equipe.getCampeonato().getNomeCampeonato(),
+                        equipe.getCampeonato().getDataCampeonato()
+                    });
+                }
+                ModeloTabela modelo = new ModeloTabela(dados, coluna);
+                jtPesquisa.setModel(modelo);
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Nome campeonato corresponde a muitos itens, por favor especifique mais a pesquisa.");
+        }
+
+    }
+
+    public void preenchePesquisaParticipantePorEquipe(String nomeEquipe) throws SQLException {
+        equipeDaoImpl = new EquipeDaoImpl();
+        equipes = equipeDaoImpl.pesquisarEquipePorNomeEquipe(nomeEquipe);
+        if (equipes.size() == 1) {
+            for (Equipe equipe : equipes) {
+                int idEquipe = equipe.getId();
+                participanteDaoImpl = new ParticipanteDaoImpl();
+                participantes = participanteDaoImpl.pesquisarParticipantesPorEquipe(idEquipe);
+
+                String[] coluna = new String[]{"Nome", "CPF", "Telefone", "Equipe", "Logradouro", "Bairro", "Cidade", "Estado", "Cep", "Complemento"};
+                ArrayList dados = new ArrayList();
+
+                for (Participante participante : participantes) {
+                    dados.add(new Object[]{
+                        participante.getNome(),
+                        participante.getCpf(),
+                        participante.getTelefone(),
+                        participante.getEquipe().getNome(),
+                        participante.getEndereco().getLogradouro(),
+                        participante.getEndereco().getBairro(),
+                        participante.getEndereco().getCidade(),
+                        participante.getEndereco().getEstado(),
+                        participante.getEndereco().getCep(),
+                        participante.getEndereco().getComplemento()
+                    }
+                    );
+                }
+                ModeloTabela modelo = new ModeloTabela(dados, coluna);
+                jtPesquisa.setModel(modelo);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Nome equipe corresponde a muitos itens, por favor especifique mais a pesquisa.");
+        }
+
+    }
+    
+    
+    //Metodos que apagam o objeto selecionado no banco chamando classes DaoImpl
+    public void excluiCampeonato(int id) {
+        EquipeDaoImpl equip = new EquipeDaoImpl();
+        equipes = equip.pesquisarEquipesPorIdCampeonato(id);
+        if (equipes.size() <= 0) {
+            campeonatoDaoImpl.excluir(id);
+        } else {
+            int resultadoDojop = JOptionPane.showConfirmDialog(null, "O campeonato selecionado possue equipes cadastradas, ao deleta-lo todas as equipes serão apagadas. Apagar campeonato e equipes?");
+
+            if (resultadoDojop == 0) {
+                campeonatoDaoImpl = new CampeonatoDaoImpl();
+                campeonatoDaoImpl.excluir(id);
+            }
+        }
+    }
+
+    public void excluirEquipe(int id) throws SQLException {
+        ParticipanteDaoImpl particip = new ParticipanteDaoImpl();
+        participantes = particip.pesquisarParticipantesPorEquipe(id);
+        if (participantes.size() <= 0) {
+            equipeDaoImpl.excluir(id);
+        } else {
+            int resultadoDojop = JOptionPane.showConfirmDialog(null, "A equipe selecionada possue participantes cadastrados, ao deleta-la todas as equipes serão apagadas. Apagar equipe e participantes?");
+
+            if (resultadoDojop == 0) {
+                equipeDaoImpl = new EquipeDaoImpl();
+                equipeDaoImpl.excluir(id);
+            }
+        }
+    }
+
+    public void excluirParticipante(int id) {
+        participanteDaoImpl = new ParticipanteDaoImpl();
+        participanteDaoImpl.excluir(id);
+    }
+
 
     /**
      * @param args the command line arguments
@@ -406,7 +483,6 @@ public class TelaPesquisa extends javax.swing.JFrame {
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btPesquisar;
     private javax.swing.JButton btVoltaMenu;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtPesquisa;

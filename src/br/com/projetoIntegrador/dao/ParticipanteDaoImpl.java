@@ -122,7 +122,7 @@ public class ParticipanteDaoImpl {
         }
     }
 
-    public List<Participante> pesquisarParticipantesDaEquipe(int id) throws SQLException {
+    public List<Participante> pesquisarParticipantesPorEquipe(int id) throws SQLException {
         String sql = "SELECT * FROM participante WHERE equipe_id = ?";
         List<Participante> participantes = new ArrayList<>();
 
