@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,7 +28,7 @@ public class TelaPesquisa extends javax.swing.JFrame {
     private List<Equipe> equipes;
     private List<Participante> participantes;
     private CampeonatoDaoImpl campeonatoDaoImpl;
-    private  EquipeDaoImpl equipeDaoImpl;
+    private EquipeDaoImpl equipeDaoImpl;
     private ParticipanteDaoImpl participanteDaoImpl;
     private String nomePesquisado;
 
@@ -51,12 +52,13 @@ public class TelaPesquisa extends javax.swing.JFrame {
         lbPesquisa = new javax.swing.JLabel();
         varPesquisa = new javax.swing.JTextField();
         lbPesquisarEm = new javax.swing.JLabel();
-        jComboBox = new javax.swing.JComboBox<>();
+        jComboBox = new javax.swing.JComboBox<String>();
         btPesquisar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtPesquisa = new javax.swing.JTable();
         btExcluir = new javax.swing.JButton();
         btVoltaMenu = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,7 +76,12 @@ public class TelaPesquisa extends javax.swing.JFrame {
         lbPesquisarEm.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbPesquisarEm.setText("Pesquisar em:");
 
-        jComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Campeonato", "Equipe", "Participante", " " }));
+        jComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Campeonato", "Equipe", "Participante" }));
+        jComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxActionPerformed(evt);
+            }
+        });
 
         btPesquisar.setText("Pesquisar");
         btPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -83,7 +90,7 @@ public class TelaPesquisa extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtPesquisa.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -94,7 +101,7 @@ public class TelaPesquisa extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtPesquisa);
 
         btExcluir.setText("Excluir");
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -107,6 +114,13 @@ public class TelaPesquisa extends javax.swing.JFrame {
         btVoltaMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btVoltaMenuActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -129,20 +143,25 @@ public class TelaPesquisa extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btPesquisar))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(271, 271, 271)
-                        .addComponent(lbTituloPrincipal))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(346, 346, 346)
                         .addComponent(btExcluir)
                         .addGap(88, 88, 88)
                         .addComponent(btVoltaMenu)))
                 .addContainerGap(158, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(271, 271, 271)
+                .addComponent(lbTituloPrincipal)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(55, 55, 55))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(9, 9, 9)
-                .addComponent(lbTituloPrincipal)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbTituloPrincipal)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbPesquisa)
@@ -166,22 +185,22 @@ public class TelaPesquisa extends javax.swing.JFrame {
     private void btPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btPesquisarActionPerformed
 
         nomePesquisado = varPesquisa.getText().trim();
-        String grupoPesquisado = String.valueOf(jComboBox.getSelectedItem());
-        if (grupoPesquisado.equals("Campeonato")) {
+        int grupoPesquisado = jComboBox.getSelectedIndex();
+        if (grupoPesquisado == 0) {
             try {
                 preenchePesquisaCampeonato(nomePesquisado);
             } catch (SQLException ex) {
                 System.out.println("Erro ao preencher equipe " + ex.getMessage());
             }
         };
-        if (grupoPesquisado.equals("Equipe")) {
+        if (grupoPesquisado == 1) {
             try {
                 preenchePesquisaEquipe(nomePesquisado);
             } catch (SQLException ex) {
                 System.out.println("Erro ao preencher equipe " + ex.getMessage());
             }
         }
-        if (grupoPesquisado.equals("Participante")) {
+        if (grupoPesquisado == 2) {
             try {
                 preenchePesquisaParticipante(nomePesquisado);
             } catch (SQLException ex) {
@@ -193,33 +212,31 @@ public class TelaPesquisa extends javax.swing.JFrame {
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
         nomePesquisado = varPesquisa.getText().trim();
         String grupoPesquisado = String.valueOf(jComboBox.getSelectedItem());
-//        ModeloTabela modelo = new ModeloTabela();
 
-        int linha = jTable1.getSelectedRow();
-//        int[] colunas = jTable1.getSelectedColumns();
-//        int indexLinha = jTable1.
-        if (linha >= 0) {
+        int index = jtPesquisa.getSelectedRow();
+        if (index >= 0) {
             try {
 
                 if (grupoPesquisado.equals("Campeonato")) {
-                    int id = (int) jTable1.getValueAt(linha, 0);
+                    System.out.println(campeonatos.get(index).getId());
+                    int id = campeonatos.get(index).getId();
                     excluiCampeonato(id);
-                    campeonatos.remove(linha);
+                    campeonatos.remove(index);
                     preenchePesquisaCampeonato(nomePesquisado);
 
                 }
 
                 if (grupoPesquisado.equals("Equipe")) {
-                    equipes.remove(linha);
-                    Equipe equipe = equipes.get(linha);
+                    equipes.remove(index);
+                    Equipe equipe = equipes.get(index);
                     excluirEquipe(equipe.getId());
                     preenchePesquisaEquipe(nomePesquisado);
 
                 }
 
                 if (grupoPesquisado.equals("Participante")) {
-                    participantes.remove(linha);
-                    Participante participante = participantes.get(linha);
+                    participantes.remove(index);
+                    Participante participante = participantes.get(index);
                     excluirParticipante(participante.getId());
                     preenchePesquisaParticipante(nomePesquisado);
                 }
@@ -238,24 +255,41 @@ public class TelaPesquisa extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btVoltaMenuActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        int yuu = -1;
+        while (yuu < 0) {
+            yuu = JOptionPane.showConfirmDialog(null, ":3");
+            System.out.println(yuu);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxActionPerformed
+
     //Metodos que apagam o objeto selecionado no banco chamando classes DaoImpl
     public void excluiCampeonato(int id) {
-        equipes = equipeDaoImpl.pesquisarEquipesPorIdCampeonato(id);
-        if(equipes != null){
-             campeonatoDaoImpl.excluir(id);
-        }else{
-            System.out.println("O campeonato não pode ser excluido pois possue equipes, por favor exclua as equipes primeiro!");
+        EquipeDaoImpl equip = new EquipeDaoImpl();
+        equipes = equip.pesquisarEquipesPorIdCampeonato(id);
+        if (equipes.size() <= 0) {
+            campeonatoDaoImpl.excluir(id);
+        } else {
+            int resultadoDojop = JOptionPane.showConfirmDialog(null, "oi");
+
+            if (resultadoDojop == 0) {
+                CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
+                campeonatoDaoImpl.excluir(id);
+            }
         }
-       
     }
 
     public void excluirEquipe(int id) throws SQLException {
-       
+
         equipeDaoImpl.excluir(id);
     }
 
     public void excluirParticipante(int id) {
-        
+
         participanteDaoImpl.excluir(id);
     }
 
@@ -265,12 +299,11 @@ public class TelaPesquisa extends javax.swing.JFrame {
         CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
         campeonatos = campeonatoDaoImpl.pesquisarCampeonatoPorNome(nomePesquisado);//retorna todos os campeonatos que tenho
 
-        String[] coluna = new String[]{"ID", "Campeonato", "Data", "Logradouro", "Bairro", "Cidade", "Estado", "Cep", "Complemento"};
+        String[] coluna = new String[]{"Campeonato", "Data", "Logradouro", "Bairro", "Cidade", "Estado", "Cep", "Complemento"};
         ArrayList dados = new ArrayList();
         for (Campeonato campeonato : campeonatos) {
 
             dados.add(new Object[]{
-                campeonato.getId(),
                 campeonato.getNomeCampeonato(),
                 campeonato.getDataCampeonato(),
                 campeonato.getEndereco().getLogradouro(),
@@ -283,13 +316,13 @@ public class TelaPesquisa extends javax.swing.JFrame {
 
         }
         ModeloTabela modelo = new ModeloTabela(dados, coluna);
-        jTable1.setModel(modelo);
+        jtPesquisa.setModel(modelo);
 
     }
 
     public void preenchePesquisaEquipe(String nomePesquisado) throws SQLException {
-        EquipeDaoImpl equipeDaoImpl = new EquipeDaoImpl();
-        equipes = equipeDaoImpl.pesquisarEquipePorNomeEquipe(nomePesquisado);
+        EquipeDaoImpl equip = new EquipeDaoImpl();
+        equipes = equip.pesquisarEquipePorNomeEquipe(nomePesquisado);
 
         String[] coluna = new String[]{"ID", "Equipe", "Campeonato", "Data"};
         ArrayList dados = new ArrayList();
@@ -304,19 +337,18 @@ public class TelaPesquisa extends javax.swing.JFrame {
             });
         }
         ModeloTabela modelo = new ModeloTabela(dados, coluna);
-        jTable1.setModel(modelo);
+        jtPesquisa.setModel(modelo);
     }
 
     public void preenchePesquisaParticipante(String nomePesquisado) throws SQLException {
         ParticipanteDaoImpl participanteDaoImpl = new ParticipanteDaoImpl();
         participantes = participanteDaoImpl.pesquisarParticipantesPorNome(nomePesquisado);
 
-        String[] coluna = new String[]{"ID", "Nome", "CPF", "Telefone", "Equipe", "Logradouro", "Bairro", "Cidade", "Estado", "Cep", "Complemento"};
+        String[] coluna = new String[]{"Nome", "CPF", "Telefone", "Equipe", "Logradouro", "Bairro", "Cidade", "Estado", "Cep", "Complemento"};
         ArrayList dados = new ArrayList();
 
         for (Participante participante : participantes) {
             dados.add(new Object[]{
-                participante.getId(),
                 participante.getNome(),
                 participante.getCpf(),
                 participante.getTelefone(),
@@ -331,7 +363,7 @@ public class TelaPesquisa extends javax.swing.JFrame {
             );
         }
         ModeloTabela modelo = new ModeloTabela(dados, coluna);
-        jTable1.setModel(modelo);
+        jtPesquisa.setModel(modelo);
 
     }
 
@@ -374,9 +406,10 @@ public class TelaPesquisa extends javax.swing.JFrame {
     private javax.swing.JButton btExcluir;
     private javax.swing.JButton btPesquisar;
     private javax.swing.JButton btVoltaMenu;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jtPesquisa;
     private javax.swing.JLabel lbPesquisa;
     private javax.swing.JLabel lbPesquisarEm;
     private javax.swing.JLabel lbTituloPrincipal;
