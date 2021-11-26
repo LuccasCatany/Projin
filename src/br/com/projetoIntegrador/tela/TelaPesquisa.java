@@ -220,19 +220,19 @@ public class TelaPesquisa extends javax.swing.JFrame {
         if (index >= 0) {
             try {
 
-                if (grupoPesquisado.equals("Campeonato")) {
+                if (grupoPesquisado.equals("Campeonatos")) {
                     int id = campeonatos.get(index).getId();
                     excluiCampeonato(id);
                     campeonatos.remove(index);
                     preenchePesquisaCampeonato(nomePesquisado);
                 }
-                if (grupoPesquisado.equals("Equipe")) {
+                if (grupoPesquisado.equals("Equipes")) {
                     int id = equipes.get(index).getId();
                     excluirEquipe(id);
                     equipes.remove(index);
                     preenchePesquisaEquipe(nomePesquisado);
                 }
-                if (grupoPesquisado.equals("Participante")) {
+                if (grupoPesquisado.equals("Participantes")) {
 
                     int id = participantes.get(index).getId();
                     excluirParticipante(id);
@@ -429,7 +429,7 @@ public class TelaPesquisa extends javax.swing.JFrame {
         if (participantes.size() <= 0) {
             equipeDaoImpl.excluir(id);
         } else {
-            int resultadoDojop = JOptionPane.showConfirmDialog(null, "A equipe selecionada possue participantes cadastrados, ao deleta-la todas as equipes serão apagadas. Apagar equipe e participantes?");
+            int resultadoDojop = JOptionPane.showConfirmDialog(null, "A equipe selecionada possue participantes cadastrados, ao deleta-la todas os participantes serão apagadas. Apagar equipe e participantes?");
 
             if (resultadoDojop == 0) {
                 equipeDaoImpl = new EquipeDaoImpl();
