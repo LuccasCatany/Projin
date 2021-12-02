@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -48,19 +49,23 @@ public class TelaPesquisa extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel = new javax.swing.JPanel();
         lbTituloPrincipal = new javax.swing.JLabel();
         lbPesquisa = new javax.swing.JLabel();
         varPesquisa = new javax.swing.JTextField();
         lbPesquisarEm = new javax.swing.JLabel();
-        jComboBox = new javax.swing.JComboBox<>();
         btPesquisar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtPesquisa = new javax.swing.JTable();
         btExcluir = new javax.swing.JButton();
         btVoltaMenu = new javax.swing.JButton();
+        jComboBox = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtPesquisa = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(900, 609));
+        setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel.setForeground(new java.awt.Color(249, 249, 249));
+        jPanel.setBackground(new java.awt.Color(249, 249, 249));
 
         lbTituloPrincipal.setFont(new java.awt.Font("Ink Free", 0, 50)); // NOI18N
         lbTituloPrincipal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -76,28 +81,12 @@ public class TelaPesquisa extends javax.swing.JFrame {
         lbPesquisarEm.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbPesquisarEm.setText(" em:");
 
-        jComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Campeonatos", "Equipes", "Participantes", "Equipes por campeonato", "Participantes por equipe" }));
-        jComboBox.setActionCommand("");
-
         btPesquisar.setText("Pesquisar");
         btPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btPesquisarActionPerformed(evt);
             }
         });
-
-        jtPesquisa.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
-
-            }
-        ));
-        jScrollPane1.setViewportView(jtPesquisa);
 
         btExcluir.setText("Excluir");
         btExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -113,55 +102,88 @@ public class TelaPesquisa extends javax.swing.JFrame {
             }
         });
 
+        jComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Campeonatos", "Equipes", "Participantes", "Equipes por campeonato", "Participantes por equipe" }));
+        jComboBox.setActionCommand("");
+
+        jScrollPane1.setBackground(new java.awt.Color(249, 249, 249));
+        jScrollPane1.setForeground(new java.awt.Color(249, 249, 249));
+        jScrollPane1.setOpaque(false);
+
+        jtPesquisa.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jtPesquisa.setGridColor(new java.awt.Color(201, 190, 190));
+        jtPesquisa.setOpaque(false);
+        jtPesquisa.setBackground(new java.awt.Color(249, 249, 249));
+        jScrollPane1.setViewportView(jtPesquisa);
+
+        javax.swing.GroupLayout jPanelLayout = new javax.swing.GroupLayout(jPanel);
+        jPanel.setLayout(jPanelLayout);
+        jPanelLayout.setHorizontalGroup(
+            jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelLayout.createSequentialGroup()
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addGap(298, 298, 298)
+                        .addComponent(lbTituloPrincipal))
+                    .addGroup(jPanelLayout.createSequentialGroup()
+                        .addGap(188, 188, 188)
+                        .addComponent(lbPesquisa)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(varPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lbPesquisarEm)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(55, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btVoltaMenu)
+                .addGap(80, 80, 80))
+            .addComponent(jScrollPane1)
+        );
+        jPanelLayout.setVerticalGroup(
+            jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lbTituloPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbPesquisa)
+                    .addComponent(varPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbPesquisarEm)
+                    .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btPesquisar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btExcluir)
+                    .addComponent(btVoltaMenu))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(273, 273, 273)
-                        .addComponent(lbTituloPrincipal)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(128, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btVoltaMenu))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(lbPesquisa)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(varPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lbPesquisarEm)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(77, 77, 77)))))
-                .addContainerGap())
+            .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(lbTituloPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btPesquisar)
-                    .addComponent(jComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbPesquisarEm)
-                    .addComponent(varPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbPesquisa))
-                .addGap(2, 2, 2)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 277, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btExcluir)
-                    .addComponent(btVoltaMenu))
-                .addContainerGap())
+            .addComponent(jPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -239,13 +261,13 @@ public class TelaPesquisa extends javax.swing.JFrame {
                     participantes.remove(index);
                     preenchePesquisaParticipante(nomePesquisado);
                 }
-                if(grupoPesquisado.equals("Equipes por campeonato")){
+                if (grupoPesquisado.equals("Equipes por campeonato")) {
                     int id = equipes.get(index).getId();
                     excluirEquipe(id);
                     equipes.remove(index);
                     preenchePesquisaEquipesPorCampeonato(nomePesquisado);
                 }
-                if(grupoPesquisado.equals("Participantes por equipe")){
+                if (grupoPesquisado.equals("Participantes por equipe")) {
                     int id = participantes.get(index).getId();
                     excluirParticipante(id);
                     participantes.remove(index);
@@ -269,7 +291,7 @@ public class TelaPesquisa extends javax.swing.JFrame {
     //Metodos que preenchem a tabela de acordo com o grupo escolhido na common box 
     public void preenchePesquisaCampeonato(String nomePesquisado) throws SQLException {
 
-        CampeonatoDaoImpl campeonatoDaoImpl = new CampeonatoDaoImpl();
+        campeonatoDaoImpl = new CampeonatoDaoImpl();
         campeonatos = campeonatoDaoImpl.pesquisarCampeonatoPorNome(nomePesquisado);//retorna todos os campeonatos que tenho
 
         String[] coluna = new String[]{"Campeonato", "Data", "Logradouro", "Bairro", "Cidade", "Estado", "Cep", "Complemento"};
@@ -405,8 +427,7 @@ public class TelaPesquisa extends javax.swing.JFrame {
         }
 
     }
-    
-    
+
     //Metodos que apagam o objeto selecionado no banco chamando classes DaoImpl
     public void excluiCampeonato(int id) {
         EquipeDaoImpl equip = new EquipeDaoImpl();
@@ -443,7 +464,7 @@ public class TelaPesquisa extends javax.swing.JFrame {
         participanteDaoImpl.excluir(id);
     }
 
-
+    //Desing da interface grafica
     /**
      * @param args the command line arguments
      */
@@ -484,6 +505,7 @@ public class TelaPesquisa extends javax.swing.JFrame {
     private javax.swing.JButton btPesquisar;
     private javax.swing.JButton btVoltaMenu;
     private javax.swing.JComboBox<String> jComboBox;
+    private javax.swing.JPanel jPanel;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtPesquisa;
     private javax.swing.JLabel lbPesquisa;
