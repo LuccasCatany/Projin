@@ -1,5 +1,5 @@
 <h1 align="center"> Projin </h1>
-<p align="justify"> Projeto integrador do curso jovem programador.  </p>
+<p align="center"> Projeto integrador do curso jovem programador.  </p>
 
 <h2 align="center"> Desenvolvimento </h2>
 <p align="justify"> Desenvolvido na linguagem de programação Java com conceito orientado a objetos no ambiente de desenvolvimento NetBeans integrado com a linguagem de banco de dados SQL através do sistema de gerenciamento MySQL Workbench. 
@@ -18,4 +18,4 @@
 </ul>
   
  
- <p align="justify"> 🚧Em desenvolvimento⚙️</p>
+ <p align="center"> 🚧Em desenvolvimento⚙️</p>
